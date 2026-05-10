@@ -31,6 +31,7 @@ components/
   shared/
     landing-primitives.tsx
     responsive-nav.tsx
+    reveal-controller.tsx
     tracked-cta-link.tsx
 ```
 
@@ -106,7 +107,6 @@ docs/plan/
       2026-05-08-chalo-b2b-ui-refresh-phase-3-motion-responsive-seo.md
       2026-05-08-chalo-b2b-ui-refresh-phase-4-conversion-qa.md
       2026-05-08-chalo-b2b-ui-refresh-progress.md
-  b2c/
 ```
 
 ## docs/superpowers
