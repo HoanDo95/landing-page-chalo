@@ -84,7 +84,7 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
     }
   ] as const;
   return (
-    <PageShell className="b2b-page--has-mobile-cta" id="page-shell">
+    <PageShell className="b2b-page b2b-page--has-mobile-cta" id="page-shell">
       <a className="skip-link" href="#page-content">
         Skip to content
       </a>
