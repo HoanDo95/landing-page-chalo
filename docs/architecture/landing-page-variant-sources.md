@@ -101,11 +101,13 @@ docs/
   - Sets fixed `lang="en"` for the direct B2B preview tree
 - `app/(b2b-preview)/b2b/page.tsx`
   - Direct B2B preview route
+  - In production, permanently redirects to `/` for B2B deployments and returns 404 for B2C deployments
   - Imports only B2B page composition and B2B metadata
 - `app/(b2c-preview)/layout.tsx`
   - Sets fixed `lang="en"` for the direct B2C preview tree
 - `app/(b2c-preview)/b2c/page.tsx`
   - Direct B2C preview route
+  - In production, permanently redirects to `/` for B2C deployments and returns 404 for B2B deployments
   - Imports only B2C page composition and B2C metadata
 - `app/globals.css`
   - Shared visual system imported by each route-group root layout
@@ -182,7 +184,8 @@ docs/
 
 - B2B and B2C can evolve independently without touching each other’s component source.
 - The root build can still select a variant from `LANDING_VARIANT`.
-- `/b2b` and `/b2c` remain direct preview routes.
+- `/b2b` and `/b2c` remain direct preview routes in local development.
+- Production deployments expose the selected variant at `/`; same-variant preview routes permanently redirect to `/`, and opposite-variant preview routes return 404.
 - Document language is set by stable route-group root layouts, not request-path header heuristics.
 - Shared code does not contain variant-specific layout, copy, or CTA logic.
 - The architecture snapshot can be regenerated at any time with `npm run sync:governance`.
