@@ -20,7 +20,9 @@ app/
   api/
     leads/
       route.ts
+  apple-icon.png
   globals.css
+  icon.png
 ```
 
 ## components
@@ -30,7 +32,12 @@ components/
     landing-page.tsx
     lead-capture-form.tsx
   b2c/
+    AnimatedMetricValue.tsx
     landing-page.tsx
+    lead-capture-form.tsx
+    MetricBar.tsx
+    TestimonialCard.tsx
+    TourCard.tsx
   shared/
     landing-primitives.tsx
     responsive-nav.tsx
@@ -46,6 +53,7 @@ lib/
     content.ts
   b2c/
     content.ts
+    vietnam-tours-content.ts
   content.ts
   landing-content.ts
   metadata.ts
@@ -62,21 +70,32 @@ public/
   b2b-hero-vietnam-tour.jpg
   b2b-operations-partners.jpg
   chalo-logo-transparent.png
+  logo/
+    chalo-favicon.png
+    chalo-logo-transparent.png
+  og-image-b2c-tours.svg
   og-image-b2c.svg
   og-image.svg
   robots.txt
   tour/
+    ba-na-hills.jpg
+    da-nang.jpg
     family-cable-car.jpg
     family-golden-bridge.jpg
     family-hoi-an.jpg
     group-presidential-palace.jpg
     group-vin.jpg
     halong-bay.jpg
+    hanoi.jpg
+    ho-chi-minh-city.jpg
     hoi-an.jpg
+    hue-imperial-citadel.jpg
     mekong-detail.jpg
     mekong-river.jpg
+    mekong.jpg
     ninh-binh.jpg
     phu-quoc.jpg
+    sapa.jpg
 ```
 
 ## docs/design
@@ -114,14 +133,25 @@ docs/plan/
       2026-05-08-chalo-b2b-ui-refresh-phase-4-conversion-qa.md
       2026-05-08-chalo-b2b-ui-refresh-progress.md
   b2c/
+    phase-1/
+      phase-1.md
+      phase-2.md
+      phase-3.md
+      phase-4.md
+      PROGRESS.md
 ```
 
 ## docs/superpowers
 ```txt
 docs/superpowers/
+  plans/
+    2025-05-10-b2c-tour-packages-update.md
+    2026-05-10-b2c-testimonial-marquee.md
   specs/
     2026-05-07-chalo-b2b-landing-page-design.md
     2026-05-08-chalo-b2b-ui-ux-refresh-design.md
+    2026-05-10-b2c-testimonial-marquee-design.md
+    2026-05-10-b2c-vietnam-tours-landing-page-design.md
 ```
 
 ## scripts

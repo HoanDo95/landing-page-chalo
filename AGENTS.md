@@ -8,7 +8,7 @@ This repository is a single Next.js app with two deployable variants:
   - `app/(default)/page.tsx` selects the active root variant from `LANDING_VARIANT`
   - `app/(default)/layout.tsx` sets the root deployment document language from `LANDING_VARIANT`
   - `app/(b2b-preview)/b2b/page.tsx` and `app/(b2b-preview)/layout.tsx` serve `/b2b` with fixed `lang="en"`
-  - `app/(b2c-preview)/b2c/page.tsx` and `app/(b2c-preview)/layout.tsx` serve `/b2c` with fixed `lang="vi"`
+  - `app/(b2c-preview)/b2c/page.tsx` and `app/(b2c-preview)/layout.tsx` serve `/b2c` with fixed `lang="en"`
   - `app/globals.css` holds the shared visual system and motion styles
 - `components/` contains shared primitives plus variant-specific page composition:
   - `components/shared/landing-primitives.tsx` for neutral layout primitives and page landmarks
@@ -17,15 +17,19 @@ This repository is a single Next.js app with two deployable variants:
   - `components/b2b/` for B2B composition
     - `components/b2b/lead-capture-form.tsx` owns the B2B inline lead form, local-only validation, and success state
   - `components/b2c/` for B2C composition
+    - `components/b2c/TourCard.tsx`, `TestimonialCard.tsx`, `MetricBar.tsx`, and `lead-capture-form.tsx` own B2C Vietnam Tours conversion UI
 - `lib/` contains variant selection, shared content types, and variant content data:
   - `lib/analytics.ts` is the neutral no-op analytics helper; keep variant-owned event names in variant callers
   - `lib/metadata.ts` builds Next.js metadata from variant-owned SEO content
   - `lib/variant.ts`
   - `lib/landing-content.ts`
   - `lib/b2b/content.ts` and `lib/b2c/content.ts` for variant-owned content
+  - `lib/b2c/vietnam-tours-content.ts` owns B2C Vietnam Tours package, testimonial, metric, form, and SEO content
   - `lib/content.ts` as the barrel/export layer only
 - `public/` contains static assets served by Next.js:
+  - `public/logo/` holds served brand logo and favicon assets for landing variants
   - `public/tour/` holds local B2B destination gallery images with stable ASCII filenames
+  - `public/og-image-b2c-tours.svg` is the B2C Vietnam Tours Open Graph image
 
 Architecture source of truth:
 
@@ -92,7 +96,7 @@ Pull requests should include:
 
 ## Deployment Notes
 
-This project is designed for two separate deployments from one codebase. Keep variant-specific copy, metadata, and CTA text in `lib/b2b/content.ts` and `lib/b2c/content.ts`; keep `lib/content.ts` as the barrel/export layer only. Avoid hardcoding B2B/B2C differences inside shared components.
+This project is designed for two separate deployments from one codebase. Keep variant-specific copy, metadata, CTA text, tour packages, and form content in `lib/b2b/content.ts`, `lib/b2c/content.ts`, or B2C-owned content files such as `lib/b2c/vietnam-tours-content.ts`; keep `lib/content.ts` as the barrel/export layer only. Avoid hardcoding B2B/B2C differences inside shared components.
 
 ## Finalization
 

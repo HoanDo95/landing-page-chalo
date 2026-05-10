@@ -13,7 +13,7 @@ const defaultHeroHeadline = {
 export const b2bContent: B2BLandingContent = {
   ...shared,
   logo: {
-    src: "/chalo-logo-transparent.png",
+    src: "/logo/chalo-logo-transparent.png",
     alt: "ChaloTrip Travel Company"
   },
   variantLabel: "B2B Partners",

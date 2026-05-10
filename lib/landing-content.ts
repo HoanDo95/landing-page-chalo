@@ -109,6 +109,55 @@ export interface LandingSeoContent {
   title: string;
   description: string;
   ogImagePath: string;
+  canonical?: string;
+}
+
+export interface TourPackage {
+  id: string;
+  destination: string;
+  duration: string;
+  durationNights: number;
+  durationDays: number;
+  title: string;
+  description: string;
+  heroImage: {
+    src: string;
+    alt: string;
+  };
+  galleryImages?: {
+    src: string;
+    alt: string;
+  }[];
+  priceOriginal: number;
+  priceSale: number;
+  highlights: string[];
+  accommodation: string;
+  inclusions: string[];
+  availability: number;
+  badge?: "best-seller" | "limited" | "sale";
+}
+
+export interface TourPackagesContent {
+  title: string;
+  subtitle: string;
+  packages: TourPackage[];
+  showPriceRange: boolean;
+  sortOptions: ("popular" | "price-asc" | "price-desc" | "destination")[];
+}
+
+export interface LandingTestimonial {
+  quote: string;
+  authorName: string;
+  authorLocation: string;
+  tripInfo: string;
+  rating: number;
+  avatarSrc?: string;
+}
+
+export interface LandingTrustMetric {
+  icon: string;
+  value: string;
+  label: string;
 }
 
 export interface LandingStickyCtaContent {
@@ -179,6 +228,9 @@ export interface LandingContent {
   };
   stickyCta?: LandingStickyCtaContent;
   leadForm?: LandingLeadFormContent;
+  tourPackages?: TourPackagesContent;
+  testimonials?: LandingTestimonial[];
+  trustMetrics?: LandingTrustMetric[];
   faq: LandingFaqItem[];
   footer?: LandingFooterContent;
   seo: LandingSeoContent;

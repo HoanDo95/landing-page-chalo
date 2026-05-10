@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 import { sendLeadNotification } from "@/lib/server/email";
 import {
   type LeadSubmissionResponse,
+  extractB2CTourLeadFields,
+  validateB2CTourPayload,
   validateLeadPayload
 } from "@/lib/server/lead-validation";
 
@@ -42,20 +44,58 @@ export async function POST(request: Request) {
   }
 
   const validation = validateLeadPayload(payload);
+  const requestedVariant =
+    typeof payload === "object" &&
+    payload !== null &&
+    !Array.isArray(payload) &&
+    "variant" in payload &&
+    payload.variant === "b2c"
+      ? "b2c"
+      : undefined;
 
   if (!validation.ok) {
+    const b2cFieldErrors =
+      requestedVariant === "b2c" ? validateB2CTourPayload(payload) : {};
+    const fieldErrors = {
+      ...validation.fieldErrors,
+      ...b2cFieldErrors
+    };
+
     return jsonResponse(
       {
         ok: false,
         code: validation.code,
         message: validation.message,
-        fieldErrors: validation.fieldErrors
+        fieldErrors
       },
       validation.code === "spam_rejected" ? 422 : 400
     );
   }
 
-  const mailResult = await sendLeadNotification(validation.value);
+  const b2cFieldErrors =
+    validation.value.variant === "b2c" ? validateB2CTourPayload(payload) : {};
+
+  if (Object.keys(b2cFieldErrors).length > 0) {
+    return jsonResponse(
+      {
+        ok: false,
+        code: "validation_error",
+        message: "Please check your tour request details.",
+        fieldErrors: b2cFieldErrors
+      },
+      400
+    );
+  }
+
+  const leadData =
+    validation.value.variant === "b2c"
+      ? {
+          ...validation.value,
+          ...extractB2CTourLeadFields(payload)
+        }
+      : validation.value;
+
+  const mailResult = await sendLeadNotification(leadData);
 
   if (!mailResult.ok) {
     return jsonResponse(

@@ -9,6 +9,8 @@ export interface LeadSubmission {
   requestDetails?: string;
   pagePath?: string;
   submittedAt: string;
+  tourPackageId?: string;
+  phoneNumber?: string;
 }
 
 export type LeadFieldName =
@@ -20,6 +22,8 @@ export type LeadFieldName =
   | "requestDetails"
   | "pagePath"
   | "submittedAt"
+  | "tourPackageId"
+  | "phoneNumber"
   | "honeypot";
 
 export type LeadFieldErrors = Partial<Record<LeadFieldName, string>>;
@@ -52,8 +56,21 @@ const STRING_LIMITS: Record<LeadFieldName, number> = {
   requestDetails: 2000,
   pagePath: 300,
   submittedAt: 80,
+  tourPackageId: 80,
+  phoneNumber: 24,
   honeypot: 120
 };
+
+const VIETNAM_PHONE_REGEX = /^(0[3-9][0-9]{8})$/;
+const TOUR_PACKAGE_IDS = new Set([
+  "dalat-3n2d",
+  "halong-2n1d",
+  "phuquoc-4n3d",
+  "sapa-3n2d",
+  "hue-2n1d",
+  "nhatrang-3n2d",
+  "consultation"
+]);
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -148,5 +165,41 @@ export function validateLeadPayload(payload: unknown): LeadValidationResult {
       pagePath: pagePath || undefined,
       submittedAt
     }
+  };
+}
+
+export function validateB2CTourPayload(payload: unknown): LeadFieldErrors {
+  if (!isRecord(payload)) {
+    return {
+      tourPackageId: "Please choose a valid tour."
+    };
+  }
+
+  const tourPackageId = normalizeString(payload.tourPackageId, "tourPackageId");
+  const phoneNumber = normalizeString(payload.phoneNumber, "phoneNumber");
+  const fieldErrors: LeadFieldErrors = {};
+
+  if (!tourPackageId || !TOUR_PACKAGE_IDS.has(tourPackageId)) {
+    fieldErrors.tourPackageId = "Please choose a valid tour.";
+  }
+
+  if (phoneNumber && !VIETNAM_PHONE_REGEX.test(phoneNumber)) {
+    fieldErrors.phoneNumber = "Please enter a valid 10-digit Vietnam phone number starting with 03-09.";
+  }
+
+  return fieldErrors;
+}
+
+export function extractB2CTourLeadFields(payload: unknown) {
+  if (!isRecord(payload)) {
+    return {};
+  }
+
+  const tourPackageId = normalizeString(payload.tourPackageId, "tourPackageId");
+  const phoneNumber = normalizeString(payload.phoneNumber, "phoneNumber");
+
+  return {
+    tourPackageId: tourPackageId || undefined,
+    phoneNumber: phoneNumber || undefined
   };
 }
