@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
 
 import type { LandingFaqItem, LandingFeature, LandingStat } from "@/lib/landing-content";
@@ -15,6 +16,7 @@ interface MainProps extends ChildrenProps {
 interface TopbarProps {
   brand: string;
   variantLabel: string;
+  logoSrc?: string;
 }
 
 interface HeroCopyProps {
@@ -91,12 +93,20 @@ export function PageWrap({ children }: ChildrenProps) {
 }
 
 /** Renders the compact generic header used by the simpler landing variant. */
-export function Topbar({ brand, variantLabel }: TopbarProps) {
+export function Topbar({ brand, variantLabel, logoSrc }: TopbarProps) {
   return (
     <header className="topbar">
       <div className="brand">
-        <span className="brand-mark" aria-hidden="true" />
-        <span>{brand}</span>
+        {logoSrc ? (
+          <span className="brand-logo" aria-label={brand}>
+            <Image alt="" fill priority sizes="180px" src={logoSrc} />
+          </span>
+        ) : (
+          <>
+            <span className="brand-mark" aria-hidden="true" />
+            <span>{brand}</span>
+          </>
+        )}
       </div>
       <div className="pill">{variantLabel}</div>
     </header>

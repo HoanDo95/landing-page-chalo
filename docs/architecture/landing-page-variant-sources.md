@@ -22,6 +22,8 @@ Split the landing page into two variant sources inside one repository:
 
 ```txt
 app/
+  apple-icon.png
+  icon.png
   (default)/
     layout.tsx
     page.tsx
@@ -43,6 +45,10 @@ components/
     lead-capture-form.tsx
   b2c/
     landing-page.tsx
+    lead-capture-form.tsx
+    MetricBar.tsx
+    TestimonialCard.tsx
+    TourCard.tsx
 
 lib/
   analytics.ts
@@ -54,8 +60,13 @@ lib/
     content.ts
   b2c/
     content.ts
+    vietnam-tours-content.ts
 
 public/
+  logo/
+    chalo-favicon.png
+    chalo-logo-transparent.png
+  og-image-b2c-tours.svg
   tour/
     family-golden-bridge.jpg
     family-hoi-an.jpg
@@ -92,18 +103,28 @@ docs/
   - Direct B2B preview route
   - Imports only B2B page composition and B2B metadata
 - `app/(b2c-preview)/layout.tsx`
-  - Sets fixed `lang="vi"` for the direct B2C preview tree
+  - Sets fixed `lang="en"` for the direct B2C preview tree
 - `app/(b2c-preview)/b2c/page.tsx`
   - Direct B2C preview route
   - Imports only B2C page composition and B2C metadata
 - `app/globals.css`
   - Shared visual system imported by each route-group root layout
+- `app/icon.png` and `app/apple-icon.png`
+  - Provide shared browser tab and Apple touch icons for B2B and B2C routes
 - `components/b2b/landing-page.tsx`
   - Owns B2B section order, hero treatment, proof blocks, FAQ shape, and CTA hierarchy
 - `components/b2b/lead-capture-form.tsx`
   - Owns the B2B inline lead form, local-only validation, success state, and B2B submit-event calls
 - `components/b2c/landing-page.tsx`
   - Owns B2C section order, hero treatment, proof blocks, FAQ shape, and CTA hierarchy
+- `components/b2c/TourCard.tsx`
+  - Owns B2C Vietnam Tours package cards, local price display, badge rendering, and tour-select analytics event names
+- `components/b2c/TestimonialCard.tsx`
+  - Owns B2C testimonial proof cards and rating presentation
+- `components/b2c/MetricBar.tsx`
+  - Owns B2C trust metric layout and icon treatment
+- `components/b2c/lead-capture-form.tsx`
+  - Owns the B2C tour lead form, tour selection, local validation, success state, and B2C submit-event calls
 - `components/shared/landing-primitives.tsx`
   - Provides only neutral layout primitives and page landmarks
 - `components/shared/responsive-nav.tsx`
@@ -120,13 +141,21 @@ docs/
   - Owns B2B copy, stats, metadata, and CTA text
 - `lib/b2c/content.ts`
   - Owns B2C copy, stats, metadata, and CTA text
+- `lib/b2c/vietnam-tours-content.ts`
+  - Owns B2C Vietnam Tours packages, testimonials, trust metrics, lead form content, SEO, and route content export
 - `lib/content.ts`
   - Barrel export for convenience only
 - `lib/variant.ts`
   - Keeps variant resolution logic for deployment routing only
 - `public/tour`
-  - Stores local B2B destination imagery used by variant-owned B2B gallery sections
+  - Stores local destination imagery used by variant-owned gallery and tour-card sections
   - Use stable ASCII filenames so `next/image` can serve assets through public URLs
+- `public/logo/chalo-logo-transparent.png`
+  - Served brand logo asset used by B2B and B2C header and footer chrome
+- `public/logo/chalo-favicon.png`
+  - Served metadata icon asset referenced by shared landing metadata
+- `public/og-image-b2c-tours.svg`
+  - Stores the B2C Vietnam Tours Open Graph image referenced by variant-owned SEO content
 - `docs/architecture/current-structure.md`
   - Generated tree snapshot used to catch drift after structural changes
 - `docs/superpowers/specs`

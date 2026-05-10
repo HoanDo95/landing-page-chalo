@@ -18,6 +18,7 @@ function getSiteUrl(): URL | undefined {
 
 export function createLandingMetadata(content: LandingContent): Metadata {
   const siteUrl = getSiteUrl();
+  const faviconPath = "/logo/chalo-favicon.png";
   const images = siteUrl
     ? [
         {
@@ -33,6 +34,18 @@ export function createLandingMetadata(content: LandingContent): Metadata {
     ...(siteUrl ? { metadataBase: siteUrl } : {}),
     title: content.seo.title,
     description: content.seo.description,
+    icons: {
+      icon: [
+        { url: faviconPath, sizes: "32x32", type: "image/png" },
+        { url: faviconPath, sizes: "192x192", type: "image/png" }
+      ],
+      apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }]
+    },
+    alternates: content.seo.canonical
+      ? {
+          canonical: content.seo.canonical
+        }
+      : undefined,
     openGraph: {
       title: content.seo.title,
       description: content.seo.description,

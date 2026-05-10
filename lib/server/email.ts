@@ -38,22 +38,36 @@ function formatLeadEmailText(lead: LeadSubmission) {
     "",
     `Variant: ${lead.variant}`,
     `Name: ${lead.name || "Not provided"}`,
-    `Company: ${lead.company || "Not provided"}`,
     `Work email: ${lead.workEmail}`,
-    `Source market: ${lead.sourceMarket || "Not provided"}`,
-    `Page path: ${lead.pagePath || "Not provided"}`,
-    `Submitted at: ${lead.submittedAt}`,
-    "",
-    "Travel brief:",
-    lead.requestDetails || "Not provided"
+    `Submitted at: ${lead.submittedAt}`
   ];
+
+  if (lead.variant === "b2c") {
+    lines.push(`Tour interest: ${lead.tourPackageId || "General consultation"}`);
+    lines.push(`Phone: ${lead.phoneNumber || "Not provided"}`);
+    lines.push(`Source market: ${lead.sourceMarket || "Not provided"}`);
+    lines.push(`Page path: ${lead.pagePath || "Not provided"}`);
+  } else {
+    lines.push(`Company: ${lead.company || "Not provided"}`);
+    lines.push(`Source market: ${lead.sourceMarket || "Not provided"}`);
+    lines.push(`Page path: ${lead.pagePath || "Not provided"}`);
+    lines.push("");
+    lines.push("Travel brief:");
+    lines.push(lead.requestDetails || "Not provided");
+  }
 
   return lines.join("\n");
 }
 
 function formatLeadSubject(lead: LeadSubmission) {
-  const company = lead.company ? ` - ${lead.company}` : "";
   const leadLabel = lead.name || lead.workEmail;
+
+  if (lead.variant === "b2c") {
+    const tourPrefix = lead.tourPackageId ? `[${lead.tourPackageId}]` : "[General]";
+    return `[Chalo B2C Lead] ${tourPrefix} ${leadLabel}`;
+  }
+
+  const company = lead.company ? ` - ${lead.company}` : "";
   return `[Chalo ${lead.variant.toUpperCase()} lead] ${leadLabel}${company}`;
 }
 
