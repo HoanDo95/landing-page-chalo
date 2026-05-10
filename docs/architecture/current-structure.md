@@ -17,6 +17,9 @@ app/
   (default)/
     layout.tsx
     page.tsx
+  api/
+    leads/
+      route.ts
   globals.css
 ```
 
@@ -46,6 +49,9 @@ lib/
   content.ts
   landing-content.ts
   metadata.ts
+  server/
+    email.ts
+    lead-validation.ts
   variant.ts
 ```
 
@@ -107,6 +113,7 @@ docs/plan/
       2026-05-08-chalo-b2b-ui-refresh-phase-3-motion-responsive-seo.md
       2026-05-08-chalo-b2b-ui-refresh-phase-4-conversion-qa.md
       2026-05-08-chalo-b2b-ui-refresh-progress.md
+  b2c/
 ```
 
 ## docs/superpowers

@@ -412,7 +412,7 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
       <footer className="site-footer">
         <PageWrap>
           <div className="site-footer-grid">
-            <div>
+            <div className="site-footer-brand-block">
               <div className="site-brand site-brand--footer">
                 {content.logo ? (
                   <span className="site-brand-logo" aria-hidden="true">
@@ -427,7 +427,6 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
                   </>
                 )}
               </div>
-              <p className="site-footer-copy">{content.footer.description}</p>
             </div>
 
             <nav className="site-footer-nav" aria-label="Footer">
@@ -437,27 +436,8 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
                 </a>
               ))}
             </nav>
-
-            <div className="site-footer-utility" aria-label="Support links">
-              {content.footer.utilityLinks?.map((link) => (
-                <a key={link.label} href={link.href}>
-                  {link.label}
-                </a>
-              ))}
-            </div>
-
-            <div className="site-footer-cta">
-              <span>{content.finalCta.eyebrow}</span>
-              <TrackedCtaLink
-                className="button primary button--compact"
-                eventName={ctaEventName}
-                href="#contact"
-                placement="footer"
-              >
-                {content.navigation.cta.label}
-              </TrackedCtaLink>
-            </div>
           </div>
+          <hr className="site-footer-divider" />
           <p className="site-footer-meta">{content.footer.copyright}</p>
         </PageWrap>
       </footer>

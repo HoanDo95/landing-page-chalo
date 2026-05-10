@@ -10,47 +10,39 @@ interface LeadCaptureFormProps {
 }
 
 interface LeadFormValues {
-  name: string;
-  company: string;
   workEmail: string;
-  sourceMarket: string;
-  requestDetails: string;
 }
 
 type LeadFormErrors = Partial<Record<keyof LeadFormValues, string>>;
-type LeadFormFieldName = keyof LeadFormValues;
+
+type LeadSubmissionResponse =
+  | { ok: true }
+  | {
+      ok: false;
+      code: "validation_error" | "spam_rejected" | "mail_unavailable" | "mail_failed";
+      message: string;
+      fieldErrors?: Partial<Record<keyof LeadFormValues, string>>;
+    };
 
 const WORK_EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const INITIAL_VALUES: LeadFormValues = {
-  name: "",
-  company: "",
-  workEmail: "",
-  sourceMarket: "",
-  requestDetails: ""
+  workEmail: ""
 };
 
-const FIELD_ORDER: LeadFormFieldName[] = [
-  "name",
-  "company",
-  "workEmail",
-  "sourceMarket",
-  "requestDetails"
-];
-
-/** Renders the Phase 4 lead form with local validation and analytics hooks. */
+/** Renders the B2B email-only lead form with local validation and analytics hooks. */
 export function LeadCaptureForm({ content }: LeadCaptureFormProps) {
   const [values, setValues] = useState<LeadFormValues>(INITIAL_VALUES);
   const [errors, setErrors] = useState<LeadFormErrors>({});
   const [statusMessage, setStatusMessage] = useState("");
   const [statusTone, setStatusTone] = useState<"idle" | "error" | "success">("idle");
-  const fieldRefs = useRef<
-    Partial<Record<LeadFormFieldName, HTMLInputElement | HTMLTextAreaElement | null>>
-  >({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const workEmailRef = useRef<HTMLInputElement | null>(null);
+  const honeypotRef = useRef<HTMLInputElement | null>(null);
 
-  function handleFieldChange(field: LeadFormFieldName, value: string) {
-    setValues((current) => ({ ...current, [field]: value }));
-    setErrors((current) => ({ ...current, [field]: undefined }));
+  function handleEmailChange(value: string) {
+    setValues({ workEmail: value });
+    setErrors({});
 
     if (statusTone !== "idle") {
       setStatusTone("idle");
@@ -58,74 +50,77 @@ export function LeadCaptureForm({ content }: LeadCaptureFormProps) {
     }
   }
 
-  function setFieldRef(
-    field: LeadFormFieldName,
-    element: HTMLInputElement | HTMLTextAreaElement | null
-  ) {
-    fieldRefs.current[field] = element;
-  }
-
-  function focusField(field: LeadFormFieldName) {
-    const element = fieldRefs.current[field];
-    if (!element) {
+  function focusWorkEmail() {
+    if (!workEmailRef.current) {
       return;
     }
 
-    element.focus();
-    element.scrollIntoView({ block: "center" });
+    workEmailRef.current.focus();
+    workEmailRef.current.scrollIntoView({ block: "center" });
   }
 
-  function getFieldError(field: LeadFormFieldName, value: string) {
-    if (field === "name" && !value.trim()) {
-      return content.validationMessages.nameRequired;
-    }
-
-    if (field === "company" && !value.trim()) {
-      return content.validationMessages.companyRequired;
-    }
-
-    if (field === "workEmail" && !WORK_EMAIL_REGEX.test(value.trim())) {
+  function getEmailError(value: string) {
+    if (!WORK_EMAIL_REGEX.test(value.trim())) {
       return content.validationMessages.workEmailInvalid;
-    }
-
-    if (
-      field === "requestDetails" &&
-      value.trim().length < content.requestDetailsMinLength
-    ) {
-      return content.validationMessages.requestDetailsTooShort;
     }
 
     return undefined;
   }
 
   function validateForm() {
-    const nextErrors: LeadFormErrors = {};
+    const emailError = getEmailError(values.workEmail);
 
-    (Object.keys(values) as LeadFormFieldName[]).forEach((field) => {
-      const fieldError = getFieldError(field, values[field]);
-      if (fieldError) {
-        nextErrors[field] = fieldError;
-      }
+    if (!emailError) {
+      return {};
+    }
+
+    return {
+      workEmail: emailError
+    };
+  }
+
+  function buildSubmissionPayload() {
+    return {
+      variant: "b2b",
+      workEmail: values.workEmail,
+      pagePath: window.location.pathname,
+      submittedAt: new Date().toISOString(),
+      honeypot: honeypotRef.current?.value ?? ""
+    };
+  }
+
+  async function submitLeadRequest() {
+    const response = await fetch("/api/leads", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(buildSubmissionPayload())
     });
 
-    return nextErrors;
+    const body = (await response.json().catch(() => ({
+      ok: false,
+      code: "mail_failed",
+      message: "We could not send your email right now. Please try again in a moment."
+    }))) as LeadSubmissionResponse;
+
+    return body;
   }
 
   function handleInvalid(event: InvalidEvent<HTMLFormElement>) {
     const field = event.target;
 
-    if (!(field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement)) {
+    if (!(field instanceof HTMLInputElement) || field.name !== "workEmail") {
       return;
     }
 
-    const fieldName = field.name as LeadFormFieldName;
-    const fieldError = getFieldError(fieldName, field.value);
+    const fieldError = getEmailError(field.value);
 
     if (!fieldError) {
       return;
     }
 
-    setErrors((current) => ({ ...current, [fieldName]: fieldError }));
+    setErrors({ workEmail: fieldError });
     setStatusTone("error");
     setStatusMessage(content.errorSummary);
     trackEvent("b2b_lead_validation_error", {
@@ -134,9 +129,14 @@ export function LeadCaptureForm({ content }: LeadCaptureFormProps) {
     });
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    trackEvent("b2b_lead_submit_attempt", { fieldCount: 5 });
+
+    if (isSubmitting) {
+      return;
+    }
+
+    trackEvent("b2b_lead_submit_attempt", { fieldCount: 1 });
 
     const nextErrors = validateForm();
 
@@ -145,23 +145,45 @@ export function LeadCaptureForm({ content }: LeadCaptureFormProps) {
       setStatusTone("error");
       setStatusMessage(content.errorSummary);
       trackEvent("b2b_lead_validation_error", {
-        fieldCount: Object.keys(nextErrors).length,
-        hasRequestDetails: values.requestDetails.trim().length >= content.requestDetailsMinLength
+        fieldCount: Object.keys(nextErrors).length
       });
-
-      const firstInvalidField = FIELD_ORDER.find((field) => nextErrors[field]);
-      if (firstInvalidField) {
-        focusField(firstInvalidField);
-      }
+      focusWorkEmail();
       return;
     }
 
     setErrors({});
+    setIsSubmitting(true);
+    setStatusTone("idle");
+    setStatusMessage("");
+
+    const result = await submitLeadRequest();
+
+    setIsSubmitting(false);
+
+    if (!result.ok) {
+      const serverFieldErrors = result.fieldErrors ?? {};
+      setErrors(serverFieldErrors);
+      setStatusTone("error");
+      setStatusMessage(result.message || content.errorSummary);
+      trackEvent("b2b_lead_submit_failure", {
+        code: result.code,
+        fieldCount: Object.keys(serverFieldErrors).length
+      });
+
+      if (serverFieldErrors.workEmail) {
+        focusWorkEmail();
+      }
+
+      return;
+    }
+
     setValues(INITIAL_VALUES);
     setStatusTone("success");
     setStatusMessage(content.successMessage);
-    trackEvent("b2b_lead_submit_success", { fieldCount: 5 });
+    trackEvent("b2b_lead_submit_success", { fieldCount: 1 });
   }
+
+  const emailErrorId = "lead-work-email-error";
 
   return (
     <form className="b2b-lead-form" onInvalidCapture={handleInvalid} onSubmit={handleSubmit}>
@@ -173,165 +195,52 @@ export function LeadCaptureForm({ content }: LeadCaptureFormProps) {
         ) : null}
       </div>
 
-      <div className="b2b-form-grid">
-        <FormField
-          autoComplete="name"
-          content={content.fields.name}
-          error={errors.name}
-          id="lead-name"
-          inputRef={(element) => setFieldRef("name", element)}
-          name="name"
-          onChange={handleFieldChange}
-          value={values.name}
-        />
-        <FormField
-          autoComplete="organization"
-          content={content.fields.company}
-          error={errors.company}
-          id="lead-company"
-          inputRef={(element) => setFieldRef("company", element)}
-          name="company"
-          onChange={handleFieldChange}
-          value={values.company}
-        />
-        <FormField
-          autoComplete="email"
-          content={content.fields.workEmail}
-          error={errors.workEmail}
-          id="lead-work-email"
-          inputRef={(element) => setFieldRef("workEmail", element)}
-          name="workEmail"
-          onChange={handleFieldChange}
-          type="email"
-          value={values.workEmail}
-        />
-        <FormField
-          content={content.fields.sourceMarket}
-          error={errors.sourceMarket}
-          id="lead-source-market"
-          inputRef={(element) => setFieldRef("sourceMarket", element)}
-          name="sourceMarket"
-          onChange={handleFieldChange}
-          value={values.sourceMarket}
-        />
-        <FormTextarea
-          content={content.fields.requestDetails}
-          error={errors.requestDetails}
-          id="lead-request-details"
-          inputRef={(element) => setFieldRef("requestDetails", element)}
-          minLength={content.requestDetailsMinLength}
-          name="requestDetails"
-          onChange={handleFieldChange}
-          value={values.requestDetails}
-        />
+      <div className="b2b-form-inline">
+        <label className="b2b-form-field b2b-form-field--email" htmlFor="lead-work-email">
+          <span>{content.fields.workEmail.label}</span>
+          <input
+            aria-describedby={errors.workEmail ? emailErrorId : undefined}
+            aria-invalid={Boolean(errors.workEmail)}
+            autoComplete="email"
+            className={`b2b-form-input${errors.workEmail ? " b2b-form-input--error" : ""}`}
+            disabled={isSubmitting}
+            id="lead-work-email"
+            name="workEmail"
+            pattern="[^\\s@]+@[^\\s@]+\\.[^\\s@]+"
+            placeholder={content.fields.workEmail.placeholder}
+            ref={workEmailRef}
+            required
+            type="email"
+            value={values.workEmail}
+            onChange={(event) => handleEmailChange(event.target.value)}
+          />
+          {errors.workEmail ? (
+            <span className="b2b-form-field-error" id={emailErrorId}>
+              {errors.workEmail}
+            </span>
+          ) : null}
+        </label>
+
+        <button
+          className="button primary b2b-lead-form-submit"
+          disabled={isSubmitting}
+          type="submit"
+        >
+          {isSubmitting ? "Sending..." : content.submitLabel}
+        </button>
       </div>
 
-      <button className="button primary b2b-lead-form-submit" type="submit">
-        {content.submitLabel}
-      </button>
+      <label className="b2b-form-honeypot" htmlFor="lead-website">
+        <span>Website</span>
+        <input
+          autoComplete="off"
+          id="lead-website"
+          name="website"
+          ref={honeypotRef}
+          tabIndex={-1}
+          type="text"
+        />
+      </label>
     </form>
-  );
-}
-
-interface FormFieldProps {
-  id: string;
-  name: keyof LeadFormValues;
-  value: string;
-  error?: string;
-  content: LandingLeadFormContent["fields"]["name"];
-  type?: "text" | "email";
-  autoComplete?: string;
-  inputRef?: (element: HTMLInputElement | null) => void;
-  onChange: (field: LeadFormFieldName, value: string) => void;
-}
-
-/** Renders a single-line lead form field. */
-function FormField({
-  id,
-  name,
-  value,
-  error,
-  content,
-  type = "text",
-  autoComplete,
-  inputRef,
-  onChange
-}: FormFieldProps) {
-  const errorId = `${id}-error`;
-
-  return (
-    <label className="b2b-form-field" htmlFor={id}>
-      <span>{content.label}</span>
-      <input
-        aria-describedby={error ? errorId : undefined}
-        aria-invalid={Boolean(error)}
-        autoComplete={autoComplete}
-        className={`b2b-form-input${error ? " b2b-form-input--error" : ""}`}
-        id={id}
-        name={name}
-        placeholder={content.placeholder}
-        pattern={type === "email" ? "[^\\s@]+@[^\\s@]+\\.[^\\s@]+" : undefined}
-        ref={inputRef}
-        required={name !== "sourceMarket"}
-        type={type}
-        value={value}
-        onChange={(event) => onChange(name, event.target.value)}
-      />
-      {error ? (
-        <span className="b2b-form-field-error" id={errorId}>
-          {error}
-        </span>
-      ) : null}
-    </label>
-  );
-}
-
-interface FormTextareaProps {
-  id: string;
-  minLength: number;
-  name: keyof LeadFormValues;
-  value: string;
-  error?: string;
-  content: LandingLeadFormContent["fields"]["requestDetails"];
-  inputRef?: (element: HTMLTextAreaElement | null) => void;
-  onChange: (field: LeadFormFieldName, value: string) => void;
-}
-
-/** Renders the multi-line request details field. */
-function FormTextarea({
-  id,
-  minLength,
-  name,
-  value,
-  error,
-  content,
-  inputRef,
-  onChange
-}: FormTextareaProps) {
-  const errorId = `${id}-error`;
-
-  return (
-    <label className="b2b-form-field b2b-form-field--full" htmlFor={id}>
-      <span>{content.label}</span>
-      <textarea
-        aria-describedby={error ? errorId : undefined}
-        aria-invalid={Boolean(error)}
-        className={`b2b-form-input b2b-form-input--textarea${error ? " b2b-form-input--error" : ""}`}
-        id={id}
-        minLength={minLength}
-        name={name}
-        placeholder={content.placeholder}
-        ref={inputRef}
-        required
-        rows={5}
-        value={value}
-        onChange={(event) => onChange(name, event.target.value)}
-      />
-      {error ? (
-        <span className="b2b-form-field-error" id={errorId}>
-          {error}
-        </span>
-      ) : null}
-    </label>
   );
 }

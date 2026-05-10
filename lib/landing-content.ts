@@ -126,19 +126,11 @@ export interface LandingLeadFormContent {
   submitLabel: string;
   successMessage: string;
   errorSummary: string;
-  requestDetailsMinLength: number;
   fields: {
-    name: LandingLeadFormFieldContent;
-    company: LandingLeadFormFieldContent;
     workEmail: LandingLeadFormFieldContent;
-    sourceMarket: LandingLeadFormFieldContent;
-    requestDetails: LandingLeadFormFieldContent;
   };
   validationMessages: {
-    nameRequired: string;
-    companyRequired: string;
     workEmailInvalid: string;
-    requestDetailsTooShort: string;
   };
 }
 

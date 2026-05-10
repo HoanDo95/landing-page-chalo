@@ -263,10 +263,10 @@ export const b2bContent: B2BLandingContent = {
     ]
   },
   finalCta: {
-    eyebrow: "Send the next brief",
-    title: "Send a simple Vietnam request.",
+    eyebrow: "Start with email",
+    title: "Get Vietnam support in your inbox.",
     description:
-      "Share the market, group size, travel dates, route idea, and budget direction. Chalo will help with the next practical step."
+      "Leave your work email and Chalo will follow up with the next practical step for partner requests."
   },
   stickyCta: {
     label: "Talk to a specialist",
@@ -274,38 +274,17 @@ export const b2bContent: B2BLandingContent = {
     ariaLabel: "Contact a Chalo travel specialist"
   },
   leadForm: {
-    submitLabel: "Send partner brief",
-    successMessage: "Thanks. Your brief is ready for specialist follow-up.",
-    errorSummary: "Please review the highlighted fields and try again.",
-    requestDetailsMinLength: 20,
+    submitLabel: "Submit",
+    successMessage: "Thanks. We will follow up by email.",
+    errorSummary: "Please enter a valid work email address.",
     fields: {
-      name: {
-        label: "Name",
-        placeholder: "Your name"
-      },
-      company: {
-        label: "Company",
-        placeholder: "Agency or company"
-      },
       workEmail: {
-        label: "Work email",
-        placeholder: "name@company.com"
-      },
-      sourceMarket: {
-        label: "Source market",
-        placeholder: "India, Australia, United States, or another market"
-      },
-      requestDetails: {
-        label: "Travel brief",
-        placeholder:
-          "Traveler type, group size, dates, route goals, service level, and budget direction."
+        label: "Email address",
+        placeholder: "Enter your email address"
       }
     },
     validationMessages: {
-      nameRequired: "Please enter your name.",
-      companyRequired: "Please enter your company name.",
-      workEmailInvalid: "Please enter a valid work email address.",
-      requestDetailsTooShort: "Please provide at least 20 characters of request details."
+      workEmailInvalid: "Please enter a valid work email address."
     }
   },
   faq: [
