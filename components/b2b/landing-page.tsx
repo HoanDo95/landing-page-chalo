@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import type { B2BLandingContent } from "@/lib/landing-content";
 import { LeadCaptureForm } from "@/components/b2b/lead-capture-form";
 import {
@@ -11,6 +12,7 @@ import {
 } from "@/components/shared/landing-primitives";
 import { ResponsiveNav } from "@/components/shared/responsive-nav";
 import { TrackedCtaLink } from "@/components/shared/tracked-cta-link";
+import { RevealController } from "@/components/shared/reveal-controller";
 
 interface B2BLandingPageProps {
   content: B2BLandingContent;
@@ -21,6 +23,8 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
   const heroImage = content.hero.image;
   const heroOverlay = content.hero.overlay;
   const ctaEventName = "b2b_cta_click";
+  const revealDelay = (value: string) =>
+    ({ "--reveal-delay": value }) as CSSProperties;
   const partnerFitGallery = [
     {
       src: "/tour/halong-bay.jpg",
@@ -84,6 +88,7 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
       <a className="skip-link" href="#page-content">
         Skip to content
       </a>
+      <RevealController />
 
       <div id="top" />
       <ResponsiveNav
@@ -99,13 +104,17 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
           <PageWrap>
             <div className="b2b-hero-grid">
               <div className="b2b-hero-copy">
-                <p className="eyebrow">{content.hero.eyebrow}</p>
-                <h1 className="b2b-display">
+                <p className="eyebrow" data-reveal="hero" style={revealDelay("0ms")}>
+                  {content.hero.eyebrow}
+                </p>
+                <h1 className="b2b-display" data-reveal="hero" style={revealDelay("80ms")}>
                   {content.hero.title} <span>{content.hero.titleAccent}</span>
                 </h1>
-                <p className="b2b-lead">{content.hero.description}</p>
+                <p className="b2b-lead" data-reveal="hero" style={revealDelay("150ms")}>
+                  {content.hero.description}
+                </p>
 
-                <div className="cta-row">
+                <div className="cta-row" data-reveal="hero" style={revealDelay("220ms")}>
                   <TrackedCtaLink
                     className="button primary"
                     eventName={ctaEventName}
@@ -119,7 +128,7 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
                   </a>
                 </div>
 
-                <ul className="b2b-hero-proof-row" aria-label="B2B value proof points">
+                <ul className="b2b-hero-proof-row" aria-label="B2B value proof points" data-reveal="hero" style={revealDelay("300ms")}>
                   {content.stats.map((item) => (
                     <li key={item.value}>
                       <strong>{item.value}</strong>
@@ -129,7 +138,7 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
                 </ul>
               </div>
 
-              <div className="b2b-hero-visual">
+              <div className="b2b-hero-visual" data-reveal="hero" data-reveal-direction="right" style={revealDelay("180ms")}>
                 <div className="b2b-hero-media-card">
                   <div className="b2b-hero-media">
                     <Image
@@ -185,7 +194,7 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
         <section className="b2b-trust-band" aria-labelledby="b2b-trust-band-title">
           <PageWrap>
             <div className="b2b-trust-band__grid">
-              <div className="b2b-trust-band__intro">
+              <div className="b2b-trust-band__intro" data-reveal="section" data-reveal-direction="left">
                 <p className="eyebrow">{content.trustBand.eyebrow}</p>
                 <h2 className="section-title" id="b2b-trust-band-title">
                   {content.trustBand.title}
@@ -193,7 +202,7 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
                 <p className="section-copy">{content.trustBand.description}</p>
               </div>
 
-              <ul className="b2b-trust-band__signals" aria-label="Operational trust signals">
+              <ul className="b2b-trust-band__signals" aria-label="Operational trust signals" data-reveal="section" data-reveal-stagger="true">
                 {content.trustBand.signals.map((signal) => (
                   <li key={signal.title}>
                     <h3>{signal.title}</h3>
@@ -208,7 +217,7 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
         <section className="section b2b-section b2b-section--partner-fit" id="partner-fit">
           <PageWrap>
             <div className="b2b-partner-fit-layout">
-              <div className="b2b-partner-fit-intro">
+              <div className="b2b-partner-fit-intro" data-reveal="section" data-reveal-direction="left">
                 <SectionHeading
                   title={content.partnerFit.title}
                   copy={content.partnerFit.description}
@@ -216,7 +225,7 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
                 />
               </div>
 
-              <ul className="b2b-partner-fit-signals" aria-label="Partner fit proof">
+              <ul className="b2b-partner-fit-signals" aria-label="Partner fit proof" data-reveal="section" data-reveal-stagger="true">
                 {content.trustBand.signals.map((signal) => (
                   <li key={signal.title}>
                     <span>{signal.title}</span>
@@ -225,7 +234,7 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
                 ))}
               </ul>
 
-              <div className="b2b-partner-fit-gallery" aria-label="Vietnam itinerary gallery">
+              <div className="b2b-partner-fit-gallery" aria-label="Vietnam itinerary gallery" data-reveal="section" data-reveal-stagger="true">
                 {partnerFitGallery.map((item, index) => (
                   <figure
                     className={`b2b-partner-fit-photo b2b-partner-fit-photo--${index + 1}`}
@@ -258,7 +267,7 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
           id="traveler-types"
         >
           <PageWrap>
-            <div className="b2b-section-stack">
+            <div className="b2b-section-stack" data-reveal="section">
               <SectionHeading
                 title={content.travelerTypes.title}
                 copy={content.travelerTypes.description}
@@ -277,7 +286,7 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
         >
           <PageWrap>
             <div className="b2b-operations-layout">
-              <div className="b2b-operations-intro">
+              <div className="b2b-operations-intro" data-reveal="section" data-reveal-direction="left">
                 <SectionHeading
                   title={content.howItWorks.title}
                   copy={content.howItWorks.description}
@@ -300,7 +309,7 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
                   </figure>
                 ) : null}
               </div>
-              <ol className="b2b-process-grid">
+              <ol className="b2b-process-grid" data-reveal="section" data-reveal-stagger="true">
                 {content.howItWorks.steps.map((step, index) => (
                   <li className="b2b-process-card" key={step.title}>
                     <span className="b2b-process-index">0{index + 1}</span>
@@ -315,14 +324,14 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
 
         <section className="section b2b-section b2b-section--tour-styles" id="tour-styles">
           <PageWrap>
-            <div className="b2b-tour-styles-layout">
+            <div className="b2b-tour-styles-layout" data-reveal="section">
               <SectionHeading
                 title={content.tourStyles.title}
                 copy={content.tourStyles.description}
                 align="start"
               />
               <div className="b2b-card-group b2b-card-group--tour-styles">
-                <div className="b2b-tour-style-cards">
+                <div className="b2b-tour-style-cards" data-reveal="section" data-reveal-stagger="true">
                   {content.tourStyles.items.map((item, index) => {
                     const visual = tourStyleVisuals[index];
 
@@ -361,7 +370,7 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
           id="service-commitments"
         >
           <PageWrap>
-            <div className="b2b-section-stack">
+            <div className="b2b-section-stack" data-reveal="section">
               <SectionHeading
                 title={content.serviceCommitments.title}
                 copy={content.serviceCommitments.description}
@@ -378,7 +387,7 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
         <section className="section section--soft b2b-section b2b-section--faq-close" id="faq">
           <PageWrap>
             <div className="b2b-closeout">
-              <div className="b2b-closeout__faq">
+              <div className="b2b-closeout__faq" data-reveal="section" data-reveal-direction="left">
                 <SectionHeading
                   title={content.sections.faqTitle}
                   copy={content.sections.faqCopy}
@@ -390,7 +399,7 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
               <aside className="b2b-final-cta-card" id="contact">
                 <p className="eyebrow">{content.finalCta.eyebrow}</p>
                 <h2 className="section-title">{content.finalCta.title}</h2>
-                <p className="section-copy anchor-target" id="contact-brief">
+                <p className="section-copy anchor-target" id="contact-brief" data-reveal="section">
                   {content.finalCta.description}
                 </p>
                 <LeadCaptureForm content={content.leadForm} />
