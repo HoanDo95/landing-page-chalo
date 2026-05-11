@@ -120,6 +120,7 @@ export interface TourPackage {
   durationDays: number;
   title: string;
   description: string;
+  overview: string;
   heroImage: {
     src: string;
     alt: string;
@@ -130,11 +131,19 @@ export interface TourPackage {
   }[];
   priceOriginal: number;
   priceSale: number;
+  priceCurrency: "USD";
   highlights: string[];
   accommodation: string;
   inclusions: string[];
+  itineraryDays: TourItineraryDay[];
   availability: number;
   badge?: "best-seller" | "limited" | "sale";
+}
+
+export interface TourItineraryDay {
+  dayLabel: string;
+  title: string;
+  description: string;
 }
 
 export interface TourPackagesContent {

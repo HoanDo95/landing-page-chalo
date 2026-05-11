@@ -1,12 +1,20 @@
+import { B2C_TOUR_PACKAGE_IDS } from "@/lib/b2c/vietnam-tours-content";
+import { isValidWorkEmail } from "@/lib/email-validation";
+
 export type LeadVariant = "b2b" | "b2c";
 
-export interface LeadSubmission {
-  variant: LeadVariant;
+export interface B2BLeadSubmission {
+  variant: "b2b";
+  workEmail: string;
+  pagePath?: string;
+  submittedAt: string;
+}
+
+export interface B2CTourLeadSubmission {
+  variant: "b2c";
   name?: string;
-  company?: string;
   workEmail: string;
   sourceMarket?: string;
-  requestDetails?: string;
   pagePath?: string;
   submittedAt: string;
   tourPackageId?: string;
@@ -16,10 +24,8 @@ export interface LeadSubmission {
 export type LeadFieldName =
   | "variant"
   | "name"
-  | "company"
   | "workEmail"
   | "sourceMarket"
-  | "requestDetails"
   | "pagePath"
   | "submittedAt"
   | "tourPackageId"
@@ -37,23 +43,28 @@ export type LeadSubmissionResponse =
       fieldErrors?: LeadFieldErrors;
     };
 
-export type LeadValidationResult =
-  | { ok: true; value: LeadSubmission }
-  | {
-      ok: false;
-      code: "validation_error" | "spam_rejected";
-      message: string;
-      fieldErrors: LeadFieldErrors;
-    };
+type LeadValidationFailure = {
+  ok: false;
+  code: "validation_error" | "spam_rejected";
+  message: string;
+  fieldErrors: LeadFieldErrors;
+};
 
-const WORK_EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+type LeadValidationResult<TLead> = { ok: true; value: TLead } | LeadValidationFailure;
+
+interface BaseLeadFields {
+  name?: string;
+  workEmail: string;
+  sourceMarket?: string;
+  pagePath?: string;
+  submittedAt: string;
+}
+
 const STRING_LIMITS: Record<LeadFieldName, number> = {
   variant: 12,
   name: 120,
-  company: 160,
   workEmail: 180,
   sourceMarket: 180,
-  requestDetails: 2000,
   pagePath: 300,
   submittedAt: 80,
   tourPackageId: 80,
@@ -61,16 +72,8 @@ const STRING_LIMITS: Record<LeadFieldName, number> = {
   honeypot: 120
 };
 
-const VIETNAM_PHONE_REGEX = /^(0[3-9][0-9]{8})$/;
-const TOUR_PACKAGE_IDS = new Set([
-  "dalat-3n2d",
-  "halong-2n1d",
-  "phuquoc-4n3d",
-  "sapa-3n2d",
-  "hue-2n1d",
-  "nhatrang-3n2d",
-  "consultation"
-]);
+const INTERNATIONAL_PHONE_REGEX = /^\+?[0-9][0-9\s()-]{7,18}$/;
+const TOUR_PACKAGE_IDS = new Set([...B2C_TOUR_PACKAGE_IDS, "consultation"]);
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -100,7 +103,10 @@ function normalizeSubmittedAt(value: unknown) {
   return parsed.toISOString();
 }
 
-export function validateLeadPayload(payload: unknown): LeadValidationResult {
+function validateBaseLeadPayload(
+  payload: unknown,
+  expectedVariant: LeadVariant
+): LeadValidationResult<BaseLeadFields> {
   if (!isRecord(payload)) {
     return {
       ok: false,
@@ -127,20 +133,18 @@ export function validateLeadPayload(payload: unknown): LeadValidationResult {
 
   const variant = normalizeString(payload.variant, "variant");
   const name = normalizeString(payload.name, "name");
-  const company = normalizeString(payload.company, "company");
   const workEmail = normalizeString(payload.workEmail, "workEmail").toLowerCase();
   const sourceMarket = normalizeString(payload.sourceMarket, "sourceMarket");
-  const requestDetails = normalizeString(payload.requestDetails, "requestDetails");
   const pagePath = normalizeString(payload.pagePath, "pagePath");
   const submittedAt = normalizeSubmittedAt(payload.submittedAt);
 
   const fieldErrors: LeadFieldErrors = {};
 
-  if (variant !== "b2b" && variant !== "b2c") {
+  if (variant !== expectedVariant) {
     fieldErrors.variant = "Please submit a supported landing page variant.";
   }
 
-  if (!WORK_EMAIL_REGEX.test(workEmail)) {
+  if (!isValidWorkEmail(workEmail)) {
     fieldErrors.workEmail = "Please enter a valid work email.";
   }
 
@@ -156,22 +160,50 @@ export function validateLeadPayload(payload: unknown): LeadValidationResult {
   return {
     ok: true,
     value: {
-      variant: variant as LeadVariant,
       name: name || undefined,
-      company: company || undefined,
       workEmail,
       sourceMarket: sourceMarket || undefined,
-      requestDetails: requestDetails || undefined,
       pagePath: pagePath || undefined,
       submittedAt
     }
   };
 }
 
-export function validateB2CTourPayload(payload: unknown): LeadFieldErrors {
+export function validateB2BLeadPayload(payload: unknown): LeadValidationResult<B2BLeadSubmission> {
+  const validation = validateBaseLeadPayload(payload, "b2b");
+
+  if (!validation.ok) {
+    return validation;
+  }
+
+  return {
+    ok: true,
+    value: {
+      variant: "b2b",
+      workEmail: validation.value.workEmail,
+      pagePath: validation.value.pagePath,
+      submittedAt: validation.value.submittedAt
+    }
+  };
+}
+
+export function validateB2CTourLeadPayload(
+  payload: unknown
+): LeadValidationResult<B2CTourLeadSubmission> {
+  const validation = validateBaseLeadPayload(payload, "b2c");
+
+  if (!validation.ok) {
+    return validation;
+  }
+
   if (!isRecord(payload)) {
     return {
-      tourPackageId: "Please choose a valid tour."
+      ok: false,
+      code: "validation_error",
+      message: "Please check your tour request details.",
+      fieldErrors: {
+        tourPackageId: "Please choose a valid tour."
+      }
     };
   }
 
@@ -183,23 +215,30 @@ export function validateB2CTourPayload(payload: unknown): LeadFieldErrors {
     fieldErrors.tourPackageId = "Please choose a valid tour.";
   }
 
-  if (phoneNumber && !VIETNAM_PHONE_REGEX.test(phoneNumber)) {
-    fieldErrors.phoneNumber = "Please enter a valid 10-digit Vietnam phone number starting with 03-09.";
+  if (phoneNumber && !INTERNATIONAL_PHONE_REGEX.test(phoneNumber)) {
+    fieldErrors.phoneNumber = "Please enter a valid phone or WhatsApp number.";
   }
 
-  return fieldErrors;
-}
-
-export function extractB2CTourLeadFields(payload: unknown) {
-  if (!isRecord(payload)) {
-    return {};
+  if (Object.keys(fieldErrors).length > 0) {
+    return {
+      ok: false,
+      code: "validation_error",
+      message: "Please check your tour request details.",
+      fieldErrors
+    };
   }
-
-  const tourPackageId = normalizeString(payload.tourPackageId, "tourPackageId");
-  const phoneNumber = normalizeString(payload.phoneNumber, "phoneNumber");
 
   return {
-    tourPackageId: tourPackageId || undefined,
-    phoneNumber: phoneNumber || undefined
+    ok: true,
+    value: {
+      variant: "b2c",
+      name: validation.value.name,
+      workEmail: validation.value.workEmail,
+      sourceMarket: validation.value.sourceMarket,
+      pagePath: validation.value.pagePath,
+      submittedAt: validation.value.submittedAt,
+      tourPackageId: tourPackageId || undefined,
+      phoneNumber: phoneNumber || undefined
+    }
   };
 }

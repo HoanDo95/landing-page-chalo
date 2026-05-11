@@ -3,6 +3,7 @@
 import { useRef, useState, type FormEvent, type InvalidEvent } from "react";
 
 import { trackEvent } from "@/lib/analytics";
+import { EMAIL_INPUT_PATTERN, isValidWorkEmail } from "@/lib/email-validation";
 import type { LandingLeadFormContent } from "@/lib/landing-content";
 
 interface LeadCaptureFormProps {
@@ -23,8 +24,6 @@ type LeadSubmissionResponse =
       message: string;
       fieldErrors?: Partial<Record<keyof LeadFormValues, string>>;
     };
-
-const WORK_EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const INITIAL_VALUES: LeadFormValues = {
   workEmail: ""
@@ -60,7 +59,7 @@ export function LeadCaptureForm({ content }: LeadCaptureFormProps) {
   }
 
   function getEmailError(value: string) {
-    if (!WORK_EMAIL_REGEX.test(value.trim())) {
+    if (!isValidWorkEmail(value)) {
       return content.validationMessages.workEmailInvalid;
     }
 
@@ -82,7 +81,7 @@ export function LeadCaptureForm({ content }: LeadCaptureFormProps) {
   function buildSubmissionPayload() {
     return {
       variant: "b2b",
-      workEmail: values.workEmail,
+      workEmail: values.workEmail.trim().toLowerCase(),
       pagePath: window.location.pathname,
       submittedAt: new Date().toISOString(),
       honeypot: honeypotRef.current?.value ?? ""
@@ -90,7 +89,7 @@ export function LeadCaptureForm({ content }: LeadCaptureFormProps) {
   }
 
   async function submitLeadRequest() {
-    const response = await fetch("/api/leads", {
+    const response = await fetch("/api/leads/b2b", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -206,7 +205,7 @@ export function LeadCaptureForm({ content }: LeadCaptureFormProps) {
             disabled={isSubmitting}
             id="lead-work-email"
             name="workEmail"
-            pattern="[^\\s@]+@[^\\s@]+\\.[^\\s@]+"
+            pattern={EMAIL_INPUT_PATTERN}
             placeholder={content.fields.workEmail.placeholder}
             ref={workEmailRef}
             required

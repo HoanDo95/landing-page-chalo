@@ -3,9 +3,11 @@
 import Image from "next/image";
 
 import { trackEvent } from "@/lib/analytics";
+import { formatUsdPrice } from "@/lib/b2c/tour-pricing";
 import type { TourPackage } from "@/lib/landing-content";
 
 interface TourCardProps {
+  onOpenDetails: (tourId: string) => void;
   tour: TourPackage;
 }
 
@@ -15,29 +17,26 @@ const badgeLabels: Record<NonNullable<TourPackage["badge"]>, string> = {
   sale: "On sale"
 };
 
-function formatPrice(price: number) {
-  return `VND ${new Intl.NumberFormat("en-US").format(price)}`;
-}
-
-export function TourCard({ tour }: TourCardProps) {
+export function TourCard({ onOpenDetails, tour }: TourCardProps) {
   const saving = tour.priceOriginal - tour.priceSale;
   const inclusionSummary = tour.inclusions.slice(0, 3).join(", ");
   const tourImages = tour.galleryImages?.length ? tour.galleryImages : [tour.heroImage];
   const visibleImages = tourImages.slice(0, 4);
 
-  function handleSelect() {
+  function handleOpenDetails() {
     trackEvent("b2c_tour_select", {
       tourId: tour.id,
       tourName: tour.title
     });
+    onOpenDetails(tour.id);
   }
 
   return (
     <article className="tour-card">
-      <a
+      <button
         className={`tour-card__image-container tour-card__image-container--count-${visibleImages.length}`}
-        href="#contact"
-        onClick={handleSelect}
+        type="button"
+        onClick={handleOpenDetails}
       >
         <div className="tour-card__image-grid">
           {visibleImages.map((image) => (
@@ -57,7 +56,7 @@ export function TourCard({ tour }: TourCardProps) {
             {badgeLabels[tour.badge]}
           </span>
         ) : null}
-      </a>
+      </button>
 
       <div className="tour-card__content">
         <div className="tour-card__meta">
@@ -65,7 +64,9 @@ export function TourCard({ tour }: TourCardProps) {
           <span>{tour.duration}</span>
         </div>
         <div>
-          <h3 className="tour-card__title">{tour.title}</h3>
+          <button className="tour-card__title-button" type="button" onClick={handleOpenDetails}>
+            <h3 className="tour-card__title">{tour.title}</h3>
+          </button>
           <p className="tour-card__description">{tour.description}</p>
         </div>
 
@@ -80,24 +81,24 @@ export function TourCard({ tour }: TourCardProps) {
         <div className="tour-card__price-section">
           <div>
             <span className="tour-card__price-label">From</span>
-            <span className="tour-card__price-original">{formatPrice(tour.priceOriginal)}</span>
+            <span className="tour-card__price-original">{formatUsdPrice(tour.priceOriginal)}</span>
           </div>
-          <strong className="tour-card__price-sale">{formatPrice(tour.priceSale)}</strong>
-          <span className="tour-card__savings">Save {formatPrice(saving)} per traveler</span>
+          <strong className="tour-card__price-sale">{formatUsdPrice(tour.priceSale)}</strong>
+          <span className="tour-card__savings">Save {formatUsdPrice(saving)} per traveler</span>
         </div>
 
         <p className="tour-card__includes">
           Includes <strong>{inclusionSummary}</strong>
         </p>
 
-        <a
-          aria-label={`Book ${tour.destination} tour`}
+        <button
+          aria-label={`View itinerary for ${tour.destination} tour`}
           className="tour-card__cta btn-jade"
-          href="#contact"
-          onClick={handleSelect}
+          type="button"
+          onClick={handleOpenDetails}
         >
-          Book now
-        </a>
+          View itinerary
+        </button>
       </div>
     </article>
   );

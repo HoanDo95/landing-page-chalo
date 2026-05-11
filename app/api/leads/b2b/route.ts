@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 
-import { sendB2CLeadNotification } from "@/lib/server/b2c-lead-notifications";
+import { sendB2BLeadNotification } from "@/lib/server/b2b-lead-notifications";
 import {
   type LeadSubmissionResponse,
-  validateB2CTourLeadPayload
+  validateB2BLeadPayload
 } from "@/lib/server/lead-validation";
 
-const MAX_BODY_BYTES = 16_384;
+const MAX_BODY_BYTES = 4_096;
 
 function jsonResponse(body: LeadSubmissionResponse, status: number) {
   return NextResponse.json(body, { status });
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const validation = validateB2CTourLeadPayload(payload);
+  const validation = validateB2BLeadPayload(payload);
 
   if (!validation.ok) {
     return jsonResponse(
@@ -55,7 +55,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const mailResult = await sendB2CLeadNotification(validation.value);
+  const mailResult = await sendB2BLeadNotification(validation.value);
 
   if (!mailResult.ok) {
     return jsonResponse(

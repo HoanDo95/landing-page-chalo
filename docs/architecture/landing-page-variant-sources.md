@@ -24,6 +24,10 @@ Split the landing page into two variant sources inside one repository:
 app/
   apple-icon.png
   icon.png
+  api/
+    leads/
+      route.ts
+      b2b/route.ts
   (default)/
     layout.tsx
     page.tsx
@@ -46,6 +50,13 @@ components/
   b2c/
     landing-page.tsx
     lead-capture-form.tsx
+    ChatWidget/
+      ChatWidget.tsx
+      ChatButton.tsx
+      ChatPanel.tsx
+      ChatPanelHeader.tsx
+      WhatsAppButton.tsx
+      index.ts
     MetricBar.tsx
     TestimonialCard.tsx
     TourCard.tsx
@@ -61,6 +72,11 @@ lib/
   b2c/
     content.ts
     vietnam-tours-content.ts
+  server/
+    b2b-lead-notifications.ts
+    b2c-lead-notifications.ts
+    email.ts
+    lead-validation.ts
 
 public/
   logo/
@@ -103,12 +119,18 @@ docs/
   - Direct B2B preview route
   - In production, permanently redirects to `/` for B2B deployments and returns 404 for B2C deployments
   - Imports only B2B page composition and B2B metadata
+- `app/api/leads/b2b/route.ts`
+  - Accepts the B2B email-only lead payload
+  - Validates the B2B form contract and triggers the B2B lead notification flow
 - `app/(b2c-preview)/layout.tsx`
   - Sets fixed `lang="en"` for the direct B2C preview tree
 - `app/(b2c-preview)/b2c/page.tsx`
   - Direct B2C preview route
   - In production, permanently redirects to `/` for B2C deployments and returns 404 for B2B deployments
   - Imports only B2C page composition and B2C metadata
+- `app/api/leads/route.ts`
+  - Accepts the B2C tours lead payload
+  - Validates the B2C form contract and triggers the B2C lead notification flow
 - `app/globals.css`
   - Shared visual system imported by each route-group root layout
 - `app/icon.png` and `app/apple-icon.png`
@@ -127,6 +149,8 @@ docs/
   - Owns B2C trust metric layout and icon treatment
 - `components/b2c/lead-capture-form.tsx`
   - Owns the B2C tour lead form, tour selection, local validation, success state, and B2C submit-event calls
+- `components/b2c/ChatWidget/`
+  - Owns the B2C floating WhatsApp widget, panel copy, close behavior, and external chat CTA surface
 - `components/shared/landing-primitives.tsx`
   - Provides only neutral layout primitives and page landmarks
 - `components/shared/responsive-nav.tsx`
@@ -147,6 +171,14 @@ docs/
   - Owns B2C Vietnam Tours packages, testimonials, trust metrics, lead form content, SEO, and route content export
 - `lib/content.ts`
   - Barrel export for convenience only
+- `lib/server/email.ts`
+  - Owns shared mail transport configuration and provider-specific delivery only
+- `lib/server/lead-validation.ts`
+  - Owns variant-specific lead validation for B2B and B2C routes
+- `lib/server/b2b-lead-notifications.ts`
+  - Builds the B2B email-only lead message and calls the shared mail transport
+- `lib/server/b2c-lead-notifications.ts`
+  - Builds the B2C tours lead message and calls the shared mail transport
 - `lib/variant.ts`
   - Keeps variant resolution logic for deployment routing only
 - `public/tour`

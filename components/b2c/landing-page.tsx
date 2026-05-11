@@ -1,17 +1,19 @@
 import Image from "next/image";
 import { AnimatedMetricValue } from "@/components/b2c/AnimatedMetricValue";
+import { ChatWidget } from "@/components/b2c/ChatWidget/ChatWidget";
 import { LeadCaptureForm } from "@/components/b2c/lead-capture-form";
 import { MetricBar } from "@/components/b2c/MetricBar";
 import { TestimonialCard } from "@/components/b2c/TestimonialCard";
-import { TourCard } from "@/components/b2c/TourCard";
+import { TourPackagesSection } from "@/components/b2c/tour-packages-section";
+import { B2CTourSelectionProvider } from "@/components/b2c/tour-selection-context";
 import type { LandingContent } from "@/lib/landing-content";
+import { formatUsdPrice } from "@/lib/b2c/tour-pricing";
 import {
   FeatureCards,
   PageMain,
   PageShell,
   PageWrap,
-  SectionHeading,
-  FaqList
+  SectionHeading
 } from "@/components/shared/landing-primitives";
 import { ResponsiveNav } from "@/components/shared/responsive-nav";
 
@@ -19,14 +21,48 @@ type Props = {
   content: LandingContent;
 };
 
-function formatPrice(price: number) {
-  return `VND ${new Intl.NumberFormat("en-US").format(price)}`;
-}
-
 export function B2CLandingPage({ content }: Props) {
   const heroImage = content.hero.image;
   const secondaryImage = "/tour/group-vin.jpg";
   const tourPackages = content.tourPackages?.packages ?? [];
+  const heroSlidesMap = new Map<string, { src: string; alt: string; label: string }>();
+
+  for (const tour of tourPackages) {
+    const sourceImages = tour.galleryImages?.length ? tour.galleryImages.slice(0, 2) : [tour.heroImage];
+
+    for (const image of sourceImages) {
+      if (!heroSlidesMap.has(image.src)) {
+        heroSlidesMap.set(image.src, {
+          src: image.src,
+          alt: image.alt,
+          label: tour.destination
+        });
+      }
+
+      if (heroSlidesMap.size >= 6) {
+        break;
+      }
+    }
+
+    if (heroSlidesMap.size >= 6) {
+      break;
+    }
+  }
+
+  if (!heroSlidesMap.size && heroImage?.src && heroImage.alt) {
+    heroSlidesMap.set(heroImage.src, {
+      src: heroImage.src,
+      alt: heroImage.alt,
+      label: heroImage.contextLabel ?? content.brand
+    });
+  }
+
+  const heroSlides = Array.from(heroSlidesMap.values());
+  const heroSignals = [
+    { label: "Secure payment", tone: "soft" },
+    { label: "Flexible date support", tone: "soft" },
+    { label: "Advice within 5 minutes", tone: "strong" }
+  ] as const;
   const testimonials = content.testimonials ?? [];
   const testimonialRows = [
     testimonials.filter((_, index) => index % 2 === 0),
@@ -35,21 +71,18 @@ export function B2CLandingPage({ content }: Props) {
   const startingPrice = tourPackages.length
     ? Math.min(...tourPackages.map((tour) => tour.priceSale))
     : null;
+  const packageSummaryItems = [
+    { value: `${tourPackages.length}`, label: "curated routes", tone: "default" },
+    {
+      value: startingPrice ? `${formatUsdPrice(startingPrice)}+` : "Custom",
+      label: "starting price",
+      tone: "accent"
+    },
+    { value: "15 min", label: "quote window", tone: "primary" }
+  ] as const;
   const averageRating = testimonials.length
     ? testimonials.reduce((total, testimonial) => total + testimonial.rating, 0) / testimonials.length
     : null;
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: content.faq.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.answer
-      }
-    }))
-  };
 
   return (
     <PageShell className="b2c-page">
@@ -62,282 +95,284 @@ export function B2CLandingPage({ content }: Props) {
         logo={{ src: "/logo/chalo-logo-transparent.png", alt: content.brand }}
       />
 
-      <PageMain>
-        <section className="hero b2c-hero">
-          <PageWrap>
-            <div className="b2c-hero-grid">
-              <div className="b2c-hero-copy">
-                <p className="eyebrow">{content.hero.eyebrow}</p>
-                <h1 className="b2c-display">
-                  {content.hero.title} <span>{content.hero.titleAccent}</span>
-                </h1>
-                <p className="b2c-lead">{content.hero.description}</p>
+      <B2CTourSelectionProvider tourPackages={tourPackages}>
+        <PageMain>
+          <section className="hero b2c-hero">
+            <PageWrap>
+              <div className="b2c-hero-grid">
+                <div className="b2c-hero-copy">
+                  <p className="eyebrow">{content.hero.eyebrow}</p>
+                  <h1 className="b2c-display">
+                    {content.hero.title} <span>{content.hero.titleAccent}</span>
+                  </h1>
+                  <p className="b2c-lead">{content.hero.description}</p>
 
-                <div className="cta-row">
-                  <a className="button primary" href="#packages">
-                    {content.hero.primaryCta}
-                  </a>
-                  <a className="button secondary" href="#contact">
-                    {content.hero.secondaryCta}
-                  </a>
-                </div>
-
-                <div className="b2c-hero-deal-card" aria-label="Fast booking path">
-                  <strong>From idea to held seats in one request</strong>
-                  <div>
-                    <span>Secure payment</span>
-                    <span>Flexible date support</span>
-                    <span>Advice within 5 minutes</span>
+                  <div className="cta-row">
+                    <a className="button primary" href="#packages">
+                      {content.hero.primaryCta}
+                    </a>
+                    <a className="button secondary" href="#contact">
+                      {content.hero.secondaryCta}
+                    </a>
                   </div>
-                </div>
 
-                <ul className="b2c-hero-proof-row" aria-label="B2C value proof points">
-                  {content.stats.map((item, index) => (
-                    <li key={item.value}>
-                      <strong>
-                        <AnimatedMetricValue value={item.value} delayMs={index * 80} />
-                      </strong>
-                      <span>{item.label}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="b2c-hero-visual" aria-label="B2C experience preview">
-                <div className="b2c-hero-media-card">
-                  {heroImage?.src && heroImage.alt ? (
-                    <div className="b2c-hero-media">
-                      <Image
-                        alt={heroImage.alt}
-                        className="b2c-hero-media-image"
-                        fill
-                        priority
-                        sizes="(max-width: 1080px) 100vw, 52vw"
-                        src={heroImage.src}
-                      />
-                      <div className="b2c-hero-media-topline">
-                        <span>{heroImage.eyebrow}</span>
-                        <span>{heroImage.contextLabel}</span>
-                      </div>
-                      <div className="b2c-hero-media-copy">
-                        <h2>{heroImage.title}</h2>
-                        <p>{heroImage.description}</p>
-                      </div>
-                      <ul className="b2c-hero-media-route-list" aria-label="Vietnam tour highlights">
-                        {heroImage.highlights.map((item) => <li key={item}>{item}</li>)}
-                      </ul>
-                    </div>
-                  ) : null}
-
-                  <aside className="b2c-hero-booking-panel" aria-label="B2C booking summary">
+                  <div className="b2c-hero-deal-card" aria-label="Fast booking path">
+                    <strong>From idea to held seats in one request</strong>
                     <div>
-                      <p className="b2c-hero-booking-panel__eyebrow">Trip request brief</p>
-                      <h2>Book with the key details visible.</h2>
-                    </div>
-                    <ol className="b2c-hero-ticket-steps" aria-label="Booking steps">
-                      <li>Choose tour</li>
-                      <li>Hold seats</li>
-                      <li>Quote first</li>
-                    </ol>
-                    <dl className="b2c-hero-booking-panel__details">
-                      <div>
-                        <dt>Starting price</dt>
-                        <dd>{startingPrice ? `${formatPrice(startingPrice)}+` : "Custom"}</dd>
-                      </div>
-                      <div>
-                        <dt>Response time</dt>
-                        <dd>Within 5 minutes</dd>
-                      </div>
-                      <div>
-                        <dt>Next step</dt>
-                        <dd>Quote before payment</dd>
-                      </div>
-                    </dl>
-                  </aside>
-                </div>
-              </div>
-            </div>
-          </PageWrap>
-        </section>
-
-        {content.tourPackages ? (
-          <section className="section b2c-section b2c-section--packages" id="packages">
-            <PageWrap>
-              <SectionHeading
-                title={content.tourPackages.title}
-                copy={content.tourPackages.subtitle}
-                align="start"
-              />
-              <div className="b2c-package-summary" aria-label="Tour package summary">
-                <div>
-                  <strong>{tourPackages.length}</strong>
-                  <span>curated routes</span>
-                </div>
-                <div>
-                  <strong>{startingPrice ? `${formatPrice(startingPrice)}+` : "Custom"}</strong>
-                  <span>starting price</span>
-                </div>
-                <div>
-                  <strong>15 min</strong>
-                  <span>quote window</span>
-                </div>
-              </div>
-              <div className="tour-packages-grid">
-                {tourPackages.map((tour) => (
-                  <TourCard key={tour.id} tour={tour} />
-                ))}
-              </div>
-            </PageWrap>
-          </section>
-        ) : null}
-
-        {content.trustMetrics ? <MetricBar metrics={content.trustMetrics} /> : null}
-
-        <section className="section b2c-section b2c-section--features" id="features">
-          <PageWrap>
-            <SectionHeading
-              title={content.sections.featuresTitle}
-              copy={content.sections.featuresCopy}
-            />
-            <FeatureCards features={content.features} />
-          </PageWrap>
-        </section>
-
-        {testimonials.length ? (
-          <section className="section b2c-section b2c-section--testimonials" id="testimonials">
-            <PageWrap>
-              <div className="b2c-testimonial-kicker" aria-label="Traveler review summary">
-                <strong>{averageRating ? `${averageRating.toFixed(1)}/5` : "Verified"} average rating</strong>
-                <span>from post-trip traveler feedback</span>
-              </div>
-              <SectionHeading
-                title="What travelers say"
-                copy="Real booking signals are kept close to the tour decision, so travelers do not need to hunt for reassurance."
-                align="start"
-              />
-              <div className="testimonials-marquee" aria-label="Traveler testimonials carousel">
-                {testimonialRows.map((row, rowIndex) => (
-                  <div
-                    className={`testimonial-marquee-row testimonial-marquee-row--${rowIndex === 0 ? "primary" : "secondary"}`}
-                    key={`testimonial-row-${rowIndex}`}
-                  >
-                    <div className="testimonial-marquee-track">
-                      <div className="testimonial-marquee-group">
-                        {row.map((testimonial) => (
-                          <TestimonialCard
-                            key={`${testimonial.authorName}-${testimonial.tripInfo}`}
-                            {...testimonial}
-                          />
-                        ))}
-                      </div>
-                      <div className="testimonial-marquee-group" aria-hidden="true">
-                        {row.map((testimonial) => (
-                          <TestimonialCard
-                            key={`${testimonial.authorName}-${testimonial.tripInfo}-duplicate`}
-                            {...testimonial}
-                          />
-                        ))}
-                      </div>
+                      {heroSignals.map((signal) => (
+                        <span
+                          className={`b2c-hero-signal b2c-hero-signal--${signal.tone}`}
+                          key={signal.label}
+                        >
+                          {signal.label}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                ))}
+
+                  <ul className="b2c-hero-proof-row" aria-label="B2C value proof points">
+                    {content.stats.map((item, index) => (
+                      <li
+                        className={`b2c-hero-proof-row__item b2c-hero-proof-row__item--${index === 1 ? "primary" : index === 3 ? "accent" : "default"}`}
+                        key={item.value}
+                      >
+                        <strong>
+                          <AnimatedMetricValue value={item.value} delayMs={index * 80} />
+                        </strong>
+                        <span>{item.label}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="b2c-hero-visual" aria-label="B2C experience preview">
+                  <div className="b2c-hero-media-card">
+                    {heroSlides.length && heroImage ? (
+                      <div className="b2c-hero-media">
+                        <div className="b2c-hero-media-slider" aria-hidden="true">
+                          <div className="b2c-hero-media-track">
+                            {[0, 1].map((groupIndex) => (
+                              <div className="b2c-hero-media-group" key={`hero-media-group-${groupIndex}`}>
+                                {heroSlides.map((slide, slideIndex) => (
+                                  <figure className="b2c-hero-media-slide" key={`${groupIndex}-${slide.src}`}>
+                                    <Image
+                                      alt=""
+                                      className="b2c-hero-media-image"
+                                      fill
+                                      priority={groupIndex === 0 && slideIndex < 2}
+                                      sizes="(max-width: 1080px) 72vw, 20vw"
+                                      src={slide.src}
+                                    />
+                                    <figcaption>{slide.label}</figcaption>
+                                  </figure>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="b2c-hero-media-topline">
+                          <span>{heroImage.eyebrow}</span>
+                          <span>{heroImage.contextLabel}</span>
+                        </div>
+                        <div className="b2c-hero-media-copy">
+                          <h2>{heroImage.title}</h2>
+                          <p>{heroImage.description}</p>
+                        </div>
+                        <ul className="b2c-hero-media-route-list" aria-label="Vietnam tour highlights">
+                          {heroImage.highlights.map((item) => <li key={item}>{item}</li>)}
+                        </ul>
+                      </div>
+                    ) : null}
+
+                    <aside className="b2c-hero-booking-panel" aria-label="B2C booking summary">
+                      <div>
+                        <p className="b2c-hero-booking-panel__eyebrow">Trip request brief</p>
+                        <h2>Book with the key details visible.</h2>
+                      </div>
+                      <ol className="b2c-hero-ticket-steps" aria-label="Booking steps">
+                        <li>Choose tour</li>
+                        <li>Hold seats</li>
+                        <li>Quote first</li>
+                      </ol>
+                      <dl className="b2c-hero-booking-panel__details">
+                        <div>
+                          <dt>Starting price</dt>
+                          <dd>{startingPrice ? `${formatUsdPrice(startingPrice)}+` : "Custom"}</dd>
+                        </div>
+                        <div>
+                          <dt>Response time</dt>
+                          <dd>Within 5 minutes</dd>
+                        </div>
+                        <div>
+                          <dt>Next step</dt>
+                          <dd>Quote before payment</dd>
+                        </div>
+                      </dl>
+                    </aside>
+                  </div>
+                </div>
               </div>
             </PageWrap>
           </section>
-        ) : null}
 
-        <section className="section b2c-section b2c-section--proof" id="about">
-          <PageWrap>
-            <div className="b2c-proof-layout">
-              <div>
+          {content.tourPackages ? (
+            <section className="section b2c-section b2c-section--packages" id="packages">
+              <PageWrap>
                 <SectionHeading
-                  title={content.proof.title}
-                  copy={content.proof.description}
+                  title={content.tourPackages.title}
+                  copy={content.tourPackages.subtitle}
                   align="start"
                 />
-                <div className="b2c-proof-metrics" aria-label="B2C proof metrics">
-                  {content.stats.map((stat, index) => (
-                    <div key={stat.label}>
-                      <strong>
-                        <AnimatedMetricValue value={stat.value} delayMs={index * 80} />
-                      </strong>
-                      <span>{stat.label}</span>
+                <div className="b2c-package-summary" aria-label="Tour package summary">
+                  {packageSummaryItems.map((item) => (
+                    <div
+                      className={`b2c-package-summary__item b2c-package-summary__item--${item.tone}`}
+                      key={item.label}
+                    >
+                      <strong>{item.value}</strong>
+                      <span>{item.label}</span>
                     </div>
                   ))}
                 </div>
-              </div>
+                <TourPackagesSection tourPackages={tourPackages} />
+              </PageWrap>
+            </section>
+          ) : null}
 
-              <div className="b2c-proof-gallery" aria-label="B2C visual proof">
-                {heroImage?.src && heroImage.alt ? (
-                  <figure className="b2c-proof-card b2c-proof-card--large">
+          {content.trustMetrics ? <MetricBar metrics={content.trustMetrics} /> : null}
+
+          <section className="section b2c-section b2c-section--features" id="features">
+            <PageWrap>
+              <SectionHeading
+                title={content.sections.featuresTitle}
+                copy={content.sections.featuresCopy}
+              />
+              <FeatureCards features={content.features} />
+            </PageWrap>
+          </section>
+
+          <section className="section b2c-section b2c-section--proof" id="about">
+            <PageWrap>
+              <div className="b2c-proof-layout">
+                <div>
+                  <SectionHeading
+                    title={content.proof.title}
+                    copy={content.proof.description}
+                    align="start"
+                  />
+                  <div className="b2c-proof-metrics" aria-label="B2C proof metrics">
+                    {content.stats.map((stat) => (
+                      <div key={stat.label}>
+                        <strong><AnimatedMetricValue value={stat.value} /></strong>
+                        <span>{stat.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="b2c-proof-gallery" aria-label="B2C visual proof">
+                  {heroImage?.src && heroImage.alt ? (
+                    <figure className="b2c-proof-card b2c-proof-card--large">
+                      <Image
+                        alt={heroImage.alt}
+                        className="b2c-proof-card__image"
+                        fill
+                        sizes="(max-width: 900px) 100vw, 34vw"
+                        src={heroImage.src}
+                      />
+                      <figcaption>Real trip experience</figcaption>
+                    </figure>
+                  ) : null}
+
+                  <figure className="b2c-proof-card b2c-proof-card--small">
                     <Image
-                      alt={heroImage.alt}
+                      alt="People enjoying a premium guided travel experience in Vietnam."
                       className="b2c-proof-card__image"
                       fill
-                      sizes="(max-width: 900px) 100vw, 34vw"
-                      src={heroImage.src}
+                      sizes="(max-width: 900px) 100vw, 18vw"
+                      src={secondaryImage}
                     />
-                    <figcaption>Real trip experience</figcaption>
+                    <figcaption>Local partners</figcaption>
                   </figure>
-                ) : null}
-
-                <figure className="b2c-proof-card b2c-proof-card--small">
-                  <Image
-                    alt="People enjoying a premium guided travel experience in Vietnam."
-                    className="b2c-proof-card__image"
-                    fill
-                    sizes="(max-width: 900px) 100vw, 18vw"
-                    src={secondaryImage}
-                  />
-                  <figcaption>Local partners</figcaption>
-                </figure>
-              </div>
-            </div>
-          </PageWrap>
-        </section>
-
-        <section className="section b2c-section" id="faq">
-          <PageWrap>
-            <SectionHeading title={content.sections.faqTitle} copy={content.sections.faqCopy} />
-            <FaqList items={content.faq} />
-          </PageWrap>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify(faqSchema)
-            }}
-          />
-        </section>
-
-        <section className="section b2c-section b2c-section--contact" id="contact">
-          <PageWrap>
-            <div className="b2c-final-card">
-              <div className="b2c-final-card__copy">
-                <div className="eyebrow">{content.finalCta.eyebrow}</div>
-                <h2 className="section-title" style={{ marginTop: 18 }}>
-                  {content.finalCta.title}
-                </h2>
-                <p className="section-copy">
-                  {content.finalCta.description}
-                </p>
-                <div className="b2c-final-proof-list" aria-label="What happens after submitting">
-                  <span>Advisor reviews your route</span>
-                  <span>Seats are checked before payment</span>
-                  <span>You receive a clear quote first</span>
                 </div>
               </div>
-              <div className="b2c-final-card__form">
-                {content.leadForm && content.tourPackages ? (
-                  <LeadCaptureForm
-                    content={content.leadForm}
-                    tourPackages={content.tourPackages.packages}
-                  />
-                ) : null}
+            </PageWrap>
+          </section>
+
+          <section className="section b2c-section b2c-section--contact" id="contact">
+            <PageWrap>
+              <div className="b2c-final-card">
+                <div className="b2c-final-card__copy">
+                  <div className="eyebrow">{content.finalCta.eyebrow}</div>
+                  <h2 className="section-title" style={{ marginTop: 18 }}>
+                    {content.finalCta.title}
+                  </h2>
+                  <p className="section-copy">
+                    {content.finalCta.description}
+                  </p>
+                  <div className="b2c-final-proof-list" aria-label="What happens after submitting">
+                    <span>Advisor reviews your route</span>
+                    <span>Seats are checked before payment</span>
+                    <span>You receive a clear quote first</span>
+                  </div>
+                </div>
+                <div className="b2c-final-card__form">
+                  {content.leadForm && content.tourPackages ? (
+                    <LeadCaptureForm
+                      content={content.leadForm}
+                      tourPackages={content.tourPackages.packages}
+                    />
+                  ) : null}
+                </div>
               </div>
-            </div>
-          </PageWrap>
-        </section>
-      </PageMain>
+            </PageWrap>
+          </section>
+
+          {testimonials.length ? (
+            <section className="section b2c-section b2c-section--testimonials" id="testimonials">
+              <PageWrap>
+                <div className="b2c-testimonial-kicker" aria-label="Traveler review summary">
+                  <strong>{averageRating ? `${averageRating.toFixed(1)}/5` : "Verified"} average rating</strong>
+                  <span>from post-trip traveler feedback</span>
+                </div>
+                <SectionHeading
+                  title="What travelers say"
+                  copy="Traveler comments now sit right below the inquiry form, so reassurance stays close to the final decision point."
+                  align="start"
+                />
+                <div className="testimonials-marquee" aria-label="Traveler testimonials carousel">
+                  {testimonialRows.map((row, rowIndex) => (
+                    <div
+                      className={`testimonial-marquee-row testimonial-marquee-row--${rowIndex === 0 ? "primary" : "secondary"}`}
+                      key={`testimonial-row-${rowIndex}`}
+                    >
+                      <div className="testimonial-marquee-track">
+                        <div className="testimonial-marquee-group">
+                          {row.map((testimonial) => (
+                            <TestimonialCard
+                              key={`${testimonial.authorName}-${testimonial.tripInfo}`}
+                              {...testimonial}
+                            />
+                          ))}
+                        </div>
+                        <div className="testimonial-marquee-group" aria-hidden="true">
+                          {row.map((testimonial) => (
+                            <TestimonialCard
+                              key={`${testimonial.authorName}-${testimonial.tripInfo}-duplicate`}
+                              {...testimonial}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </PageWrap>
+            </section>
+          ) : null}
+        </PageMain>
+      </B2CTourSelectionProvider>
 
       <footer className="b2c-footer">
         <PageWrap>
@@ -362,6 +397,8 @@ export function B2CLandingPage({ content }: Props) {
           <p className="b2c-footer-meta">{content.footer?.copyright}</p>
         </PageWrap>
       </footer>
+
+      <ChatWidget />
     </PageShell>
   );
 }

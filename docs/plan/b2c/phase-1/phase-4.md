@@ -339,10 +339,15 @@ git push origin main
 ## Deployment Notes
 
 **Environment Variables Required:**
-- `LEADS_MAIL_PROVIDER=resend`
-- `LEADS_MAIL_API_KEY=re_xxx`
-- `LEADS_MAIL_TO=team@chalotravel.com`
-- `LEADS_MAIL_FROM=leads@chalotravel.com`
+- `LEAD_MAIL_PROVIDER=smtp`
+- `LEAD_MAIL_TO=sale@chalotripvn.com`
+- `LEAD_MAIL_FROM=sale@chalotripvn.com`
+- `LEAD_MAIL_REPLY_TO=sale@chalotripvn.com`
+- `LEAD_SMTP_HOST=use the mailbox provider SMTP host`
+- `LEAD_SMTP_PORT=587`
+- `LEAD_SMTP_SECURE=false`
+- `LEAD_SMTP_USER=use the mailbox provider SMTP login`
+- `LEAD_SMTP_PASS=use the mailbox provider SMTP password`
 
 **Preview Deployment:**
 - Deploy to staging/Vercel preview

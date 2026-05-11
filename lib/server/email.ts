@@ -1,77 +1,153 @@
-import type { LeadSubmission } from "@/lib/server/lead-validation";
+import nodemailer from "nodemailer";
+import type SMTPTransport from "nodemailer/lib/smtp-transport";
 
 export type MailSendResult =
   | { ok: true }
   | { ok: false; reason: "mail_unavailable" | "mail_failed"; message: string };
 
-interface MailConfig {
-  provider: "resend";
-  apiKey: string;
+export interface MailMessage {
+  replyTo?: string;
+  subject: string;
+  text: string;
+}
+
+interface BaseMailConfig {
   to: string;
   from: string;
   defaultReplyTo?: string;
 }
 
-function readMailConfig(): MailConfig | undefined {
-  const provider = process.env.LEADS_MAIL_PROVIDER;
-  const apiKey = process.env.LEADS_MAIL_API_KEY;
-  const to = process.env.LEADS_MAIL_TO;
-  const from = process.env.LEADS_MAIL_FROM;
-  const defaultReplyTo = process.env.LEADS_MAIL_REPLY_TO;
+interface ResendMailConfig extends BaseMailConfig {
+  provider: "resend";
+  apiKey: string;
+}
 
-  if (provider !== "resend" || !apiKey || !to || !from) {
+interface SmtpMailConfig extends BaseMailConfig {
+  provider: "smtp";
+  host: string;
+  port: number;
+  secure: boolean;
+  user?: string;
+  pass?: string;
+}
+
+type MailConfig = ResendMailConfig | SmtpMailConfig;
+
+function readEnv(...names: string[]) {
+  for (const name of names) {
+    const value = process.env[name]?.trim();
+    if (value) {
+      return value;
+    }
+  }
+
+  return undefined;
+}
+
+function readBooleanEnv(value: string | undefined, fallback: boolean) {
+  if (!value) {
+    return fallback;
+  }
+
+  if (["1", "true", "yes", "on"].includes(value.toLowerCase())) {
+    return true;
+  }
+
+  if (["0", "false", "no", "off"].includes(value.toLowerCase())) {
+    return false;
+  }
+
+  return fallback;
+}
+
+function readPortEnv(value: string | undefined, fallback: number) {
+  if (!value) {
+    return fallback;
+  }
+
+  const port = Number.parseInt(value, 10);
+  if (!Number.isInteger(port) || port <= 0 || port > 65_535) {
+    return fallback;
+  }
+
+  return port;
+}
+
+function readMailConfig(): MailConfig | undefined {
+  const provider = readEnv("LEAD_MAIL_PROVIDER", "LEADS_MAIL_PROVIDER");
+  const to = readEnv("LEAD_MAIL_TO");
+  const from = readEnv("LEAD_MAIL_FROM", "LEADS_MAIL_FROM");
+  const defaultReplyTo = readEnv("LEAD_MAIL_REPLY_TO", "LEADS_MAIL_REPLY_TO");
+
+  if (!provider || !to || !from) {
     return undefined;
   }
 
-  return {
-    provider,
-    apiKey,
-    to,
-    from,
-    defaultReplyTo
+  if (provider === "smtp") {
+    const host = readEnv("LEAD_SMTP_HOST");
+    const port = readPortEnv(readEnv("LEAD_SMTP_PORT"), 587);
+    const secure = readBooleanEnv(readEnv("LEAD_SMTP_SECURE"), port === 465);
+    const user = readEnv("LEAD_SMTP_USER");
+    const pass = readEnv("LEAD_SMTP_PASS");
+
+    if (!host || Boolean(user) !== Boolean(pass)) {
+      return undefined;
+    }
+
+    return {
+      provider,
+      to,
+      from,
+      defaultReplyTo,
+      host,
+      port,
+      secure,
+      user,
+      pass
+    };
+  }
+
+  if (provider === "resend") {
+    const apiKey = readEnv("LEAD_RESEND_API_KEY", "LEADS_MAIL_API_KEY");
+
+    if (!apiKey) {
+      return undefined;
+    }
+
+    return {
+      provider,
+      apiKey,
+      to,
+      from,
+      defaultReplyTo
+    };
+  }
+
+  return undefined;
+}
+
+function getMessageContent(config: MailConfig, mailMessage: MailMessage) {
+  const mailOptions: SMTPTransport.MailOptions = {
+    from: config.from,
+    to: config.to,
+    subject: mailMessage.subject,
+    text: mailMessage.text
   };
-}
 
-function formatLeadEmailText(lead: LeadSubmission) {
-  const lines = [
-    "New landing page lead",
-    "",
-    `Variant: ${lead.variant}`,
-    `Name: ${lead.name || "Not provided"}`,
-    `Work email: ${lead.workEmail}`,
-    `Submitted at: ${lead.submittedAt}`
-  ];
-
-  if (lead.variant === "b2c") {
-    lines.push(`Tour interest: ${lead.tourPackageId || "General consultation"}`);
-    lines.push(`Phone: ${lead.phoneNumber || "Not provided"}`);
-    lines.push(`Source market: ${lead.sourceMarket || "Not provided"}`);
-    lines.push(`Page path: ${lead.pagePath || "Not provided"}`);
-  } else {
-    lines.push(`Company: ${lead.company || "Not provided"}`);
-    lines.push(`Source market: ${lead.sourceMarket || "Not provided"}`);
-    lines.push(`Page path: ${lead.pagePath || "Not provided"}`);
-    lines.push("");
-    lines.push("Travel brief:");
-    lines.push(lead.requestDetails || "Not provided");
+  const replyTo = mailMessage.replyTo || config.defaultReplyTo;
+  if (replyTo) {
+    mailOptions.replyTo = replyTo;
   }
 
-  return lines.join("\n");
+  return mailOptions;
 }
 
-function formatLeadSubject(lead: LeadSubmission) {
-  const leadLabel = lead.name || lead.workEmail;
+async function sendWithResend(
+  config: ResendMailConfig,
+  mailMessage: MailMessage
+): Promise<MailSendResult> {
+  const message = getMessageContent(config, mailMessage);
 
-  if (lead.variant === "b2c") {
-    const tourPrefix = lead.tourPackageId ? `[${lead.tourPackageId}]` : "[General]";
-    return `[Chalo B2C Lead] ${tourPrefix} ${leadLabel}`;
-  }
-
-  const company = lead.company ? ` - ${lead.company}` : "";
-  return `[Chalo ${lead.variant.toUpperCase()} lead] ${leadLabel}${company}`;
-}
-
-async function sendWithResend(config: MailConfig, lead: LeadSubmission): Promise<MailSendResult> {
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -79,11 +155,11 @@ async function sendWithResend(config: MailConfig, lead: LeadSubmission): Promise
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      from: config.from,
-      to: [config.to],
-      reply_to: lead.workEmail || config.defaultReplyTo,
-      subject: formatLeadSubject(lead),
-      text: formatLeadEmailText(lead)
+      from: message.from,
+      to: [message.to],
+      reply_to: message.replyTo,
+      subject: message.subject,
+      text: message.text
     })
   });
 
@@ -104,7 +180,28 @@ async function sendWithResend(config: MailConfig, lead: LeadSubmission): Promise
   return { ok: true };
 }
 
-export async function sendLeadNotification(lead: LeadSubmission): Promise<MailSendResult> {
+async function sendWithSmtp(config: SmtpMailConfig, mailMessage: MailMessage): Promise<MailSendResult> {
+  const transportOptions: SMTPTransport.Options = {
+    host: config.host,
+    port: config.port,
+    secure: config.secure
+  };
+
+  if (config.user) {
+    transportOptions.auth = {
+      user: config.user,
+      pass: config.pass
+    };
+  }
+
+  const transport = nodemailer.createTransport(transportOptions);
+
+  await transport.sendMail(getMessageContent(config, mailMessage));
+
+  return { ok: true };
+}
+
+export async function sendMail(message: MailMessage): Promise<MailSendResult> {
   const config = readMailConfig();
 
   if (!config) {
@@ -117,7 +214,11 @@ export async function sendLeadNotification(lead: LeadSubmission): Promise<MailSe
   }
 
   try {
-    return await sendWithResend(config, lead);
+    if (config.provider === "smtp") {
+      return await sendWithSmtp(config, message);
+    }
+
+    return await sendWithResend(config, message);
   } catch (error) {
     console.error("Lead mail provider failed", error);
     return {

@@ -19,6 +19,8 @@ app/
     page.tsx
   api/
     leads/
+      b2b/
+        route.ts
       route.ts
   apple-icon.png
   globals.css
@@ -33,10 +35,20 @@ components/
     lead-capture-form.tsx
   b2c/
     AnimatedMetricValue.tsx
+    ChatWidget/
+      ChatButton.tsx
+      ChatPanel.tsx
+      ChatPanelHeader.tsx
+      ChatWidget.tsx
+      index.ts
+      WhatsAppButton.tsx
     landing-page.tsx
     lead-capture-form.tsx
     MetricBar.tsx
     TestimonialCard.tsx
+    tour-detail-modal.tsx
+    tour-packages-section.tsx
+    tour-selection-context.tsx
     TourCard.tsx
   shared/
     landing-primitives.tsx
@@ -53,11 +65,14 @@ lib/
     content.ts
   b2c/
     content.ts
+    tour-pricing.ts
     vietnam-tours-content.ts
   content.ts
   landing-content.ts
   metadata.ts
   server/
+    b2b-lead-notifications.ts
+    b2c-lead-notifications.ts
     email.ts
     lead-validation.ts
   variant.ts
@@ -147,11 +162,17 @@ docs/superpowers/
   plans/
     2025-05-10-b2c-tour-packages-update.md
     2026-05-10-b2c-testimonial-marquee.md
+    2026-05-11-b2c-chat-widget.md
+    2026-05-11-b2c-tour-modal-usd.md
+    2026-05-11-lead-mail-smtp-local-gmail-production-mailbox.md
   specs/
     2026-05-07-chalo-b2b-landing-page-design.md
     2026-05-08-chalo-b2b-ui-ux-refresh-design.md
     2026-05-10-b2c-testimonial-marquee-design.md
     2026-05-10-b2c-vietnam-tours-landing-page-design.md
+    2026-05-11-b2c-chat-widget-design.md
+    2026-05-11-b2c-gated-lead-capture-design.md
+    2026-05-11-b2c-tour-modal-usd-design.md
 ```
 
 ## scripts

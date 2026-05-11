@@ -1,8 +1,11 @@
 "use client";
 
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 
+import { useB2CTourSelection } from "@/components/b2c/tour-selection-context";
 import { trackEvent } from "@/lib/analytics";
+import { isValidWorkEmail } from "@/lib/email-validation";
+import { formatUsdPrice } from "@/lib/b2c/tour-pricing";
 import type { LandingLeadFormContent, TourPackage } from "@/lib/landing-content";
 
 interface LeadCaptureFormProps {
@@ -28,8 +31,7 @@ type LeadSubmissionResponse =
       fieldErrors?: FormErrors;
     };
 
-const WORK_EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const VIETNAM_PHONE_REGEX = /^(0[3-9][0-9]{8})$/;
+const INTERNATIONAL_PHONE_REGEX = /^\+?[0-9][0-9\s()-]{7,18}$/;
 
 const initialValues: FormValues = {
   name: "",
@@ -38,11 +40,8 @@ const initialValues: FormValues = {
   tourPackageId: ""
 };
 
-function formatPrice(price: number) {
-  return `VND ${new Intl.NumberFormat("en-US").format(price)}`;
-}
-
 export function LeadCaptureForm({ content, tourPackages }: LeadCaptureFormProps) {
+  const { selectedTourId } = useB2CTourSelection();
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<FormErrors>({});
   const [statusMessage, setStatusMessage] = useState("");
@@ -53,6 +52,15 @@ export function LeadCaptureForm({ content, tourPackages }: LeadCaptureFormProps)
   const phoneRef = useRef<HTMLInputElement | null>(null);
   const tourRef = useRef<HTMLSelectElement | null>(null);
   const honeypotRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (!selectedTourId || values.tourPackageId === selectedTourId) {
+      return;
+    }
+
+    setValues((current) => ({ ...current, tourPackageId: selectedTourId }));
+    setErrors((current) => ({ ...current, tourPackageId: undefined }));
+  }, [selectedTourId, values.tourPackageId]);
 
   function updateValue(field: keyof FormValues, value: string) {
     setValues((current) => ({ ...current, [field]: value }));
@@ -71,7 +79,7 @@ export function LeadCaptureForm({ content, tourPackages }: LeadCaptureFormProps)
       nextErrors.name = "Please enter your name.";
     }
 
-    if (!WORK_EMAIL_REGEX.test(values.workEmail.trim())) {
+    if (!isValidWorkEmail(values.workEmail)) {
       nextErrors.workEmail = content.validationMessages.workEmailInvalid;
     }
 
@@ -79,8 +87,8 @@ export function LeadCaptureForm({ content, tourPackages }: LeadCaptureFormProps)
       nextErrors.tourPackageId = "Please choose a tour or request a private consultation.";
     }
 
-    if (values.phoneNumber.trim() && !VIETNAM_PHONE_REGEX.test(values.phoneNumber.trim())) {
-      nextErrors.phoneNumber = "Please enter a valid 10-digit Vietnam phone number starting with 03-09.";
+    if (values.phoneNumber.trim() && !INTERNATIONAL_PHONE_REGEX.test(values.phoneNumber.trim())) {
+      nextErrors.phoneNumber = "Please enter a valid phone or WhatsApp number.";
     }
 
     return nextErrors;
@@ -203,7 +211,7 @@ export function LeadCaptureForm({ content, tourPackages }: LeadCaptureFormProps)
             disabled={isSubmitting}
             id="b2c-lead-name"
             name="name"
-            placeholder="Minh Anh Nguyen"
+            placeholder="Aarav Sharma"
             ref={nameRef}
             type="text"
             value={values.name}
@@ -236,7 +244,7 @@ export function LeadCaptureForm({ content, tourPackages }: LeadCaptureFormProps)
         </label>
 
         <label className="b2c-form-field" htmlFor="b2c-lead-phone">
-          <span>Phone number</span>
+          <span>Phone / WhatsApp</span>
           <input
             aria-invalid={Boolean(errors.phoneNumber)}
             autoComplete="tel"
@@ -247,7 +255,7 @@ export function LeadCaptureForm({ content, tourPackages }: LeadCaptureFormProps)
             id="b2c-lead-phone"
             inputMode="tel"
             name="phoneNumber"
-            placeholder="0909123456"
+            placeholder="+91 98765 43210"
             ref={phoneRef}
             type="tel"
             value={values.phoneNumber}
@@ -272,13 +280,13 @@ export function LeadCaptureForm({ content, tourPackages }: LeadCaptureFormProps)
             value={values.tourPackageId}
             onChange={(event) => updateValue("tourPackageId", event.target.value)}
           >
-            <option value="">Choose your preferred tour...</option>
+            <option value="">Choose a tour</option>
             {tourPackages.map((tour) => (
               <option key={tour.id} value={tour.id}>
-                {tour.title} - {formatPrice(tour.priceSale)}
+                {tour.title} - {formatUsdPrice(tour.priceSale)}
               </option>
             ))}
-            <option value="consultation">Private consultation for me</option>
+            <option value="consultation">Private quote</option>
           </select>
           {errors.tourPackageId ? (
             <span className="b2c-form-field-error">{errors.tourPackageId}</span>
@@ -288,8 +296,8 @@ export function LeadCaptureForm({ content, tourPackages }: LeadCaptureFormProps)
 
       {selectedTour ? (
         <p className="b2c-form-selected-tour">
-          You are choosing <strong>{selectedTour.title}</strong>, priced from{" "}
-          <strong>{formatPrice(selectedTour.priceSale)}</strong>.
+          Selected: <strong>{selectedTour.title}</strong> from{" "}
+          <strong>{formatUsdPrice(selectedTour.priceSale)}</strong>.
         </p>
       ) : null}
 
@@ -297,9 +305,7 @@ export function LeadCaptureForm({ content, tourPackages }: LeadCaptureFormProps)
         {isSubmitting ? "Sending..." : content.submitLabel}
       </button>
 
-      <p className="b2c-form-note">
-        Your request goes to a travel advisor first. You only pay after the itinerary and price are clear.
-      </p>
+      <p className="b2c-form-note">Pay only after itinerary and price are confirmed.</p>
 
       <label className="b2c-form-honeypot" htmlFor="b2c-lead-website">
         <span>Website</span>
