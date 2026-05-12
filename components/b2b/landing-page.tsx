@@ -22,33 +22,68 @@ interface B2BLandingPageProps {
 export function B2BLandingPage({ content }: B2BLandingPageProps) {
   const heroImage = content.hero.image;
   const heroOverlay = content.hero.overlay;
+  const heroTrustSignals = content.hero.trustSignals ?? [];
+  const footer = content.footer;
+  const partnerMarquee = footer?.partnerMarquee;
   const ctaEventName = "b2b_cta_click";
   const revealDelay = (value: string) =>
     ({ "--reveal-delay": value }) as CSSProperties;
+  const heroMediaSlides = [
+    {
+      src: "/tour/sapa.jpg",
+      alt: "Mountain terraces and travelers in Sapa, northern Vietnam.",
+      label: "Sapa"
+    },
+    {
+      src: "/tour/hue-imperial-citadel.jpg",
+      alt: "Hue Imperial Citadel architecture for central Vietnam itineraries.",
+      label: "Hue"
+    },
+    {
+      src: "/tour/hanoi.jpg",
+      alt: "Ha Noi city scene for Vietnam arrival and culture programs.",
+      label: "Ha Noi"
+    },
+    {
+      src: "/tour/ho-chi-minh-city.jpg",
+      alt: "Ho Chi Minh City skyline for southern Vietnam tour routing.",
+      label: "Ho Chi Minh City"
+    },
+    {
+      src: "/tour/da-nang.jpg",
+      alt: "Da Nang coastal city and landmark stop for Vietnam tours.",
+      label: "Da Nang"
+    },
+    {
+      src: "/tour/ba-na-hills.jpg",
+      alt: "Ba Na Hills architecture and mountain attraction in central Vietnam.",
+      label: "Ba Na Hills"
+    }
+  ] as const;
   const partnerFitGallery = [
     {
-      src: "/tour/halong-bay.jpg",
-      alt: "Ha Long Bay cruise and limestone islands for Vietnam tour planning.",
-      eyebrow: "Signature north",
-      title: "Ha Long Bay extensions"
+      src: "/tour/group-vin.jpg",
+      alt: "International group travelers exploring Vietnam with the local Chalo team.",
+      eyebrow: "Real guest moment",
+      title: "Real groups already touring Vietnam"
     },
     {
-      src: "/tour/ninh-binh.jpg",
-      alt: "Ninh Binh river and limestone landscape for culture and nature itineraries.",
-      eyebrow: "Nature routing",
-      title: "Ninh Binh day flow"
+      src: "/tour/family-golden-bridge.jpg",
+      alt: "Family travelers visiting Golden Bridge in Vietnam with scenic mountain views.",
+      eyebrow: "Family-friendly stop",
+      title: "Big hero stops that sell fast"
     },
     {
-      src: "/tour/hoi-an.jpg",
-      alt: "Hoi An food, lantern, and heritage collage for central Vietnam routes.",
-      eyebrow: "Central heritage",
-      title: "Hoi An culture stop"
+      src: "/tour/family-hoi-an.jpg",
+      alt: "Family travelers walking through Hoi An heritage town in Vietnam.",
+      eyebrow: "Culture and people",
+      title: "Photo-ready heritage experiences"
     },
     {
-      src: "/tour/mekong-detail.jpg",
-      alt: "Mekong Delta local food and river scenes for southern Vietnam extensions.",
-      eyebrow: "Southern add-on",
-      title: "Mekong Delta detail"
+      src: "/tour/phu-quoc.jpg",
+      alt: "Phu Quoc beach extension for Vietnam tours with leisure time and coastal scenery.",
+      eyebrow: "Easy extension",
+      title: "Beach endings clients love"
     }
   ] as const;
   const tourStyleVisuals = [
@@ -128,9 +163,38 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
                   </a>
                 </div>
 
-                <ul className="b2b-hero-proof-row" aria-label="B2B value proof points" data-reveal="hero" style={revealDelay("300ms")}>
-                  {content.stats.map((item) => (
-                    <li key={item.value}>
+                {heroTrustSignals.length ? (
+                  <div
+                    className="b2b-hero-claim-card"
+                    aria-label="B2B direct operator proof"
+                    data-reveal="hero"
+                    style={revealDelay("260ms")}
+                  >
+                    <strong>{content.trustBand?.eyebrow}</strong>
+                    <div className="b2b-hero-claim-signals">
+                      {heroTrustSignals.map((signal, index) => (
+                        <span
+                          className={`b2b-hero-signal b2b-hero-signal--${index === 0 ? "strong" : "soft"}`}
+                          key={signal.label}
+                        >
+                          {signal.label}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+
+                <ul
+                  className="b2b-hero-proof-row"
+                  aria-label="B2B value proof points"
+                  data-reveal="hero"
+                  style={revealDelay("320ms")}
+                >
+                  {content.stats.map((item, index) => (
+                    <li
+                      className={`b2b-hero-proof-row__item b2b-hero-proof-row__item--${index === 0 ? "primary" : index === 1 ? "accent" : "default"}`}
+                      key={`${item.value}-${item.label}`}
+                    >
                       <strong>{item.value}</strong>
                       <span>{item.label}</span>
                     </li>
@@ -141,14 +205,27 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
               <div className="b2b-hero-visual" data-reveal="hero" data-reveal-direction="right" style={revealDelay("180ms")}>
                 <div className="b2b-hero-media-card">
                   <div className="b2b-hero-media">
-                    <Image
-                      alt={heroImage.alt}
-                      className="b2b-hero-media-image"
-                      fill
-                      priority
-                      sizes="(max-width: 1080px) 100vw, 52vw"
-                      src={heroImage.src}
-                    />
+                    <div className="b2b-hero-media-slider" aria-hidden="true">
+                      <div className="b2b-hero-media-track">
+                        {[0, 1].map((groupIndex) => (
+                          <div className="b2b-hero-media-group" key={`b2b-hero-media-group-${groupIndex}`}>
+                            {heroMediaSlides.map((slide, slideIndex) => (
+                              <figure className="b2b-hero-media-slide" key={`${groupIndex}-${slide.src}`}>
+                                <Image
+                                  alt=""
+                                  className="b2b-hero-media-image"
+                                  fill
+                                  priority={groupIndex === 0 && slideIndex < 2}
+                                  sizes="(max-width: 1080px) 72vw, 20vw"
+                                  src={slide.src}
+                                />
+                                <figcaption>{slide.label}</figcaption>
+                              </figure>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
 
                     <div className="b2b-hero-media-topline">
                       <span>{heroImage.eyebrow}</span>
@@ -226,10 +303,10 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
               </div>
 
               <ul className="b2b-partner-fit-signals" aria-label="Partner fit proof" data-reveal="section" data-reveal-stagger="true">
-                {content.trustBand.signals.map((signal) => (
-                  <li key={signal.title}>
-                    <span>{signal.title}</span>
-                    <p>{signal.description}</p>
+                {content.stats.map((item) => (
+                  <li key={`${item.value}-${item.label}`}>
+                    <span>{item.value}</span>
+                    <p>{item.label}</p>
                   </li>
                 ))}
               </ul>
@@ -407,40 +484,76 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
             </div>
           </PageWrap>
         </section>
+
+        {partnerMarquee ? (
+          <section
+            aria-label="Recognizable travel brands"
+            className="b2b-partner-marquee-band"
+          >
+            <PageWrap>
+              <div className="b2b-partner-marquee-shell" data-reveal="section">
+                <div className="b2b-partner-marquee" aria-label="Recognizable travel brands">
+                  <div className="b2b-partner-marquee-track">
+                    {[0, 1].map((groupIndex) => (
+                      <div
+                        aria-hidden={groupIndex === 1 ? "true" : undefined}
+                        className="b2b-partner-marquee-group"
+                        key={`b2b-partner-marquee-group-${groupIndex}`}
+                      >
+                        {partnerMarquee.items.map((item) => (
+                          <span
+                            className="b2b-partner-marquee-wordmark"
+                            key={`${item}-${groupIndex}`}
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </PageWrap>
+          </section>
+        ) : null}
       </PageMain>
 
-      <footer className="site-footer">
-        <PageWrap>
-          <div className="site-footer-grid">
-            <div className="site-footer-brand-block">
-              <div className="site-brand site-brand--footer">
-                {content.logo ? (
-                  <span className="site-brand-logo" aria-hidden="true">
-                    <Image alt="" fill sizes="156px" src={content.logo.src} />
-                  </span>
-                ) : (
-                  <>
-                    <span className="site-brand-mark" aria-hidden="true">
-                      {content.brand.slice(0, 1)}
-                    </span>
-                    <span>{content.brand}</span>
-                  </>
-                )}
-              </div>
-            </div>
+      {footer ? (
+        <>
+          <footer className="site-footer">
+            <PageWrap>
+              <div className="site-footer-grid">
+                <div className="site-footer-brand-block">
+                  <div className="site-brand site-brand--footer">
+                    {content.logo ? (
+                      <span className="site-brand-logo" aria-hidden="true">
+                        <Image alt="" fill sizes="156px" src={content.logo.src} />
+                      </span>
+                    ) : (
+                      <>
+                        <span className="site-brand-mark" aria-hidden="true">
+                          {content.brand.slice(0, 1)}
+                        </span>
+                        <span>{content.brand}</span>
+                      </>
+                    )}
+                  </div>
+                </div>
 
-            <nav className="site-footer-nav" aria-label="Footer">
-              {content.footer.nav.map((link) => (
-                <a key={link.href} href={link.href}>
-                  {link.label}
-                </a>
-              ))}
-            </nav>
-          </div>
-          <hr className="site-footer-divider" />
-          <p className="site-footer-meta">{content.footer.copyright}</p>
-        </PageWrap>
-      </footer>
+                <nav className="site-footer-nav" aria-label="Footer">
+                  {footer.nav.map((link) => (
+                    <a key={link.href} href={link.href}>
+                      {link.label}
+                    </a>
+                  ))}
+                </nav>
+              </div>
+              <hr className="site-footer-divider" />
+              <p className="site-footer-meta">{footer.copyright}</p>
+            </PageWrap>
+          </footer>
+        </>
+      ) : null}
 
       <div className="b2b-mobile-sticky-cta" aria-label="Mobile specialist CTA">
         <PageWrap>

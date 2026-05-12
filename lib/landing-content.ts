@@ -102,6 +102,9 @@ export interface LandingFooterContent {
   description: string;
   nav: ActionLink[];
   utilityLinks?: ActionLink[];
+  partnerMarquee?: {
+    items: string[];
+  };
   copyright: string;
 }
 
@@ -184,11 +187,18 @@ export interface LandingLeadFormContent {
   submitLabel: string;
   successMessage: string;
   errorSummary: string;
+  helperText?: string;
   fields: {
     workEmail: LandingLeadFormFieldContent;
+    guestCount?: LandingLeadFormFieldContent;
+    travelDates?: LandingLeadFormFieldContent;
+    numberOfDays?: LandingLeadFormFieldContent;
   };
   validationMessages: {
     workEmailInvalid: string;
+    guestCountInvalid?: string;
+    travelDatesInvalid?: string;
+    numberOfDaysInvalid?: string;
   };
 }
 

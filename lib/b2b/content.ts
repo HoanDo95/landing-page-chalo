@@ -5,9 +5,9 @@ const shared = {
 };
 
 const defaultHeroHeadline = {
-  id: "default-best-value",
-  title: "Best-value Vietnam tours",
-  titleAccent: "for travel partners"
+  id: "default-lowest-price",
+  title: "Lowest-price Vietnam tours",
+  titleAccent: "direct from Vietnam"
 } as const;
 
 export const b2bContent: B2BLandingContent = {
@@ -20,76 +20,82 @@ export const b2bContent: B2BLandingContent = {
   language: "en",
   navigation: {
     links: [
-      { label: "Partners", href: "#partner-fit" },
-      { label: "Traveler types", href: "#traveler-types" },
-      { label: "How it works", href: "#how-it-works" },
+      { label: "Proof", href: "#partner-fit" },
+      { label: "Guest types", href: "#traveler-types" },
+      { label: "Process", href: "#how-it-works" },
       { label: "FAQ", href: "#faq" }
     ],
-    cta: { label: "Talk to a specialist", href: "#contact" }
+    cta: { label: "Get partner rates", href: "#contact" }
   },
   hero: {
-    eyebrow: "Vietnam tour partner for global travel agents",
+    eyebrow: "Lowest local rates. Directly operated in Vietnam.",
     title: defaultHeroHeadline.title,
     titleAccent: defaultHeroHeadline.titleAccent,
     headlineVariants: [
       defaultHeroHeadline,
       {
-        id: "flexible-itineraries",
-        title: "Flexible Vietnam itineraries",
-        titleAccent: "for travel partners worldwide"
+        id: "direct-operator",
+        title: "Direct Vietnam operator",
+        titleAccent: "for better local rates"
       },
       {
-        id: "fast-booking-support",
-        title: "Fast, clear Vietnam booking support",
-        titleAccent: "for travel partners"
+        id: "image-first-sell",
+        title: "Beautiful Vietnam tours",
+        titleAccent: "without middleman markup"
       }
     ],
     description:
-      "Work with a local Vietnam team that helps you plan flexible FIT, family, group, honeymoon, and leisure itineraries with fast consultation and clear booking support.",
-    primaryCta: "Talk to a specialist",
-    secondaryCta: "Explore tour styles",
+      "No middleman. Just direct Vietnam pricing, beautiful routes, and real local execution for private, family, and group tours.",
+    primaryCta: "Get partner rates",
+    secondaryCta: "View tour gallery",
+    trustSignals: [
+      { label: "Direct Vietnam operator" },
+      { label: "No middleman markup" },
+      { label: "Private, family, group tours" }
+    ],
     overlay: {
-      eyebrow: "Sample itinerary brief",
-      title: "Partner-ready planning at a glance",
+      eyebrow: "Why our rates stay low",
+      title: "Direct local operation, not reseller pricing",
       details: [
         {
-          label: "Source market",
-          value: "Australia, North America, Europe, and Asia"
+          label: "Rate model",
+          value: "Quoted by our Vietnam team"
         },
         {
-          label: "Traveler mix",
-          value: "FIT, families, honeymoon travelers, and small groups"
+          label: "Tour types",
+          value: "Private, family, and group tours"
         },
         {
-          label: "Route direction",
-          value: "Ha Noi -> Ha Long -> Hoi An -> Ho Chi Minh City"
+          label: "Support",
+          value: "Before, during, and after the trip"
         }
       ],
       highlights: [
-        "Fast quotation framing",
-        "Flexible hotel and service levels",
-        "Local support before arrival"
+        "Direct local pricing",
+        "Fast quotation decisions",
+        "Guest support on the ground"
       ]
     },
     image: {
-      src: "/b2b-hero-vietnam-tour.jpg",
-      alt: "Golden Bridge in Da Nang at sunset with mountain and coastal views across central Vietnam.",
-      eyebrow: "Vietnam destination window",
-      contextLabel: "Vietnam route planning",
-      title: "Flexible Vietnam routes",
+      src: "/tour/group-vin.jpg",
+      alt: "International group travelers enjoying a Vietnam tour hosted by the local Chalo team.",
+      eyebrow: "Real guests on tour",
+      contextLabel: "Direct Vietnam operator",
+      title: "Beautiful routes. Real travelers.",
       description:
-        "Shape practical Vietnam itineraries around budget, timing, traveler mix, and service level.",
+        "Sell Vietnam with strong imagery, direct local rates, and a team that runs the trip on the ground.",
       highlights: [
-        "Ha Noi and Ha Long Bay",
-        "Central heritage and coastal stops",
-        "Southern city and leisure extensions"
+        "North, central, and south Vietnam",
+        "Culture, nature, and beach flow",
+        "Private, family, and group formats"
       ]
     }
   },
   stats: [
-    { value: "Best value", label: "Vietnam tour pricing" },
-    { value: "Fast quote", label: "clear B2B response" },
-    { value: "Local team", label: "supplier-grounded support" }
+    { value: "Lowest rates", label: "local operator pricing" },
+    { value: "No middleman", label: "quoted in Vietnam" },
+    { value: "Direct team", label: "run by Chalo locally" },
+    { value: "Guest-ready", label: "private, family, and group tours" }
   ],
   showcase: {
     primaryLabel: "Request flow",
@@ -99,9 +105,9 @@ export const b2bContent: B2BLandingContent = {
     featuresTitle: "Built for Vietnam travel partners",
     featuresCopy:
       "A dedicated B2B source keeps Chalo's partner positioning, consultation workflow, and support promises clear.",
-    faqTitle: "A few final questions",
+    faqTitle: "Quick questions, short answers",
     faqCopy:
-      "Quick answers before you send a request. Keep the brief simple and the team will help shape the next step."
+      "The sales message is simple because the operating model is direct."
   },
   features: [
     {
@@ -123,216 +129,232 @@ export const b2bContent: B2BLandingContent = {
       "Chalo supports travel partners with practical consultation for FIT, family, group, honeymoon, and leisure itineraries across Vietnam."
   },
   trustBand: {
-    eyebrow: "Trusted operating scope",
-    title: "Built for travel agents, operators, DMC partners, and wholesalers across multiple source markets",
+    eyebrow: "Why partners choose Chalo",
+    title: "Lower rates, direct control, local execution",
     description:
-      "Partner with a Vietnam team that keeps communication clear, itineraries flexible, and local coordination close at hand.",
+      "The offer is straightforward: we sell and run the tour in Vietnam ourselves, so pricing and decisions stay closer to the ground.",
     signals: [
       {
-        title: "Fast quotation support",
+        title: "Lowest local rates",
         description:
-          "Consultation stays clear on route shape, service level, and next-step decisions."
+          "Direct operator pricing without reseller layers."
       },
       {
-        title: "Flexible itinerary shaping",
+        title: "Direct Vietnam operator",
         description:
-          "Programs can adjust around traveler type, pacing, and market-specific expectations."
+          "One local team quotes, confirms, and runs the trip."
       },
       {
-        title: "Local Vietnam coordination",
+        title: "Real guest support",
         description:
-          "On-ground planning and supplier alignment stay with a destination-based support team."
+          "Private, family, and group travelers are handled on the ground."
       }
     ]
   },
   partnerFit: {
-    title: "Built for partners who need a reliable Vietnam ground team",
+    title: "Beautiful tours your clients actually want to book",
     description:
-      "Chalo supports travel agents, tour operators, DMC partners, and wholesalers that need flexible itinerary shaping, clear communication, and dependable local coordination."
+      "Lead with strong Vietnam imagery, then back it up with direct local pricing and local tour operation."
   },
   travelerTypes: {
-    title: "Support across the traveler profiles you already sell",
+    title: "Guest types we run most",
     description:
-      "Work with one Vietnam partner across FIT, family, group, honeymoon, and leisure requests with clear operational support.",
+      "Keep the sales pitch short. The route still stays flexible.",
     items: [
       {
-        title: "FIT travelers",
-        description: "Flexible private routes with room to adjust pacing, hotel mix, and local experiences."
+        title: "Private FIT",
+        description: "Fast-moving routes with direct local rate control."
       },
       {
         title: "Families",
-        description: "Balanced itineraries that consider comfort, logistics, and age-friendly sightseeing flow."
+        description: "Comfortable pacing, photogenic stops, and easy logistics."
       },
       {
-        title: "Group tours",
-        description: "Operationally clear programs for shared departures, incentive groups, or series business."
-      },
-      {
-        title: "Honeymoon travelers",
-        description: "Private itineraries with romantic pacing, privacy, and selective upgrades suited to honeymoon requests."
-      },
-      {
-        title: "Leisure travelers",
-        description: "General Vietnam holiday planning for guests who want highlights, culture, and easy coordination."
+        title: "Small groups",
+        description: "Directly operated departures with clear local handling."
       }
     ]
   },
   howItWorks: {
-    title: "Fast, clear booking operations",
+    title: "Short process, net rates first",
     description:
-      "Keep requests moving from brief to guest arrival with short steps and practical handoff points.",
+      "Collect the trip basics, receive our net rates, then add your own margin before offering the package to clients.",
     media: {
       src: "/b2b-operations-partners.jpg",
-      alt: "International travel partners and families hosted by the Chalo Vietnam team.",
-      eyebrow: "Partner group support",
-      title: "Real guests, clear handoffs, local coordination",
+      alt: "Travel guests and partners hosted in Vietnam by the local Chalo operations team.",
+      eyebrow: "Guests already on tour",
+      title: "Real trips, directly handled in Vietnam",
       description:
-        "Use one Vietnam team for quotation, route shaping, supplier alignment, and guest updates."
+        "The same local team quotes the trip and supports the guests on the ground."
     },
     steps: [
       {
-        title: "Share the request brief",
-        description: "Send the source market, traveler type, dates, route goals, and budget direction."
+        title: "Send the trip basics",
+        description: "Share the number of guests, travel dates, and number of days."
       },
       {
-        title: "Review plan and rates",
-        description: "Get route guidance, service scope, and partner-ready rate framing."
+        title: "Receive net rates",
+        description: "We reply with our direct net rates from the Vietnam team."
       },
       {
-        title: "Confirm the itinerary",
-        description: "Approve the route, inclusions, exclusions, and final adjustments before departure."
-      },
-      {
-        title: "Travel with local coordination",
-        description: "Guests move through Vietnam with local support while your team stays updated."
+        title: "Add your markup",
+        description: "You add your own margin, offer the package, and we operate the trip locally."
       }
     ]
   },
   tourStyles: {
-    title: "Sample tour styles for common Vietnam requests",
+    title: "Image-led Vietnam routes",
     description:
-      "Explore the route directions partners commonly request across Vietnam, from classic highlights to lighter leisure extensions.",
+      "Use these route styles to sell faster with less explanation.",
     items: [
       {
         title: "Vietnam highlights",
-        description: "Classic north-to-south itineraries covering major cities, scenery, and easy first-time pacing."
+        description: "Classic first-timer route with big visual appeal."
       },
       {
-        title: "Northern culture",
-        description: "Ha Noi, nearby heritage, mountain culture, and landscape-focused experiences."
+        title: "Northern nature",
+        description: "Mountains, rivers, and limestone scenery."
       },
       {
         title: "Central heritage",
-        description: "Culture-led programs built around heritage cities, architecture, cuisine, and coastal balance."
+        description: "Lantern streets, cuisine, and culture."
       },
       {
         title: "Southern escape",
-        description: "Ho Chi Minh City extensions, Mekong flow, and shorter warm-weather itineraries."
+        description: "City, delta, and lighter pacing."
       },
       {
         title: "Beach extension",
-        description: "Leisure add-ons for guests who want recovery time after touring or city-heavy programs."
+        description: "Easy finish with resort downtime."
       },
       {
-        title: "Honeymoon or family private trips",
-        description: "Private departures with more flexible pacing, room setup needs, and selective experience upgrades."
+        title: "Private family trips",
+        description: "Flexible pace with direct local handling."
       }
     ]
   },
   serviceCommitments: {
-    title: "Service commitments partners can explain with confidence",
+    title: "Why our price stays lower",
     description:
-      "Reinforce the operational points partners need to explain clearly before guests travel.",
+      "The model is direct, so the message stays simple.",
     items: [
       {
-        title: "Clear inclusions and exclusions",
-        description: "Partners receive practical visibility into what is covered and what remains outside scope."
+        title: "No middleman layers",
+        description: "Rates come from our Vietnam operation, not a reseller chain."
       },
       {
-        title: "Practical local recommendations",
-        description: "Route advice reflects real on-ground conditions, pacing, and guest suitability."
+        title: "Direct local decisions",
+        description: "Faster changes on route flow, services, and guest handling."
       },
       {
-        title: "Flexible itinerary adjustments",
-        description: "Programs can be tuned around traveler profile, travel dates, and route priorities."
-      },
-      {
-        title: "Support while guests are in Vietnam",
-        description: "Local coordination continues after booking so issues can be handled during travel."
+        title: "Real on-ground team",
+        description: "The people who quote the tour are close to the team that runs it."
       }
     ]
   },
   finalCta: {
-    eyebrow: "Start with email",
-    title: "Get Vietnam support in your inbox.",
+    eyebrow: "Get direct rates",
+    title: "Send the trip basics. Get net rates back.",
     description:
-      "Leave your work email and Chalo will follow up with the next practical step for partner requests."
+      "Please share the number of guests, travel dates, and number of days. Once we receive the details, we will send our net rates."
   },
   stickyCta: {
-    label: "Talk to a specialist",
+    label: "Get net rates",
     href: "#contact",
-    ariaLabel: "Contact a Chalo travel specialist"
+    ariaLabel: "Get direct net rates from Chalo"
   },
   leadForm: {
-    submitLabel: "Submit",
-    successMessage: "Thanks. We will follow up by email.",
-    errorSummary: "Please enter a valid work email address.",
+    submitLabel: "Get net rates",
+    successMessage: "Thanks. We will review the trip details and send our net rates by email.",
+    errorSummary:
+      "Please enter your work email, number of guests, travel dates, and number of days.",
+    helperText:
+      "Once we receive the details, we will send you our net rates. You can then add your own markup or margin before offering the package to your clients.",
     fields: {
       workEmail: {
-        label: "Email address",
-        placeholder: "Enter your email address"
+        label: "Work email",
+        placeholder: "Your work email"
+      },
+      guestCount: {
+        label: "Number of guests",
+        placeholder: "e.g. 12"
+      },
+      travelDates: {
+        label: "Travel dates",
+        placeholder: "e.g. 12 Aug 2026 - 18 Aug 2026"
+      },
+      numberOfDays: {
+        label: "Number of days",
+        placeholder: "e.g. 7"
       }
     },
     validationMessages: {
-      workEmailInvalid: "Please enter a valid work email address."
+      workEmailInvalid: "Please enter a valid work email address.",
+      guestCountInvalid: "Please enter a valid number of guests.",
+      travelDatesInvalid: "Please enter the travel dates.",
+      numberOfDaysInvalid: "Please enter a valid number of days."
     }
   },
   faq: [
     {
-      question: "Can you support travelers from different source markets?",
+      question: "Do you operate tours directly in Vietnam?",
       answer:
-        "Yes. Chalo is positioned for global travel partners sending guests to Vietnam rather than a single source market."
+        "Yes. Chalo is the local operator, not a middleman reseller."
     },
     {
-      question: "Can you customize tours for FIT, family, honeymoon, leisure, and groups?",
+      question: "Can you support private, family, and group tours?",
       answer:
-        "Yes. Share traveler profile, group size, dates, route goals, and budget direction so the itinerary can be shaped accordingly."
+        "Yes. Those are the main B2B request types we handle."
     },
     {
-      question: "Do you provide partner-friendly rates for travel agents?",
+      question: "Why are your rates lower?",
       answer:
-        "Chalo works around practical partner requirements and clear service scope so travel agents can review value with confidence."
+        "Because pricing is quoted locally in Vietnam without reseller layers on top."
     },
     {
-      question: "How fast can your team respond to new requests?",
+      question: "Can you customize the itinerary?",
       answer:
-        "Response timing depends on route complexity and supplier needs, but the workflow is built around fast, clear consultation instead of long discovery loops."
+        "Yes. Dates, route flow, hotel level, and travel pace can all be adjusted."
     },
     {
-      question: "Do you support guests while they are traveling in Vietnam?",
+      question: "How fast can you quote?",
       answer:
-        "Yes. Local support remains in place while guests are in Vietnam so operational questions and adjustments can be handled during travel."
+        "For straightforward requests, we aim to reply fast with direct local pricing."
     }
   ],
   footer: {
     description:
-      "B2B Vietnam tour planning, quotation support, and local ground coordination for travel agents, operators, DMC partners, and wholesalers.",
+      "Lowest-price Vietnam tours directly operated in Vietnam for travel agents and trade partners.",
     nav: [
-      { label: "Partners", href: "#partner-fit" },
-      { label: "Traveler types", href: "#traveler-types" },
-      { label: "How it works", href: "#how-it-works" },
+      { label: "Proof", href: "#partner-fit" },
+      { label: "Guest types", href: "#traveler-types" },
+      { label: "Process", href: "#how-it-works" },
       { label: "FAQ", href: "#faq" }
     ],
     utilityLinks: [
-      { label: "Email team", href: "#contact" },
-      { label: "Specialist call", href: "#contact" }
+      { label: "Get rates", href: "#contact" },
+      { label: "Email team", href: "#contact" }
     ],
+    partnerMarquee: {
+      items: [
+        "Booking.com",
+        "Agoda",
+        "Trip.com",
+        "Klook",
+        "Traveloka",
+        "Viator",
+        "GetYourGuide",
+        "Expedia TAAP",
+        "TBO Holidays",
+        "MakeMyTrip"
+      ]
+    },
     copyright: "© 2026 Chalo. All rights reserved."
   },
   seo: {
-    title: "Chalo | Best-value Vietnam tours for global travel partners",
+    title: "Chalo | Lowest-price Vietnam tours direct from local operator",
     description:
-      "Plan flexible Vietnam itineraries with a local team offering fast consultation, clear booking support, and strong value for travel partners.",
+      "Lowest-price Vietnam tours directly operated in Vietnam. Fast B2B quotation for private, family, and group travel with no middleman.",
     ogImagePath: "/og-image.svg"
   }
 };

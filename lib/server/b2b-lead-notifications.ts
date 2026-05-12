@@ -2,7 +2,7 @@ import { sendMail, type MailSendResult } from "@/lib/server/email";
 import type { B2BLeadSubmission } from "@/lib/server/lead-validation";
 
 function formatB2BLeadSubject(lead: B2BLeadSubmission) {
-  return `[Chalo B2B Lead] ${lead.workEmail}`;
+  return `[Chalo B2B Lead] ${lead.guestCount} guests | ${lead.numberOfDays} days | ${lead.workEmail}`;
 }
 
 function formatB2BLeadText(lead: B2BLeadSubmission) {
@@ -11,8 +11,14 @@ function formatB2BLeadText(lead: B2BLeadSubmission) {
     "",
     `Variant: ${lead.variant}`,
     `Work email: ${lead.workEmail}`,
+    `Number of guests: ${lead.guestCount}`,
+    `Travel dates: ${lead.travelDates}`,
+    `Number of days: ${lead.numberOfDays}`,
     `Page path: ${lead.pagePath || "Not provided"}`,
-    `Submitted at: ${lead.submittedAt}`
+    `Submitted at: ${lead.submittedAt}`,
+    "",
+    "Next step:",
+    "Send net rates back to the partner so they can add their own markup or margin."
   ].join("\n");
 }
 

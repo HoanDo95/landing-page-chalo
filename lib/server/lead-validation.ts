@@ -6,6 +6,9 @@ export type LeadVariant = "b2b" | "b2c";
 export interface B2BLeadSubmission {
   variant: "b2b";
   workEmail: string;
+  guestCount: number;
+  travelDates: string;
+  numberOfDays: number;
   pagePath?: string;
   submittedAt: string;
 }
@@ -25,6 +28,9 @@ export type LeadFieldName =
   | "variant"
   | "name"
   | "workEmail"
+  | "guestCount"
+  | "travelDates"
+  | "numberOfDays"
   | "sourceMarket"
   | "pagePath"
   | "submittedAt"
@@ -64,6 +70,9 @@ const STRING_LIMITS: Record<LeadFieldName, number> = {
   variant: 12,
   name: 120,
   workEmail: 180,
+  guestCount: 12,
+  travelDates: 120,
+  numberOfDays: 12,
   sourceMarket: 180,
   pagePath: 300,
   submittedAt: 80,
@@ -101,6 +110,22 @@ function normalizeSubmittedAt(value: unknown) {
   }
 
   return parsed.toISOString();
+}
+
+function normalizePositiveInteger(value: unknown, field: "guestCount" | "numberOfDays") {
+  const normalized = normalizeString(value, field);
+
+  if (!normalized) {
+    return null;
+  }
+
+  const parsed = Number.parseInt(normalized, 10);
+
+  if (!Number.isFinite(parsed) || parsed <= 0) {
+    return null;
+  }
+
+  return parsed;
 }
 
 function validateBaseLeadPayload(
@@ -176,11 +201,53 @@ export function validateB2BLeadPayload(payload: unknown): LeadValidationResult<B
     return validation;
   }
 
+  if (!isRecord(payload)) {
+    return {
+      ok: false,
+      code: "validation_error",
+      message: "Please check the form and try again.",
+      fieldErrors: {
+        guestCount: "Please enter a valid number of guests.",
+        travelDates: "Please enter the travel dates.",
+        numberOfDays: "Please enter a valid number of days."
+      }
+    };
+  }
+
+  const guestCount = normalizePositiveInteger(payload.guestCount, "guestCount");
+  const travelDates = normalizeString(payload.travelDates, "travelDates");
+  const numberOfDays = normalizePositiveInteger(payload.numberOfDays, "numberOfDays");
+  const fieldErrors: LeadFieldErrors = {};
+
+  if (!guestCount) {
+    fieldErrors.guestCount = "Please enter a valid number of guests.";
+  }
+
+  if (!travelDates) {
+    fieldErrors.travelDates = "Please enter the travel dates.";
+  }
+
+  if (!numberOfDays) {
+    fieldErrors.numberOfDays = "Please enter a valid number of days.";
+  }
+
+  if (Object.keys(fieldErrors).length > 0) {
+    return {
+      ok: false,
+      code: "validation_error",
+      message: "Please check the form and try again.",
+      fieldErrors
+    };
+  }
+
   return {
     ok: true,
     value: {
       variant: "b2b",
       workEmail: validation.value.workEmail,
+      guestCount: guestCount as number,
+      travelDates,
+      numberOfDays: numberOfDays as number,
       pagePath: validation.value.pagePath,
       submittedAt: validation.value.submittedAt
     }
