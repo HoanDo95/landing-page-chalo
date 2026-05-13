@@ -3,7 +3,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 
 import { B2CLeadFormModal } from "@/components/b2c/b2c-lead-form-modal";
-import { useGatedContent } from "@/components/b2c/use-gated-content";
+import { getGatedContentRenderState, useGatedContent } from "@/components/b2c/use-gated-content";
 import type { LandingLeadFormContent } from "@/lib/landing-content";
 
 interface GatedContentOverlayProps {
@@ -21,9 +21,13 @@ export function GatedContentOverlay({
 }: GatedContentOverlayProps) {
   const { isChecking, isUnlocked, unlock } = useGatedContent({ storageKey, expiryDays });
   const [showToast, setShowToast] = useState(false);
+  const { shouldLockContent, shouldShowOverlay, shouldShowModal } = getGatedContentRenderState({
+    isChecking,
+    isUnlocked
+  });
 
   useEffect(() => {
-    if (isChecking || isUnlocked) {
+    if (!shouldLockContent) {
       document.body.classList.remove("b2c-gate-locked");
       return;
     }
@@ -33,7 +37,7 @@ export function GatedContentOverlay({
     return () => {
       document.body.classList.remove("b2c-gate-locked");
     };
-  }, [isChecking, isUnlocked]);
+  }, [shouldLockContent]);
 
   function handleSuccess() {
     unlock();
@@ -43,11 +47,11 @@ export function GatedContentOverlay({
 
   return (
     <>
-      <div className={!isChecking && !isUnlocked ? "b2c-gated-content b2c-gated-content--locked" : "b2c-gated-content"}>
+      <div className={shouldLockContent ? "b2c-gated-content b2c-gated-content--locked" : "b2c-gated-content"}>
         {children}
       </div>
 
-      {!isChecking && !isUnlocked ? (
+      {shouldShowOverlay ? (
         <div
           aria-label="Unlock Vietnam tour packages"
           aria-modal="true"
@@ -55,9 +59,11 @@ export function GatedContentOverlay({
           role="dialog"
         >
           <div className="b2c-gate-overlay__backdrop" aria-hidden="true" />
-          <div className="b2c-gate-overlay__modal">
-            <B2CLeadFormModal content={formContent} onSuccess={handleSuccess} />
-          </div>
+          {shouldShowModal ? (
+            <div className="b2c-gate-overlay__modal">
+              <B2CLeadFormModal content={formContent} onSuccess={handleSuccess} />
+            </div>
+          ) : null}
         </div>
       ) : null}
 

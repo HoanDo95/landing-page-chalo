@@ -11,6 +11,11 @@ interface GateTimestampOptions {
   expiryDays: number;
 }
 
+interface GateRenderStateOptions {
+  isChecking: boolean;
+  isUnlocked: boolean;
+}
+
 export function isGateTimestampValid({ timestamp, nowMs, expiryDays }: GateTimestampOptions) {
   if (!timestamp) {
     return false;
@@ -23,6 +28,16 @@ export function isGateTimestampValid({ timestamp, nowMs, expiryDays }: GateTimes
   }
 
   return nowMs - storedMs < expiryDays * 24 * 60 * 60 * 1000;
+}
+
+export function getGatedContentRenderState({ isChecking, isUnlocked }: GateRenderStateOptions) {
+  const shouldLockContent = isChecking || !isUnlocked;
+
+  return {
+    shouldLockContent,
+    shouldShowOverlay: shouldLockContent,
+    shouldShowModal: !isChecking && !isUnlocked
+  };
 }
 
 export function useGatedContent({
