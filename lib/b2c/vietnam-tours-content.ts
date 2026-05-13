@@ -486,16 +486,43 @@ export const b2cContent: LandingContent = {
   },
   leadForm: {
     submitLabel: "Get quote",
-    successMessage: "Thank you. Chalo Travel will contact you within 15 minutes.",
+    successMessage: "Thank you. You can now browse the tours.",
     errorSummary: "Please check your tour request details.",
     fields: {
       workEmail: {
         label: "Email",
         placeholder: "you@example.com"
+      },
+      numberOfPeople: {
+        label: "Số người"
+      },
+      travelMonth: {
+        label: "Tháng đi"
+      },
+      numberOfNights: {
+        label: "Số đêm"
+      },
+      notes: {
+        label: "Ghi chú",
+        placeholder: "Bạn muốn đi biển, nghỉ dưỡng, hay có yêu cầu đặc biệt?"
+      },
+      phone: {
+        label: "Số điện thoại",
+        placeholder: "+84 901 234 567"
+      },
+      city: {
+        label: "Thành phố",
+        placeholder: "Bạn đang ở thành phố nào?"
       }
     },
     validationMessages: {
-      workEmailInvalid: "Please enter a valid email address."
+      workEmailInvalid: "Please enter a valid email address.",
+      numberOfPeopleInvalid: "Vui lòng chọn số người.",
+      travelMonthInvalid: "Vui lòng chọn tháng đi.",
+      numberOfNightsInvalid: "Vui lòng chọn số đêm.",
+      phoneInvalid: "Vui lòng nhập số điện thoại hợp lệ.",
+      cityInvalid: "Vui lòng nhập thành phố.",
+      notesTooLong: "Ghi chú tối đa 500 ký tự."
     }
   },
   faq: [

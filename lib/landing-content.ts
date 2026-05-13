@@ -180,7 +180,7 @@ export interface LandingStickyCtaContent {
 
 export interface LandingLeadFormFieldContent {
   label: string;
-  placeholder: string;
+  placeholder?: string;
 }
 
 export interface LandingLeadFormContent {
@@ -193,12 +193,24 @@ export interface LandingLeadFormContent {
     guestCount?: LandingLeadFormFieldContent;
     travelDates?: LandingLeadFormFieldContent;
     numberOfDays?: LandingLeadFormFieldContent;
+    numberOfPeople?: LandingLeadFormFieldContent;
+    travelMonth?: LandingLeadFormFieldContent;
+    numberOfNights?: LandingLeadFormFieldContent;
+    notes?: LandingLeadFormFieldContent;
+    phone?: LandingLeadFormFieldContent;
+    city?: LandingLeadFormFieldContent;
   };
   validationMessages: {
     workEmailInvalid: string;
     guestCountInvalid?: string;
     travelDatesInvalid?: string;
     numberOfDaysInvalid?: string;
+    numberOfPeopleInvalid?: string;
+    travelMonthInvalid?: string;
+    numberOfNightsInvalid?: string;
+    phoneInvalid?: string;
+    cityInvalid?: string;
+    notesTooLong?: string;
   };
 }
 

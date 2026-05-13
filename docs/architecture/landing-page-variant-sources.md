@@ -28,6 +28,7 @@ app/
     leads/
       route.ts
       b2b/route.ts
+      b2c/route.ts
   (default)/
     layout.tsx
     page.tsx
@@ -49,7 +50,11 @@ components/
     lead-capture-form.tsx
   b2c/
     landing-page.tsx
+    b2c-gate-submission.ts
+    b2c-lead-form-modal.tsx
+    gated-content-overlay.tsx
     lead-capture-form.tsx
+    use-gated-content.ts
     ChatWidget/
       ChatWidget.tsx
       ChatButton.tsx
@@ -70,7 +75,9 @@ lib/
   b2b/
     content.ts
   b2c/
+    b2c-lead-validation.ts
     content.ts
+    google-sheets.ts
     vietnam-tours-content.ts
   server/
     b2b-lead-notifications.ts
@@ -131,6 +138,9 @@ docs/
 - `app/api/leads/route.ts`
   - Accepts the B2C tours lead payload
   - Validates the B2C form contract and triggers the B2C lead notification flow
+- `app/api/leads/b2c/route.ts`
+  - Scaffolds the pending B2C gated lead-capture Google Sheets payload path
+  - Not called by the current modal while Google Sheets storage remains pending
 - `app/globals.css`
   - Shared visual system imported by each route-group root layout
 - `app/icon.png` and `app/apple-icon.png`
@@ -149,6 +159,14 @@ docs/
   - Owns B2C trust metric layout and icon treatment
 - `components/b2c/lead-capture-form.tsx`
   - Owns the B2C tour lead form, tour selection, local validation, success state, and B2C submit-event calls
+- `components/b2c/b2c-lead-form-modal.tsx`
+  - Owns the B2C gated modal form fields, client-side validation, and local-only unlock submit behavior
+- `components/b2c/b2c-gate-submission.ts`
+  - Resolves whether a validated B2C gated submission should unlock content locally or keep showing errors
+- `components/b2c/gated-content-overlay.tsx`
+  - Owns the B2C hard-gate overlay, page lock behavior, modal composition, and unlock toast
+- `components/b2c/use-gated-content.ts`
+  - Owns the B2C localStorage unlock timestamp and 30-day expiry check
 - `components/b2c/ChatWidget/`
   - Owns the B2C floating WhatsApp widget, panel copy, close behavior, and external chat CTA surface
 - `components/shared/landing-primitives.tsx`
@@ -169,6 +187,10 @@ docs/
   - Owns B2C copy, stats, metadata, and CTA text
 - `lib/b2c/vietnam-tours-content.ts`
   - Owns B2C Vietnam Tours packages, testimonials, trust metrics, lead form content, SEO, and route content export
+- `lib/b2c/b2c-lead-validation.ts`
+  - Owns B2C gated lead-capture payload normalization and validation
+- `lib/b2c/google-sheets.ts`
+  - Owns B2C gated lead-capture Google Sheets row formatting, service-account auth, and append behavior
 - `lib/content.ts`
   - Barrel export for convenience only
 - `lib/server/email.ts`
