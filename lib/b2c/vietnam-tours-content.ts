@@ -494,35 +494,35 @@ export const b2cContent: LandingContent = {
         placeholder: "you@example.com"
       },
       numberOfPeople: {
-        label: "Số người"
+        label: "Number of people"
       },
       travelMonth: {
-        label: "Tháng đi"
+        label: "Travel month"
       },
       numberOfNights: {
-        label: "Số đêm"
+        label: "Number of nights"
       },
       notes: {
-        label: "Ghi chú",
-        placeholder: "Bạn muốn đi biển, nghỉ dưỡng, hay có yêu cầu đặc biệt?"
+        label: "Notes",
+        placeholder: "Do you prefer beaches, resorts, or have any special requests?"
       },
       phone: {
-        label: "Số điện thoại",
+        label: "Phone number",
         placeholder: "+91 98765 43210"
       },
       city: {
-        label: "Thành phố",
-        placeholder: "Bạn đang ở thành phố nào?"
+        label: "City",
+        placeholder: "Which city are you based in?"
       }
     },
     validationMessages: {
       workEmailInvalid: "Please enter a valid email address.",
-      numberOfPeopleInvalid: "Vui lòng chọn số người.",
-      travelMonthInvalid: "Vui lòng chọn tháng đi.",
-      numberOfNightsInvalid: "Vui lòng chọn số đêm.",
-      phoneInvalid: "Vui lòng nhập số điện thoại hợp lệ.",
-      cityInvalid: "Vui lòng nhập thành phố.",
-      notesTooLong: "Ghi chú tối đa 500 ký tự."
+      numberOfPeopleInvalid: "Please enter the number of people.",
+      travelMonthInvalid: "Please select your travel month.",
+      numberOfNightsInvalid: "Please enter the number of nights.",
+      phoneInvalid: "Please enter a valid phone number.",
+      cityInvalid: "Please enter your city.",
+      notesTooLong: "Notes must be 500 characters or fewer."
     }
   },
   faq: [
