@@ -58,6 +58,18 @@ function labelWithRequired(label: string) {
   );
 }
 
+function FieldError({ message }: { message?: string }) {
+  return (
+    <span
+      aria-hidden={!message}
+      aria-live="polite"
+      className={message ? "b2c-form-field-error" : "b2c-form-field-error b2c-form-field-error--hidden"}
+    >
+      {message || "No error"}
+    </span>
+  );
+}
+
 export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) {
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -108,11 +120,13 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
         <p>Share a few trip details so we can suggest the most relevant routes, prices, and availability.</p>
       </div>
 
-      {statusMessage ? (
-        <p className="b2c-gate-form__status" role="alert">
-          {statusMessage}
-        </p>
-      ) : null}
+      <p
+        aria-hidden={!statusMessage}
+        className={statusMessage ? "b2c-gate-form__status" : "b2c-gate-form__status b2c-gate-form__status--hidden"}
+        role={statusMessage ? "alert" : undefined}
+      >
+        {statusMessage || "No form errors"}
+      </p>
 
       <div className="b2c-gate-form__grid">
         <label className="b2c-form-field" htmlFor="b2c-gate-people">
@@ -147,7 +161,7 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
               +
             </button>
           </div>
-          {errors.numberOfPeople ? <span className="b2c-form-field-error">{errors.numberOfPeople}</span> : null}
+          <FieldError message={errors.numberOfPeople} />
         </label>
 
         <label className="b2c-form-field" htmlFor="b2c-gate-month">
@@ -166,7 +180,7 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
               </option>
             ))}
           </select>
-          {errors.travelMonth ? <span className="b2c-form-field-error">{errors.travelMonth}</span> : null}
+          <FieldError message={errors.travelMonth} />
         </label>
 
         <label className="b2c-form-field" htmlFor="b2c-gate-nights">
@@ -201,7 +215,7 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
               +
             </button>
           </div>
-          {errors.numberOfNights ? <span className="b2c-form-field-error">{errors.numberOfNights}</span> : null}
+          <FieldError message={errors.numberOfNights} />
         </label>
 
         <label className="b2c-form-field" htmlFor="b2c-gate-phone">
@@ -217,7 +231,7 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
             value={values.phone}
             onChange={(event) => updateValue("phone", event.target.value)}
           />
-          {errors.phone ? <span className="b2c-form-field-error">{errors.phone}</span> : null}
+          <FieldError message={errors.phone} />
         </label>
 
         <label className="b2c-form-field" htmlFor="b2c-gate-city">
@@ -232,7 +246,7 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
             value={values.city}
             onChange={(event) => updateValue("city", event.target.value)}
           />
-          {errors.city ? <span className="b2c-form-field-error">{errors.city}</span> : null}
+          <FieldError message={errors.city} />
         </label>
       </div>
 
@@ -249,7 +263,7 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
           onChange={(event) => updateValue("notes", event.target.value)}
         />
         <span className="b2c-gate-form__count">{notesLength}/500</span>
-        {errors.notes ? <span className="b2c-form-field-error">{errors.notes}</span> : null}
+        <FieldError message={errors.notes} />
       </label>
 
       <button className="button primary b2c-gate-form__submit" type="submit">

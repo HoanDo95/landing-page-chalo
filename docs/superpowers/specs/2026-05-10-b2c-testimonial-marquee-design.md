@@ -1,8 +1,8 @@
-# B2C Testimonial Marquee Design
+# B2C Testimonial Gallery Design
 
 ## Goal
 
-Turn the B2C testimonial section into a richer social-proof band with more traveler comments, smaller review cards, and a continuous two-row marquee that pauses on hover.
+Turn the B2C testimonial section into a tighter social-proof gallery with three featured traveler stories, hover-reveal review content, and click-through trip albums.
 
 ## Scope
 
@@ -14,16 +14,26 @@ Turn the B2C testimonial section into a richer social-proof band with more trave
 
 ## Interaction
 
-Desktop and tablet viewports show two horizontal rows of compact testimonial cards. Each row loops continuously, with the second row offset and moving in the opposite direction so the section feels populated without requiring manual interaction. Hovering or focusing within the testimonial marquee pauses both rows so users can read a card.
+Desktop viewports show a framed testimonial surface inspired by editorial gallery layouts: a small label, divider rule, strong headline, and three tall cards. Each card keeps the traveler surface visible at rest, then reveals the quote and rating on hover or keyboard focus.
 
-Small screens keep the compact cards and the same loop, with narrower card widths. Users who prefer reduced motion get a static horizontally scrollable list instead of automatic animation.
+Clicking or tapping a card opens a modal dialog with that traveler's album. The modal uses one active image, left and right navigation controls, a visible image counter, and a thumbnail strip so larger albums remain fast to browse. The quote, location, trip label, and rating stay visible beside the active image instead of being pushed below a long gallery. Mobile keeps the same three stories in a single-column stack, with click/tap as the primary interaction because hover is not available.
 
 ## Content
 
-The section should include enough reviews to make the loop feel continuous. Review copy remains concise, specific, and consumer-facing: pricing clarity, tour pacing, family comfort, hotel/transfer reliability, and fast consultation.
+The section should feature only three traveler stories. Each traveler entry needs:
+
+- one quote
+- rating
+- traveler name
+- traveler location
+- trip label
+- album images for the modal
+
+Portrait images may be added later. Until then, the cards should still render intentionally with a monogram or other lightweight placeholder treatment.
 
 ## Verification
 
+- `node --test --experimental-strip-types tests/b2c-testimonial-gallery.test.mjs`
 - `./node_modules/.bin/tsc --noEmit`
 - `npm run build:b2c`
-- Browser check at `/b2c` to confirm the marquee loops, cards are smaller, and hover pauses animation.
+- Browser check at `/b2c` to confirm the three-card gallery, hover reveal, and click-through album dialog.

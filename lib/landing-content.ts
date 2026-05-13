@@ -164,6 +164,10 @@ export interface LandingTestimonial {
   tripInfo: string;
   rating: number;
   avatarSrc?: string;
+  albumImages?: {
+    src: string;
+    alt: string;
+  }[];
 }
 
 export interface LandingTrustMetric {

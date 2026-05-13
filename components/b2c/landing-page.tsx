@@ -64,11 +64,7 @@ export function B2CLandingPage({ content }: Props) {
     { label: "Flexible date support", tone: "soft" },
     { label: "Advice within 5 minutes", tone: "strong" }
   ] as const;
-  const testimonials = content.testimonials ?? [];
-  const testimonialRows = [
-    testimonials.filter((_, index) => index % 2 === 0),
-    testimonials.filter((_, index) => index % 2 === 1)
-  ].filter((row) => row.length > 0);
+  const testimonials = (content.testimonials ?? []).slice(0, 3);
   const startingPrice = tourPackages.length
     ? Math.min(...tourPackages.map((tour) => tour.priceSale))
     : null;
@@ -338,37 +334,32 @@ export function B2CLandingPage({ content }: Props) {
                   <strong>{averageRating ? `${averageRating.toFixed(1)}/5` : "Verified"} average rating</strong>
                   <span>from post-trip traveler feedback</span>
                 </div>
-                <SectionHeading
-                  title="What travelers say"
-                  copy="Traveler comments now sit right below the inquiry form, so reassurance stays close to the final decision point."
-                  align="start"
-                />
-                <div className="testimonials-marquee" aria-label="Traveler testimonials carousel">
-                  {testimonialRows.map((row, rowIndex) => (
-                    <div
-                      className={`testimonial-marquee-row testimonial-marquee-row--${rowIndex === 0 ? "primary" : "secondary"}`}
-                      key={`testimonial-row-${rowIndex}`}
-                    >
-                      <div className="testimonial-marquee-track">
-                        <div className="testimonial-marquee-group">
-                          {row.map((testimonial) => (
-                            <TestimonialCard
-                              key={`${testimonial.authorName}-${testimonial.tripInfo}`}
-                              {...testimonial}
-                            />
-                          ))}
-                        </div>
-                        <div className="testimonial-marquee-group" aria-hidden="true">
-                          {row.map((testimonial) => (
-                            <TestimonialCard
-                              key={`${testimonial.authorName}-${testimonial.tripInfo}-duplicate`}
-                              {...testimonial}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                <div className="b2c-testimonial-spotlight">
+                  <div className="b2c-testimonial-spotlight__topline">
+                    <span className="b2c-testimonial-spotlight__eyebrow">Testimonials</span>
+                    <span className="b2c-testimonial-spotlight__rule" aria-hidden="true" />
+                  </div>
+                  <SectionHeading
+                    title="Our happy clients say"
+                    copy="Three selected traveler stories keep trust close to the inquiry moment while opening each trip album in one click."
+                    align="start"
+                  />
+                  <div className="b2c-testimonial-gallery" aria-label="Featured traveler stories">
+                    {testimonials.map((testimonial) => (
+                      <TestimonialCard
+                        key={`${testimonial.authorName}-${testimonial.tripInfo}`}
+                        {...testimonial}
+                      />
+                    ))}
+                  </div>
+                  <div className="b2c-testimonial-spotlight__footer" aria-hidden="true">
+                    {testimonials.map((testimonial) => (
+                      <span
+                        className="b2c-testimonial-spotlight__marker"
+                        key={`${testimonial.authorName}-${testimonial.tripInfo}-marker`}
+                      />
+                    ))}
+                  </div>
                 </div>
               </PageWrap>
             </section>
