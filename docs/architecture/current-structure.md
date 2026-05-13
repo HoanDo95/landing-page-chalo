@@ -37,6 +37,7 @@ components/
     lead-capture-form.tsx
   b2c/
     AnimatedMetricValue.tsx
+    b2c-gate-form-utils.ts
     b2c-gate-submission.ts
     b2c-lead-form-modal.tsx
     ChatWidget/

@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 
+import { coercePositiveIntegerInput } from "@/components/b2c/b2c-gate-form-utils";
 import { resolveB2CGateSubmission } from "@/components/b2c/b2c-gate-submission";
 import {
   validateB2CGatedLead,
@@ -45,6 +46,10 @@ function toLeadData(values: FormValues): Partial<B2CGatedLeadData> {
   };
 }
 
+function getFieldError(field: FieldName, values: FormValues) {
+  return validateB2CGatedLead(toLeadData(values)).fieldErrors[field];
+}
+
 function labelWithRequired(label: string) {
   return (
     <>
@@ -60,9 +65,15 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
   const notesLength = values.notes.length;
 
   function updateValue(field: FieldName, value: string) {
-    setValues((current) => ({ ...current, [field]: value }));
-    setErrors((current) => ({ ...current, [field]: undefined }));
+    const nextValues = { ...values, [field]: value };
+
+    setValues(nextValues);
+    setErrors((current) => ({ ...current, [field]: getFieldError(field, nextValues) }));
     setStatusMessage("");
+  }
+
+  function updateNumberValue(field: "numberOfPeople" | "numberOfNights", value: string) {
+    updateValue(field, coercePositiveIntegerInput(value));
   }
 
   function stepNumberValue(field: "numberOfPeople" | "numberOfNights", direction: -1 | 1) {
@@ -93,8 +104,8 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
     <form className="b2c-gate-form" onSubmit={handleSubmit}>
       <div className="b2c-gate-form__intro">
         <p className="eyebrow">Free Vietnam tour quote</p>
-        <h2>Unlock current routes and prices.</h2>
-        <p>Share your trip details once. You can browse all tours after submission.</p>
+        <h2>Start planning your Vietnam trip.</h2>
+        <p>Share a few trip details so we can suggest the most relevant routes, prices, and availability.</p>
       </div>
 
       {statusMessage ? (
@@ -120,10 +131,12 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
               className={errors.numberOfPeople ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
               id="b2c-gate-people"
               inputMode="numeric"
-              placeholder="0"
+              min={1}
+              placeholder="1"
+              step={1}
               type="number"
               value={values.numberOfPeople}
-              onChange={(event) => updateValue("numberOfPeople", event.target.value)}
+              onChange={(event) => updateNumberValue("numberOfPeople", event.target.value)}
             />
             <button
               aria-label="Increase number of people"
@@ -172,10 +185,12 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
               className={errors.numberOfNights ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
               id="b2c-gate-nights"
               inputMode="numeric"
-              placeholder="0"
+              min={1}
+              placeholder="1"
+              step={1}
               type="number"
               value={values.numberOfNights}
-              onChange={(event) => updateValue("numberOfNights", event.target.value)}
+              onChange={(event) => updateNumberValue("numberOfNights", event.target.value)}
             />
             <button
               aria-label="Increase number of nights"
