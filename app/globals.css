@@ -4526,6 +4526,48 @@ body.b2c-gate-locked {
   box-shadow: 0 0 0 4px rgba(188, 113, 85, 0.14);
 }
 
+.b2c-number-stepper {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 42px;
+  align-items: stretch;
+}
+
+.b2c-number-stepper .b2c-form-input {
+  border-radius: 0;
+  text-align: center;
+}
+
+.b2c-number-stepper__button {
+  display: grid;
+  min-height: 46px;
+  place-items: center;
+  border: 1px solid rgba(142, 142, 149, 0.28);
+  background: rgba(142, 142, 149, 0.08);
+  color: var(--color-obsidian);
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 850;
+}
+
+.b2c-number-stepper__button:first-child {
+  border-radius: 8px 0 0 8px;
+  border-right: 0;
+}
+
+.b2c-number-stepper__button:last-child {
+  border-left: 0;
+  border-radius: 0 8px 8px 0;
+}
+
+.b2c-number-stepper__button:hover {
+  background: rgba(188, 113, 85, 0.12);
+}
+
+.b2c-number-stepper__button:focus-visible {
+  outline: 3px solid rgba(188, 113, 85, 0.28);
+  outline-offset: 2px;
+}
+
 .b2c-gate-form textarea.b2c-form-input {
   min-height: 116px;
   resize: vertical;

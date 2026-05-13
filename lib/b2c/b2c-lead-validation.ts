@@ -35,8 +35,8 @@ function normalizePhone(value: unknown) {
   return typeof value === "string" ? value.replace(/[\s()-]/g, "") : "";
 }
 
-function isIntegerInRange(value: unknown, min: number, max: number) {
-  return typeof value === "number" && Number.isInteger(value) && value >= min && value <= max;
+function isPositiveInteger(value: unknown) {
+  return typeof value === "number" && Number.isInteger(value) && value >= 1;
 }
 
 export function validateB2CGatedLead(
@@ -44,7 +44,7 @@ export function validateB2CGatedLead(
 ): B2CGatedLeadValidationResult {
   const fieldErrors: B2CGatedLeadValidationResult["fieldErrors"] = {};
 
-  if (!isIntegerInRange(data.numberOfPeople, 1, 20)) {
+  if (!isPositiveInteger(data.numberOfPeople)) {
     fieldErrors.numberOfPeople = "Select number of people.";
   }
 
@@ -52,7 +52,7 @@ export function validateB2CGatedLead(
     fieldErrors.travelMonth = "Select travel month.";
   }
 
-  if (!isIntegerInRange(data.numberOfNights, 1, 30)) {
+  if (!isPositiveInteger(data.numberOfNights)) {
     fieldErrors.numberOfNights = "Select number of nights.";
   }
 

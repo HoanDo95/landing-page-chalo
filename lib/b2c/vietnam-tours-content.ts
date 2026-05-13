@@ -508,7 +508,7 @@ export const b2cContent: LandingContent = {
       },
       phone: {
         label: "Số điện thoại",
-        placeholder: "+84 901 234 567"
+        placeholder: "+91 98765 43210"
       },
       city: {
         label: "Thành phố",
