@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 
 import { resolveB2CGateSubmission } from "@/components/b2c/b2c-gate-submission";
 import {
@@ -58,13 +58,17 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
   const [errors, setErrors] = useState<FieldErrors>({});
   const [statusMessage, setStatusMessage] = useState("");
   const notesLength = values.notes.length;
-  const peopleOptions = useMemo(() => Array.from({ length: 20 }, (_, index) => index + 1), []);
-  const nightsOptions = useMemo(() => Array.from({ length: 30 }, (_, index) => index + 1), []);
 
   function updateValue(field: FieldName, value: string) {
     setValues((current) => ({ ...current, [field]: value }));
     setErrors((current) => ({ ...current, [field]: undefined }));
     setStatusMessage("");
+  }
+
+  function stepNumberValue(field: "numberOfPeople" | "numberOfNights", direction: -1 | 1) {
+    const currentValue = Number.parseInt(values[field], 10);
+    const nextValue = Number.isFinite(currentValue) ? Math.max(1, currentValue + direction) : 1;
+    updateValue(field, String(nextValue));
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -102,20 +106,34 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
       <div className="b2c-gate-form__grid">
         <label className="b2c-form-field" htmlFor="b2c-gate-people">
           <span>{labelWithRequired(content.fields.numberOfPeople?.label ?? "Number of people")}</span>
-          <select
-            aria-invalid={Boolean(errors.numberOfPeople)}
-            className={errors.numberOfPeople ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
-            id="b2c-gate-people"
-            value={values.numberOfPeople}
-            onChange={(event) => updateValue("numberOfPeople", event.target.value)}
-          >
-            <option value="">Select</option>
-            {peopleOptions.map((count) => (
-              <option key={count} value={count}>
-                {count}
-              </option>
-            ))}
-          </select>
+          <div className="b2c-number-stepper">
+            <button
+              aria-label="Decrease number of people"
+              className="b2c-number-stepper__button"
+              type="button"
+              onClick={() => stepNumberValue("numberOfPeople", -1)}
+            >
+              -
+            </button>
+            <input
+              aria-invalid={Boolean(errors.numberOfPeople)}
+              className={errors.numberOfPeople ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
+              id="b2c-gate-people"
+              inputMode="numeric"
+              placeholder="0"
+              type="number"
+              value={values.numberOfPeople}
+              onChange={(event) => updateValue("numberOfPeople", event.target.value)}
+            />
+            <button
+              aria-label="Increase number of people"
+              className="b2c-number-stepper__button"
+              type="button"
+              onClick={() => stepNumberValue("numberOfPeople", 1)}
+            >
+              +
+            </button>
+          </div>
           {errors.numberOfPeople ? <span className="b2c-form-field-error">{errors.numberOfPeople}</span> : null}
         </label>
 
@@ -140,20 +158,34 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
 
         <label className="b2c-form-field" htmlFor="b2c-gate-nights">
           <span>{labelWithRequired(content.fields.numberOfNights?.label ?? "Number of nights")}</span>
-          <select
-            aria-invalid={Boolean(errors.numberOfNights)}
-            className={errors.numberOfNights ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
-            id="b2c-gate-nights"
-            value={values.numberOfNights}
-            onChange={(event) => updateValue("numberOfNights", event.target.value)}
-          >
-            <option value="">Select</option>
-            {nightsOptions.map((count) => (
-              <option key={count} value={count}>
-                {count}
-              </option>
-            ))}
-          </select>
+          <div className="b2c-number-stepper">
+            <button
+              aria-label="Decrease number of nights"
+              className="b2c-number-stepper__button"
+              type="button"
+              onClick={() => stepNumberValue("numberOfNights", -1)}
+            >
+              -
+            </button>
+            <input
+              aria-invalid={Boolean(errors.numberOfNights)}
+              className={errors.numberOfNights ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
+              id="b2c-gate-nights"
+              inputMode="numeric"
+              placeholder="0"
+              type="number"
+              value={values.numberOfNights}
+              onChange={(event) => updateValue("numberOfNights", event.target.value)}
+            />
+            <button
+              aria-label="Increase number of nights"
+              className="b2c-number-stepper__button"
+              type="button"
+              onClick={() => stepNumberValue("numberOfNights", 1)}
+            >
+              +
+            </button>
+          </div>
           {errors.numberOfNights ? <span className="b2c-form-field-error">{errors.numberOfNights}</span> : null}
         </label>
 
@@ -165,7 +197,7 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
             className={errors.phone ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
             id="b2c-gate-phone"
             inputMode="tel"
-            placeholder={content.fields.phone?.placeholder ?? "+84 901 234 567"}
+            placeholder={content.fields.phone?.placeholder ?? "+91 98765 43210"}
             type="tel"
             value={values.phone}
             onChange={(event) => updateValue("phone", event.target.value)}
