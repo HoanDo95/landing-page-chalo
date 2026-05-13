@@ -1,0 +1,213 @@
+"use client";
+
+import { useMemo, useState, type FormEvent } from "react";
+
+import { resolveB2CGateSubmission } from "@/components/b2c/b2c-gate-submission";
+import {
+  validateB2CGatedLead,
+  VALID_TRAVEL_MONTHS,
+  type B2CGatedLeadData
+} from "@/lib/b2c/b2c-lead-validation";
+import type { LandingLeadFormContent } from "@/lib/landing-content";
+
+type FieldName = keyof Pick<
+  B2CGatedLeadData,
+  "numberOfPeople" | "travelMonth" | "numberOfNights" | "phone" | "city" | "notes"
+>;
+
+type FormValues = Record<FieldName, string>;
+type FieldErrors = Partial<Record<FieldName, string>>;
+
+interface B2CLeadFormModalProps {
+  content: LandingLeadFormContent;
+  onSuccess: () => void;
+}
+
+const initialValues: FormValues = {
+  numberOfPeople: "",
+  travelMonth: "",
+  numberOfNights: "",
+  phone: "",
+  city: "",
+  notes: ""
+};
+
+function toLeadData(values: FormValues): Partial<B2CGatedLeadData> {
+  return {
+    numberOfPeople: Number(values.numberOfPeople),
+    travelMonth: values.travelMonth,
+    numberOfNights: Number(values.numberOfNights),
+    phone: values.phone,
+    city: values.city,
+    notes: values.notes || null,
+    pagePath: window.location.pathname,
+    submittedAt: new Date().toISOString()
+  };
+}
+
+function labelWithRequired(label: string) {
+  return (
+    <>
+      {label} <span aria-hidden="true">*</span>
+    </>
+  );
+}
+
+export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) {
+  const [values, setValues] = useState<FormValues>(initialValues);
+  const [errors, setErrors] = useState<FieldErrors>({});
+  const [statusMessage, setStatusMessage] = useState("");
+  const notesLength = values.notes.length;
+  const peopleOptions = useMemo(() => Array.from({ length: 20 }, (_, index) => index + 1), []);
+  const nightsOptions = useMemo(() => Array.from({ length: 30 }, (_, index) => index + 1), []);
+
+  function updateValue(field: FieldName, value: string) {
+    setValues((current) => ({ ...current, [field]: value }));
+    setErrors((current) => ({ ...current, [field]: undefined }));
+    setStatusMessage("");
+  }
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const leadData = toLeadData(values);
+    const submission = resolveB2CGateSubmission(validateB2CGatedLead(leadData));
+
+    if (submission.action === "show_errors") {
+      setErrors(submission.fieldErrors);
+      setStatusMessage(content.errorSummary);
+      return;
+    }
+
+    setErrors({});
+    setStatusMessage("");
+    setValues(initialValues);
+    onSuccess();
+  }
+
+  return (
+    <form className="b2c-gate-form" onSubmit={handleSubmit}>
+      <div className="b2c-gate-form__intro">
+        <p className="eyebrow">Free Vietnam tour quote</p>
+        <h2>Unlock current routes and prices.</h2>
+        <p>Share your trip details once. You can browse all tours after submission.</p>
+      </div>
+
+      {statusMessage ? (
+        <p className="b2c-gate-form__status" role="alert">
+          {statusMessage}
+        </p>
+      ) : null}
+
+      <div className="b2c-gate-form__grid">
+        <label className="b2c-form-field" htmlFor="b2c-gate-people">
+          <span>{labelWithRequired(content.fields.numberOfPeople?.label ?? "Number of people")}</span>
+          <select
+            aria-invalid={Boolean(errors.numberOfPeople)}
+            className={errors.numberOfPeople ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
+            id="b2c-gate-people"
+            value={values.numberOfPeople}
+            onChange={(event) => updateValue("numberOfPeople", event.target.value)}
+          >
+            <option value="">Select</option>
+            {peopleOptions.map((count) => (
+              <option key={count} value={count}>
+                {count}
+              </option>
+            ))}
+          </select>
+          {errors.numberOfPeople ? <span className="b2c-form-field-error">{errors.numberOfPeople}</span> : null}
+        </label>
+
+        <label className="b2c-form-field" htmlFor="b2c-gate-month">
+          <span>{labelWithRequired(content.fields.travelMonth?.label ?? "Travel month")}</span>
+          <select
+            aria-invalid={Boolean(errors.travelMonth)}
+            className={errors.travelMonth ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
+            id="b2c-gate-month"
+            value={values.travelMonth}
+            onChange={(event) => updateValue("travelMonth", event.target.value)}
+          >
+            <option value="">Select</option>
+            {VALID_TRAVEL_MONTHS.map((month) => (
+              <option key={month} value={month}>
+                {month}
+              </option>
+            ))}
+          </select>
+          {errors.travelMonth ? <span className="b2c-form-field-error">{errors.travelMonth}</span> : null}
+        </label>
+
+        <label className="b2c-form-field" htmlFor="b2c-gate-nights">
+          <span>{labelWithRequired(content.fields.numberOfNights?.label ?? "Number of nights")}</span>
+          <select
+            aria-invalid={Boolean(errors.numberOfNights)}
+            className={errors.numberOfNights ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
+            id="b2c-gate-nights"
+            value={values.numberOfNights}
+            onChange={(event) => updateValue("numberOfNights", event.target.value)}
+          >
+            <option value="">Select</option>
+            {nightsOptions.map((count) => (
+              <option key={count} value={count}>
+                {count}
+              </option>
+            ))}
+          </select>
+          {errors.numberOfNights ? <span className="b2c-form-field-error">{errors.numberOfNights}</span> : null}
+        </label>
+
+        <label className="b2c-form-field" htmlFor="b2c-gate-phone">
+          <span>{labelWithRequired(content.fields.phone?.label ?? "Phone number")}</span>
+          <input
+            aria-invalid={Boolean(errors.phone)}
+            autoComplete="tel"
+            className={errors.phone ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
+            id="b2c-gate-phone"
+            inputMode="tel"
+            placeholder={content.fields.phone?.placeholder ?? "+84 901 234 567"}
+            type="tel"
+            value={values.phone}
+            onChange={(event) => updateValue("phone", event.target.value)}
+          />
+          {errors.phone ? <span className="b2c-form-field-error">{errors.phone}</span> : null}
+        </label>
+
+        <label className="b2c-form-field" htmlFor="b2c-gate-city">
+          <span>{labelWithRequired(content.fields.city?.label ?? "City")}</span>
+          <input
+            aria-invalid={Boolean(errors.city)}
+            autoComplete="address-level2"
+            className={errors.city ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
+            id="b2c-gate-city"
+            placeholder={content.fields.city?.placeholder ?? "Your city"}
+            type="text"
+            value={values.city}
+            onChange={(event) => updateValue("city", event.target.value)}
+          />
+          {errors.city ? <span className="b2c-form-field-error">{errors.city}</span> : null}
+        </label>
+      </div>
+
+      <label className="b2c-form-field" htmlFor="b2c-gate-notes">
+        <span>{content.fields.notes?.label ?? "Notes"}</span>
+        <textarea
+          aria-invalid={Boolean(errors.notes)}
+          className={errors.notes ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
+          id="b2c-gate-notes"
+          maxLength={500}
+          placeholder={content.fields.notes?.placeholder ?? "Any special requests..."}
+          rows={4}
+          value={values.notes}
+          onChange={(event) => updateValue("notes", event.target.value)}
+        />
+        <span className="b2c-gate-form__count">{notesLength}/500</span>
+        {errors.notes ? <span className="b2c-form-field-error">{errors.notes}</span> : null}
+      </label>
+
+      <button className="button primary b2c-gate-form__submit" type="submit">
+        {content.submitLabel}
+      </button>
+    </form>
+  );
+}

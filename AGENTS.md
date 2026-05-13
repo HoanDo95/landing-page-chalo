@@ -11,6 +11,7 @@ This repository is a single Next.js app with two deployable variants:
   - `app/(b2c-preview)/b2c/page.tsx` and `app/(b2c-preview)/layout.tsx` serve `/b2c` with fixed `lang="en"`
   - `app/api/leads/route.ts` handles the B2C tours lead submission API
   - `app/api/leads/b2b/route.ts` handles the B2B email-only lead submission API
+  - `app/api/leads/b2c/route.ts` scaffolds the pending B2C gated lead-capture Google Sheets submission API
   - `app/globals.css` holds the shared visual system and motion styles
 - `components/` contains shared primitives plus variant-specific page composition:
   - `components/shared/landing-primitives.tsx` for neutral layout primitives and page landmarks
@@ -20,6 +21,7 @@ This repository is a single Next.js app with two deployable variants:
     - `components/b2b/lead-capture-form.tsx` owns the B2B inline lead form, local-only validation, and success state
   - `components/b2c/` for B2C composition
     - `components/b2c/TourCard.tsx`, `TestimonialCard.tsx`, `MetricBar.tsx`, and `lead-capture-form.tsx` own B2C Vietnam Tours conversion UI
+    - `components/b2c/gated-content-overlay.tsx`, `b2c-lead-form-modal.tsx`, `b2c-gate-submission.ts`, and `use-gated-content.ts` own the B2C gated lead-capture overlay and localStorage unlock state
     - `components/b2c/ChatWidget/` owns the B2C floating WhatsApp entry point, expandable panel, and B2C-only chat CTA surface
 - `lib/` contains variant selection, shared content types, and variant content data:
   - `lib/analytics.ts` is the neutral no-op analytics helper; keep variant-owned event names in variant callers
@@ -28,6 +30,8 @@ This repository is a single Next.js app with two deployable variants:
   - `lib/landing-content.ts`
   - `lib/b2b/content.ts` and `lib/b2c/content.ts` for variant-owned content
   - `lib/b2c/vietnam-tours-content.ts` owns B2C Vietnam Tours package, testimonial, metric, form, and SEO content
+  - `lib/b2c/b2c-lead-validation.ts` owns B2C gated lead-capture validation
+  - `lib/b2c/google-sheets.ts` owns B2C gated lead-capture Google Sheets storage
   - `lib/server/email.ts` owns shared lead-mail transport config and provider delivery only
   - `lib/server/lead-validation.ts` owns variant-specific server-side lead validation
   - `lib/server/b2b-lead-notifications.ts` and `lib/server/b2c-lead-notifications.ts` own variant-specific lead message formatting

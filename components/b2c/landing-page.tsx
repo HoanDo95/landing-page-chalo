@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { AnimatedMetricValue } from "@/components/b2c/AnimatedMetricValue";
 import { ChatWidget } from "@/components/b2c/ChatWidget/ChatWidget";
+import { GatedContentOverlay } from "@/components/b2c/gated-content-overlay";
 import { LeadCaptureForm } from "@/components/b2c/lead-capture-form";
 import { MetricBar } from "@/components/b2c/MetricBar";
 import { TestimonialCard } from "@/components/b2c/TestimonialCard";
@@ -86,6 +87,7 @@ export function B2CLandingPage({ content }: Props) {
 
   return (
     <PageShell className="b2c-page">
+      <GatedContentOverlay formContent={content.leadForm!}>
       <div id="top" />
       <ResponsiveNav
         brand={content.brand}
@@ -399,6 +401,7 @@ export function B2CLandingPage({ content }: Props) {
       </footer>
 
       <ChatWidget />
+      </GatedContentOverlay>
     </PageShell>
   );
 }

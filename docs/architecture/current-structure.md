@@ -21,6 +21,8 @@ app/
     leads/
       b2b/
         route.ts
+      b2c/
+        route.ts
       route.ts
   apple-icon.png
   globals.css
@@ -35,6 +37,8 @@ components/
     lead-capture-form.tsx
   b2c/
     AnimatedMetricValue.tsx
+    b2c-gate-submission.ts
+    b2c-lead-form-modal.tsx
     ChatWidget/
       ChatButton.tsx
       ChatPanel.tsx
@@ -42,6 +46,7 @@ components/
       ChatWidget.tsx
       index.ts
       WhatsAppButton.tsx
+    gated-content-overlay.tsx
     landing-page.tsx
     lead-capture-form.tsx
     MetricBar.tsx
@@ -50,6 +55,7 @@ components/
     tour-packages-section.tsx
     tour-selection-context.tsx
     TourCard.tsx
+    use-gated-content.ts
   shared/
     landing-primitives.tsx
     responsive-nav.tsx
@@ -64,10 +70,13 @@ lib/
   b2b/
     content.ts
   b2c/
+    b2c-lead-validation.ts
     content.ts
+    google-sheets.ts
     tour-pricing.ts
     vietnam-tours-content.ts
   content.ts
+  email-validation.ts
   landing-content.ts
   metadata.ts
   server/
@@ -163,6 +172,7 @@ docs/superpowers/
     2025-05-10-b2c-tour-packages-update.md
     2026-05-10-b2c-testimonial-marquee.md
     2026-05-11-b2c-chat-widget.md
+    2026-05-11-b2c-gated-lead-capture.md
     2026-05-11-b2c-tour-modal-usd.md
     2026-05-11-lead-mail-smtp-local-gmail-production-mailbox.md
   specs/
