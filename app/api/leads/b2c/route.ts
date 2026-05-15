@@ -56,10 +56,10 @@ export async function POST(request: Request) {
   try {
     await appendB2CLeadToSheet({
       numberOfPeople: leadData.numberOfPeople,
-      travelMonth: leadData.travelMonth,
+      travelDate: leadData.travelDate,
       numberOfNights: leadData.numberOfNights,
       phone: leadData.phone,
-      city: leadData.city,
+      destinations: leadData.destinations,
       notes: leadData.notes,
       pagePath: leadData.pagePath ?? "/",
       submittedAt: leadData.submittedAt ?? new Date().toISOString()

@@ -4,7 +4,7 @@ import { ChatWidget } from "@/components/b2c/ChatWidget/ChatWidget";
 import { GatedContentOverlay } from "@/components/b2c/gated-content-overlay";
 import { LeadCaptureForm } from "@/components/b2c/lead-capture-form";
 import { MetricBar } from "@/components/b2c/MetricBar";
-import { TestimonialCard } from "@/components/b2c/TestimonialCard";
+import { TestimonialCarousel } from "@/components/b2c/TestimonialCard";
 import { TourPackagesSection } from "@/components/b2c/tour-packages-section";
 import { B2CTourSelectionProvider } from "@/components/b2c/tour-selection-context";
 import type { LandingContent } from "@/lib/landing-content";
@@ -64,7 +64,7 @@ export function B2CLandingPage({ content }: Props) {
     { label: "Flexible date support", tone: "soft" },
     { label: "Advice within 5 minutes", tone: "strong" }
   ] as const;
-  const testimonials = (content.testimonials ?? []).slice(0, 3);
+  const testimonials = (content.testimonials ?? []).slice(0, 6);
   const startingPrice = tourPackages.length
     ? Math.min(...tourPackages.map((tour) => tour.priceSale))
     : null;
@@ -335,31 +335,12 @@ export function B2CLandingPage({ content }: Props) {
                   <span>from post-trip traveler feedback</span>
                 </div>
                 <div className="b2c-testimonial-spotlight">
-                  <div className="b2c-testimonial-spotlight__topline">
-                    <span className="b2c-testimonial-spotlight__eyebrow">Testimonials</span>
-                    <span className="b2c-testimonial-spotlight__rule" aria-hidden="true" />
-                  </div>
                   <SectionHeading
                     title="Our happy clients say"
-                    copy="Three selected traveler stories keep trust close to the inquiry moment while opening each trip album in one click."
+                    copy="Traveler stories stay close to the inquiry moment, with room to keep adding fresh tour feedback as new albums are ready."
                     align="start"
                   />
-                  <div className="b2c-testimonial-gallery" aria-label="Featured traveler stories">
-                    {testimonials.map((testimonial) => (
-                      <TestimonialCard
-                        key={`${testimonial.authorName}-${testimonial.tripInfo}`}
-                        {...testimonial}
-                      />
-                    ))}
-                  </div>
-                  <div className="b2c-testimonial-spotlight__footer" aria-hidden="true">
-                    {testimonials.map((testimonial) => (
-                      <span
-                        className="b2c-testimonial-spotlight__marker"
-                        key={`${testimonial.authorName}-${testimonial.tripInfo}-marker`}
-                      />
-                    ))}
-                  </div>
+                  <TestimonialCarousel testimonials={testimonials} />
                 </div>
               </PageWrap>
             </section>

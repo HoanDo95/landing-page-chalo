@@ -3,9 +3,24 @@
 import { useEffect, useId, useState } from "react";
 import Image from "next/image";
 
+import {
+  TESTIMONIALS_PER_VIEW,
+  TESTIMONIAL_AUTOPLAY_MS,
+  getSlidingCarouselItems,
+  shouldRotateCarouselItems,
+  getVisibleCarouselItems,
+  wrapCarouselIndex
+} from "@/lib/b2c/testimonial-carousel";
 import type { LandingTestimonial } from "@/lib/landing-content";
 
 type TestimonialCardProps = LandingTestimonial;
+type TestimonialCarouselProps = {
+  testimonials: LandingTestimonial[];
+};
+type TestimonialCardBehaviorProps = {
+  onAlbumStateChange?: (isOpen: boolean) => void;
+};
+const TESTIMONIAL_TRANSITION_MS = 860;
 
 function getTravelerInitials(authorName: string) {
   return authorName
@@ -16,14 +31,6 @@ function getTravelerInitials(authorName: string) {
     .toUpperCase();
 }
 
-function wrapImageIndex(index: number, total: number) {
-  if (total <= 0) {
-    return 0;
-  }
-
-  return (index + total) % total;
-}
-
 export function TestimonialCard({
   quote,
   authorName,
@@ -31,8 +38,9 @@ export function TestimonialCard({
   tripInfo,
   rating,
   avatarSrc,
-  albumImages = []
-}: TestimonialCardProps) {
+  albumImages = [],
+  onAlbumStateChange
+}: TestimonialCardProps & TestimonialCardBehaviorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const headingId = useId();
@@ -62,11 +70,11 @@ export function TestimonialCard({
       }
 
       if (event.key === "ArrowLeft") {
-        setActiveImageIndex((currentIndex) => wrapImageIndex(currentIndex - 1, galleryImages.length));
+        setActiveImageIndex((currentIndex) => wrapCarouselIndex(currentIndex - 1, galleryImages.length));
       }
 
       if (event.key === "ArrowRight") {
-        setActiveImageIndex((currentIndex) => wrapImageIndex(currentIndex + 1, galleryImages.length));
+        setActiveImageIndex((currentIndex) => wrapCarouselIndex(currentIndex + 1, galleryImages.length));
       }
     }
 
@@ -84,13 +92,17 @@ export function TestimonialCard({
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    onAlbumStateChange?.(isOpen);
+  }, [isOpen, onAlbumStateChange]);
+
   function openAlbum() {
     setActiveImageIndex(0);
     setIsOpen(true);
   }
 
   function stepImage(direction: -1 | 1) {
-    setActiveImageIndex((currentIndex) => wrapImageIndex(currentIndex + direction, galleryImages.length));
+    setActiveImageIndex((currentIndex) => wrapCarouselIndex(currentIndex + direction, galleryImages.length));
   }
 
   return (
@@ -214,30 +226,6 @@ export function TestimonialCard({
                     </div>
                   ) : null}
 
-                  {galleryImages.length ? (
-                    <div className="b2c-testimonial-album__thumb-strip" aria-label="Traveler album thumbnails">
-                      {galleryImages.map((image, imageIndex) => (
-                        <button
-                          aria-label={`View album image ${imageIndex + 1} of ${galleryImages.length}`}
-                          aria-pressed={imageIndex === activeImageIndex}
-                          className="b2c-testimonial-album__thumb-button"
-                          key={`${image.src}-${imageIndex}`}
-                          type="button"
-                          onClick={() => setActiveImageIndex(imageIndex)}
-                        >
-                          <span className="b2c-testimonial-album__thumb">
-                            <Image
-                              alt={image.alt}
-                              className="b2c-testimonial-album__image"
-                              fill
-                              sizes="96px"
-                              src={image.src}
-                            />
-                          </span>
-                        </button>
-                      ))}
-                    </div>
-                  ) : null}
                 </div>
 
                 <div className="b2c-testimonial-album__content">
@@ -286,5 +274,92 @@ export function TestimonialCard({
         </div>
       ) : null}
     </>
+  );
+}
+
+export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) {
+  const [windowStart, setWindowStart] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isAlbumOpen, setIsAlbumOpen] = useState(false);
+  const visibleTestimonials = getVisibleCarouselItems(testimonials, windowStart, TESTIMONIALS_PER_VIEW);
+  const trackTestimonials = getSlidingCarouselItems(testimonials, windowStart, TESTIMONIALS_PER_VIEW);
+  const hasRotation = shouldRotateCarouselItems(testimonials.length, TESTIMONIALS_PER_VIEW);
+
+  function advanceWindow() {
+    if (!hasRotation || isTransitioning) {
+      return;
+    }
+
+    setIsTransitioning(true);
+  }
+
+  useEffect(() => {
+    if (!hasRotation || isPaused || isAlbumOpen || isTransitioning) {
+      return;
+    }
+
+    const intervalId = window.setInterval(() => {
+      advanceWindow();
+    }, TESTIMONIAL_AUTOPLAY_MS);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
+  }, [hasRotation, isAlbumOpen, isPaused, isTransitioning, testimonials.length, windowStart]);
+
+  useEffect(() => {
+    if (!isTransitioning) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setWindowStart((currentIndex) => wrapCarouselIndex(currentIndex + 1, testimonials.length));
+      setIsTransitioning(false);
+    }, TESTIMONIAL_TRANSITION_MS);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [isTransitioning, testimonials.length]);
+
+  return (
+    <div
+      className="b2c-testimonial-carousel"
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+          setIsPaused(false);
+        }
+      }}
+      onFocusCapture={() => setIsPaused(true)}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      <div className="b2c-testimonial-gallery-viewport" aria-label="Traveler stories and tour feedback">
+        <div
+          className={`b2c-testimonial-gallery-track${isTransitioning ? " b2c-testimonial-gallery-track--transitioning" : ""}`}
+        >
+          {trackTestimonials.map(({ item: testimonial, absoluteIndex }, trackIndex) => (
+            <div className="b2c-testimonial-slide" key={`${testimonial.authorName}-${testimonial.tripInfo}-${absoluteIndex}-${trackIndex}`}>
+              <TestimonialCard
+                onAlbumStateChange={setIsAlbumOpen}
+                {...testimonial}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="b2c-testimonial-spotlight__footer">
+        <div className="b2c-testimonial-spotlight__markers" aria-hidden="true">
+          {testimonials.map((testimonial, index) => (
+            <span
+              className={`b2c-testimonial-spotlight__marker${visibleTestimonials.some((item) => item.absoluteIndex === index) ? " b2c-testimonial-spotlight__marker--active" : ""}`}
+              key={`${testimonial.authorName}-${testimonial.tripInfo}-marker`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }

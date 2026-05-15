@@ -112,9 +112,9 @@ Text: Obsidian (#000d10) or Canvas White (#ffffff), active state may have a subt
 Background: Canvas White (#ffffff), Text: Obsidian (#000d10) or Slate Mist (#8e8e95). Font: HelveticaNowDisplay, varying sizes. Likely has internal padding of 22px.
 
 ### Testimonial Gallery
-**Role:** Editorial social-proof section using three tall traveler cards plus a click-through album dialog.
+**Role:** Editorial social-proof section using up to six tall traveler cards plus a click-through album dialog.
 
-Use a light neutral framed surface with a slim divider, oversized heading, and three portrait-style cards in one row on desktop. Each card keeps the imagery or monogram visible by default, reveals the quote and rating on hover/focus, and opens a richer album modal on click. The album modal should pair a large active image with left/right navigation, a visible image counter, and a thumbnail strip so albums with 10-12 photos remain easy to scan without pushing the quote panel too far down.
+Use a light neutral framed surface with an oversized heading and a responsive testimonial window that shows three portrait-style traveler cards at a time. The visible set should auto-advance every 2-3 seconds, pause on hover or focus, and loop through the full pool of six approved feedback cards without requiring a manual next button. The transition between sets should feel polished and continuous, sliding the current set from right to left with GPU-friendly transform motion instead of a hard swap. Each card keeps the imagery or monogram visible by default, reveals the quote and rating on hover/focus, and opens a richer album modal on click. The album modal should pair a large active image with left/right navigation and a visible image counter without pushing the quote panel too far down.
 
 ## Do's and Don'ts
 

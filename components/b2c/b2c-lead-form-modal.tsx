@@ -3,20 +3,26 @@
 import { useState, type FormEvent } from "react";
 
 import { coercePositiveIntegerInput } from "@/components/b2c/b2c-gate-form-utils";
-import { resolveB2CGateSubmission } from "@/components/b2c/b2c-gate-submission";
+import { resolveB2CGateSubmission, submitB2CGateLeadRequest } from "@/components/b2c/b2c-gate-submission";
 import {
+  VALID_DESTINATIONS,
   validateB2CGatedLead,
-  VALID_TRAVEL_MONTHS,
   type B2CGatedLeadData
 } from "@/lib/b2c/b2c-lead-validation";
 import type { LandingLeadFormContent } from "@/lib/landing-content";
 
-type FieldName = keyof Pick<
-  B2CGatedLeadData,
-  "numberOfPeople" | "travelMonth" | "numberOfNights" | "phone" | "city" | "notes"
->;
+type FieldName = "numberOfPeople" | "travelDate" | "numberOfNights" | "phone" | "destinations" | "notes";
+type TextFieldName = Exclude<FieldName, "numberOfPeople" | "numberOfNights" | "destinations">;
 
-type FormValues = Record<FieldName, string>;
+interface FormValues {
+  numberOfPeople: string;
+  travelDate: string;
+  numberOfNights: string;
+  phone: string;
+  destinations: string[];
+  notes: string;
+}
+
 type FieldErrors = Partial<Record<FieldName, string>>;
 
 interface B2CLeadFormModalProps {
@@ -26,28 +32,24 @@ interface B2CLeadFormModalProps {
 
 const initialValues: FormValues = {
   numberOfPeople: "",
-  travelMonth: "",
+  travelDate: "",
   numberOfNights: "",
   phone: "",
-  city: "",
+  destinations: [],
   notes: ""
 };
 
-function toLeadData(values: FormValues): Partial<B2CGatedLeadData> {
+function toLeadData(values: FormValues): B2CGatedLeadData {
   return {
     numberOfPeople: Number(values.numberOfPeople),
-    travelMonth: values.travelMonth,
+    travelDate: values.travelDate,
     numberOfNights: Number(values.numberOfNights),
     phone: values.phone,
-    city: values.city,
+    destinations: values.destinations,
     notes: values.notes || null,
     pagePath: window.location.pathname,
     submittedAt: new Date().toISOString()
   };
-}
-
-function getFieldError(field: FieldName, values: FormValues) {
-  return validateB2CGatedLead(toLeadData(values)).fieldErrors[field];
 }
 
 function labelWithRequired(label: string) {
@@ -74,9 +76,15 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [statusMessage, setStatusMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const notesLength = values.notes.length;
+  const destinationOptions = content.fields.destinations?.options ?? [...VALID_DESTINATIONS];
 
-  function updateValue(field: FieldName, value: string) {
+  function getFieldError(field: FieldName, nextValues: FormValues) {
+    return validateB2CGatedLead(toLeadData(nextValues)).fieldErrors[field];
+  }
+
+  function updateValue(field: TextFieldName, value: string) {
     const nextValues = { ...values, [field]: value };
 
     setValues(nextValues);
@@ -85,35 +93,76 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
   }
 
   function updateNumberValue(field: "numberOfPeople" | "numberOfNights", value: string) {
-    updateValue(field, coercePositiveIntegerInput(value));
+    const normalizedValue = coercePositiveIntegerInput(value);
+    const maxValue = field === "numberOfNights" ? 30 : undefined;
+    const nextValue =
+      normalizedValue && typeof maxValue === "number"
+        ? String(Math.min(Number.parseInt(normalizedValue, 10), maxValue))
+        : normalizedValue;
+
+    const nextValues = { ...values, [field]: nextValue };
+    setValues(nextValues);
+    setErrors((current) => ({ ...current, [field]: getFieldError(field, nextValues) }));
+    setStatusMessage("");
   }
 
   function stepNumberValue(field: "numberOfPeople" | "numberOfNights", direction: -1 | 1) {
     const currentValue = Number.parseInt(values[field], 10);
-    const nextValue = Number.isFinite(currentValue) ? Math.max(1, currentValue + direction) : 1;
-    updateValue(field, String(nextValue));
+    const maxValue = field === "numberOfNights" ? 30 : undefined;
+    const baseValue = Number.isFinite(currentValue) ? currentValue : 1;
+    const steppedValue = Math.max(1, baseValue + direction);
+    const nextValue = typeof maxValue === "number" ? Math.min(steppedValue, maxValue) : steppedValue;
+
+    updateNumberValue(field, String(nextValue));
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function toggleDestination(destination: string) {
+    const nextDestinations = values.destinations.includes(destination)
+      ? values.destinations.filter((item) => item !== destination)
+      : [...values.destinations, destination];
+    const nextValues = { ...values, destinations: nextDestinations };
+
+    setValues(nextValues);
+    setErrors((current) => ({ ...current, destinations: getFieldError("destinations", nextValues) }));
+    setStatusMessage("");
+  }
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (isSubmitting) {
+      return;
+    }
 
     const leadData = toLeadData(values);
     const submission = resolveB2CGateSubmission(validateB2CGatedLead(leadData));
 
     if (submission.action === "show_errors") {
-      setErrors(submission.fieldErrors);
+      setErrors(submission.fieldErrors as FieldErrors);
       setStatusMessage(content.errorSummary);
       return;
     }
 
     setErrors({});
     setStatusMessage("");
+    setIsSubmitting(true);
+
+    const result = await submitB2CGateLeadRequest(leadData);
+
+    setIsSubmitting(false);
+
+    if (!result.ok) {
+      setErrors((result.fieldErrors ?? {}) as FieldErrors);
+      setStatusMessage(result.message || content.errorSummary);
+      return;
+    }
+
     setValues(initialValues);
     onSuccess();
   }
 
   return (
-    <form className="b2c-gate-form" onSubmit={handleSubmit}>
+    <form aria-busy={isSubmitting} className="b2c-gate-form" onSubmit={handleSubmit}>
       <div className="b2c-gate-form__intro">
         <p className="eyebrow">Free Vietnam tour quote</p>
         <h2>Start planning your Vietnam trip.</h2>
@@ -135,6 +184,7 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
             <button
               aria-label="Decrease number of people"
               className="b2c-number-stepper__button"
+              disabled={isSubmitting}
               type="button"
               onClick={() => stepNumberValue("numberOfPeople", -1)}
             >
@@ -143,6 +193,7 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
             <input
               aria-invalid={Boolean(errors.numberOfPeople)}
               className={errors.numberOfPeople ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
+              disabled={isSubmitting}
               id="b2c-gate-people"
               inputMode="numeric"
               min={1}
@@ -155,6 +206,7 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
             <button
               aria-label="Increase number of people"
               className="b2c-number-stepper__button"
+              disabled={isSubmitting}
               type="button"
               onClick={() => stepNumberValue("numberOfPeople", 1)}
             >
@@ -164,23 +216,18 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
           <FieldError message={errors.numberOfPeople} />
         </label>
 
-        <label className="b2c-form-field" htmlFor="b2c-gate-month">
-          <span>{labelWithRequired(content.fields.travelMonth?.label ?? "Travel month")}</span>
-          <select
-            aria-invalid={Boolean(errors.travelMonth)}
-            className={errors.travelMonth ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
-            id="b2c-gate-month"
-            value={values.travelMonth}
-            onChange={(event) => updateValue("travelMonth", event.target.value)}
-          >
-            <option value="">Select</option>
-            {VALID_TRAVEL_MONTHS.map((month) => (
-              <option key={month} value={month}>
-                {month}
-              </option>
-            ))}
-          </select>
-          <FieldError message={errors.travelMonth} />
+        <label className="b2c-form-field" htmlFor="b2c-gate-date">
+          <span>{labelWithRequired(content.fields.travelDate?.label ?? "Travel date")}</span>
+          <input
+            aria-invalid={Boolean(errors.travelDate)}
+            className={errors.travelDate ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
+            disabled={isSubmitting}
+            id="b2c-gate-date"
+            type="date"
+            value={values.travelDate}
+            onChange={(event) => updateValue("travelDate", event.target.value)}
+          />
+          <FieldError message={errors.travelDate} />
         </label>
 
         <label className="b2c-form-field" htmlFor="b2c-gate-nights">
@@ -189,6 +236,7 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
             <button
               aria-label="Decrease number of nights"
               className="b2c-number-stepper__button"
+              disabled={isSubmitting}
               type="button"
               onClick={() => stepNumberValue("numberOfNights", -1)}
             >
@@ -197,8 +245,10 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
             <input
               aria-invalid={Boolean(errors.numberOfNights)}
               className={errors.numberOfNights ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
+              disabled={isSubmitting}
               id="b2c-gate-nights"
               inputMode="numeric"
+              max={30}
               min={1}
               placeholder="1"
               step={1}
@@ -209,6 +259,7 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
             <button
               aria-label="Increase number of nights"
               className="b2c-number-stepper__button"
+              disabled={isSubmitting}
               type="button"
               onClick={() => stepNumberValue("numberOfNights", 1)}
             >
@@ -224,6 +275,7 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
             aria-invalid={Boolean(errors.phone)}
             autoComplete="tel"
             className={errors.phone ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
+            disabled={isSubmitting}
             id="b2c-gate-phone"
             inputMode="tel"
             placeholder={content.fields.phone?.placeholder ?? "+91 98765 43210"}
@@ -234,20 +286,36 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
           <FieldError message={errors.phone} />
         </label>
 
-        <label className="b2c-form-field" htmlFor="b2c-gate-city">
-          <span>{labelWithRequired(content.fields.city?.label ?? "City")}</span>
-          <input
-            aria-invalid={Boolean(errors.city)}
-            autoComplete="address-level2"
-            className={errors.city ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
-            id="b2c-gate-city"
-            placeholder={content.fields.city?.placeholder ?? "Your city"}
-            type="text"
-            value={values.city}
-            onChange={(event) => updateValue("city", event.target.value)}
-          />
-          <FieldError message={errors.city} />
-        </label>
+        <fieldset className="b2c-form-field b2c-form-field--full" disabled={isSubmitting}>
+          <legend>{labelWithRequired(content.fields.destinations?.label ?? "Destinations")}</legend>
+          <p className="b2c-gate-form__helper">Choose the places you want your trip to include.</p>
+          <div className="b2c-destination-options">
+            {destinationOptions.map((destination) => {
+              const isSelected = values.destinations.includes(destination);
+
+              return (
+                <label
+                  key={destination}
+                  className={
+                    isSelected
+                      ? "b2c-destination-option b2c-destination-option--selected"
+                      : "b2c-destination-option"
+                  }
+                >
+                  <input
+                    checked={isSelected}
+                    className="b2c-destination-option__input"
+                    type="checkbox"
+                    value={destination}
+                    onChange={() => toggleDestination(destination)}
+                  />
+                  <span>{destination}</span>
+                </label>
+              );
+            })}
+          </div>
+          <FieldError message={errors.destinations} />
+        </fieldset>
       </div>
 
       <label className="b2c-form-field" htmlFor="b2c-gate-notes">
@@ -255,6 +323,7 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
         <textarea
           aria-invalid={Boolean(errors.notes)}
           className={errors.notes ? "b2c-form-input b2c-form-input--error" : "b2c-form-input"}
+          disabled={isSubmitting}
           id="b2c-gate-notes"
           maxLength={500}
           placeholder={content.fields.notes?.placeholder ?? "Any special requests..."}
@@ -266,8 +335,8 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
         <FieldError message={errors.notes} />
       </label>
 
-      <button className="button primary b2c-gate-form__submit" type="submit">
-        {content.submitLabel}
+      <button className="button primary b2c-gate-form__submit" disabled={isSubmitting} type="submit">
+        {isSubmitting ? "Submitting..." : content.submitLabel}
       </button>
     </form>
   );

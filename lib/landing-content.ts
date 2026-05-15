@@ -185,6 +185,7 @@ export interface LandingStickyCtaContent {
 export interface LandingLeadFormFieldContent {
   label: string;
   placeholder?: string;
+  options?: string[];
 }
 
 export interface LandingLeadFormContent {
@@ -199,10 +200,12 @@ export interface LandingLeadFormContent {
     numberOfDays?: LandingLeadFormFieldContent;
     numberOfPeople?: LandingLeadFormFieldContent;
     travelMonth?: LandingLeadFormFieldContent;
+    travelDate?: LandingLeadFormFieldContent;
     numberOfNights?: LandingLeadFormFieldContent;
     notes?: LandingLeadFormFieldContent;
     phone?: LandingLeadFormFieldContent;
     city?: LandingLeadFormFieldContent;
+    destinations?: LandingLeadFormFieldContent;
   };
   validationMessages: {
     workEmailInvalid: string;
@@ -211,9 +214,11 @@ export interface LandingLeadFormContent {
     numberOfDaysInvalid?: string;
     numberOfPeopleInvalid?: string;
     travelMonthInvalid?: string;
+    travelDateInvalid?: string;
     numberOfNightsInvalid?: string;
     phoneInvalid?: string;
     cityInvalid?: string;
+    destinationsInvalid?: string;
     notesTooLong?: string;
   };
 }

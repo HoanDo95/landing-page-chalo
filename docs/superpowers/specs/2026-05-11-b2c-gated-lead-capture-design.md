@@ -59,20 +59,21 @@ Implement a gated content system for the B2C Vietnam tours landing page where us
 
 ## Form Fields & Controls
 
-All fields use simple HTML inputs (no date pickers, no complex dropdowns).
+Use simple native controls so the gate stays lightweight on mobile, but allow full date selection and visible destination choices.
 
 | Field | Type | Attributes | Validation |
 |-------|------|------------|------------|
-| Number of people | `<select>` | Options: 1-20 | Required, integer ≥1 |
-| Travel month | `<select>` | Options: Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec | Required |
-| Number of nights | `<select>` | Options: 1-30 | Required, integer ≥1 |
+| Number of people | `<input type="number">` with stepper controls | min=1 | Required, integer ≥1 |
+| Travel date | `<input type="date">` | Native day-month-year picker | Required, valid `YYYY-MM-DD` value |
+| Number of nights | `<input type="number">` with stepper controls | min=1, max=30 | Required, integer 1-30 |
 | Notes/details | `<textarea>` | rows=4, maxlength=500 | Optional, max 500 chars |
-| Phone number | `<input type="tel">` | placeholder="e.g., 0901234567" | Required, Vietnamese format: `/^(0|\+84)[0-9]{9,10}$/` |
-| City | `<input type="text">` | placeholder="Your city" | Required, min length 2 |
+| Phone number | `<input type="tel">` | placeholder="+91 98765 43210" | Required, international numeric phone format |
+| Destinations | Checkbox list shown directly in the modal | Hanoi city, Halong Bay, Ninh Binh, Da Nang city, Bana Hills, Hoi An Town, Ho Chi Minh city, Cu Chi tunnel, Mekong Delta, Phu Quoc Island | Required, select at least one supported destination |
 
 **Form Layout:**
 - Vertical stack, full-width on mobile
 - Labels above inputs
+- Destination list spans the full modal width in a 2-column grid on desktop and 1 column on mobile
 - Submit button: primary styled, "Get quote" text
 - Required fields marked with `*`
 - Character count for notes field (optional)
@@ -92,11 +93,11 @@ Content-Type: application/json
 ```typescript
 {
   "numberOfPeople": number,
-  "travelMonth": string, // "Jan", "Feb", etc.
+  "travelDate": string, // "2026-11-15"
   "numberOfNights": number,
   "notes": string | null,
   "phone": string,
-  "city": string,
+  "destinations": string[],
   "pagePath": string, // window.location.pathname
   "submittedAt": string // ISO timestamp
 }
@@ -126,11 +127,11 @@ Content-Type: application/json
 - Create Google Sheet with columns:
   - Timestamp (auto)
   - Number of people
-  - Travel month
+  - Travel date
   - Number of nights
   - Notes
   - Phone
-  - City
+  - Destinations
   - Page path
   - IP address (optional, from request)
 
@@ -243,11 +244,11 @@ function useGatedContent(options) {
 
 ```typescript
 const schema = {
-  numberOfPeople: (v) => v >= 1 && v <= 20 ? null : "Select number of people",
-  travelMonth: (v) => v ? null : "Select travel month",
+  numberOfPeople: (v) => v >= 1 ? null : "Select number of people",
+  travelDate: (v) => isValidDate(v) ? null : "Select your travel date",
   numberOfNights: (v) => v >= 1 && v <= 30 ? null : "Select number of nights",
-  phone: (v) => /^(0|\+84)[0-9]{9,10}$/.test(v) ? null : "Enter valid Vietnamese phone",
-  city: (v) => v.trim().length >= 2 ? null : "Enter your city",
+  phone: (v) => isInternationalPhone(v) ? null : "Enter a valid phone number",
+  destinations: (v) => v.length > 0 ? null : "Select at least one destination",
   notes: (v) => !v || v.length <= 500 ? null : "Max 500 characters"
 }
 ```
@@ -358,18 +359,18 @@ interface LandingLeadFormContent {
   errorSummary: string
   fields: {
     numberOfPeople: { label: string }
-    travelMonth: { label: string }
+    travelDate: { label: string }
     numberOfNights: { label: string }
     notes: { label: string; placeholder?: string }
     phone: { label: string; placeholder: string }
-    city: { label: string; placeholder: string }
+    destinations: { label: string; options: string[] }
   }
   validationMessages: {
     numberOfPeopleInvalid?: string
-    travelMonthInvalid?: string
+    travelDateInvalid?: string
     numberOfNightsInvalid?: string
     phoneInvalid: string
-    cityInvalid?: string
+    destinationsInvalid?: string
     notesTooLong?: string
   }
 }

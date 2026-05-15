@@ -1,3 +1,4 @@
+import { VALID_DESTINATIONS } from "@/lib/b2c/b2c-lead-validation";
 import type { LandingContent, TourPackagesContent } from "@/lib/landing-content";
 
 const tourPackages: TourPackagesContent = {
@@ -574,6 +575,179 @@ export const b2cContent: LandingContent = {
           alt: "Vietnam group getaway album photo 17 from Mr. Harneet Singh's group."
         }
       ]
+    },
+    {
+      quote:
+        "Direct booking, Indian-friendly planning, and full A-Z local support made Vietnam group travel smooth, premium, and cost-effective from arrival to departure.",
+      authorName: "Corporate Groups from India",
+      authorLocation: "India",
+      tripInfo: "Vietnam group travel & team events",
+      rating: 4.9,
+      avatarSrc: "/customer/customer-4/676802745_122289731798035445_5790740657775776380_n.jpg",
+      albumImages: [
+        {
+          src: "/customer/customer-4/676802745_122289731798035445_5790740657775776380_n.jpg",
+          alt: "Vietnam group travel album photo 1 from the featured corporate group from India."
+        },
+        {
+          src: "/customer/customer-4/672686382_122289732704035445_2643446739359009812_n.jpg",
+          alt: "Vietnam group travel album photo 2 from the featured corporate group from India."
+        },
+        {
+          src: "/customer/customer-4/672686694_122289732182035445_5238220956613082172_n.jpg",
+          alt: "Vietnam group travel album photo 3 from the featured corporate group from India."
+        },
+        {
+          src: "/customer/customer-4/672686704_122289732440035445_6697885091287430195_n.jpg",
+          alt: "Vietnam group travel album photo 4 from the featured corporate group from India."
+        },
+        {
+          src: "/customer/customer-4/673145715_122289732560035445_5635361720440581892_n.jpg",
+          alt: "Vietnam group travel album photo 5 from the featured corporate group from India."
+        },
+        {
+          src: "/customer/customer-4/673188957_122289732746035445_1729341850418758199_n.jpg",
+          alt: "Vietnam group travel album photo 6 from the featured corporate group from India."
+        },
+        {
+          src: "/customer/customer-4/673893177_122289731438035445_8381851349841639635_n.jpg",
+          alt: "Vietnam group travel album photo 7 from the featured corporate group from India."
+        },
+        {
+          src: "/customer/customer-4/673946224_122289732506035445_7929932719159244621_n.jpg",
+          alt: "Vietnam group travel album photo 8 from the featured corporate group from India."
+        },
+        {
+          src: "/customer/customer-4/673949911_122289732620035445_7313199582532210060_n.jpg",
+          alt: "Vietnam group travel album photo 9 from the featured corporate group from India."
+        },
+        {
+          src: "/customer/customer-4/674133228_122289731792035445_7370331160111636349_n.jpg",
+          alt: "Vietnam group travel album photo 10 from the featured corporate group from India."
+        },
+        {
+          src: "/customer/customer-4/676166527_122289732242035445_9136287218289030034_n.jpg",
+          alt: "Vietnam group travel album photo 11 from the featured corporate group from India."
+        },
+        {
+          src: "/customer/customer-4/676466682_122289731504035445_9118280267501819286_n.jpg",
+          alt: "Vietnam group travel album photo 12 from the featured corporate group from India."
+        },
+        {
+          src: "/customer/customer-4/678294265_122289732302035445_5652788294284098786_n.jpg",
+          alt: "Vietnam group travel album photo 13 from the featured corporate group from India."
+        }
+      ]
+    },
+    {
+      quote:
+        "Every scene felt like a painting, from Da Nang's vibrant coast to Hoi An's calm timeless streets. The whole journey was arranged with comfort, ease, and unforgettable moments.",
+      authorName: "Mr. Sein Phyun Moe & Ms. Swe Zin Hlaing",
+      authorLocation: "Myanmar",
+      tripInfo: "Da Nang & Hoi An",
+      rating: 4.9,
+      avatarSrc: "/customer/customer-5/672685970_122289232376035445_1191747307473371136_n.jpg",
+      albumImages: [
+        {
+          src: "/customer/customer-5/672685970_122289232376035445_1191747307473371136_n.jpg",
+          alt: "Da Nang and Hoi An travel album photo 1 from Mr. Sein Phyun Moe and Ms. Swe Zin Hlaing."
+        },
+        {
+          src: "/customer/customer-5/671853243_122289231962035445_6040282627013357439_n.jpg",
+          alt: "Da Nang and Hoi An travel album photo 2 from Mr. Sein Phyun Moe and Ms. Swe Zin Hlaing."
+        },
+        {
+          src: "/customer/customer-5/672684609_122289231908035445_4536641208843708910_n.jpg",
+          alt: "Da Nang and Hoi An travel album photo 3 from Mr. Sein Phyun Moe and Ms. Swe Zin Hlaing."
+        },
+        {
+          src: "/customer/customer-5/674133750_122289231860035445_7689297199680850012_n.jpg",
+          alt: "Da Nang and Hoi An travel album photo 4 from Mr. Sein Phyun Moe and Ms. Swe Zin Hlaing."
+        },
+        {
+          src: "/customer/customer-5/671853848_122289231812035445_1130558230156255240_n.jpg",
+          alt: "Da Nang and Hoi An travel album photo 5 from Mr. Sein Phyun Moe and Ms. Swe Zin Hlaing."
+        },
+        {
+          src: "/customer/customer-5/673853309_122289232202035445_9159797059939583191_n.jpg",
+          alt: "Da Nang and Hoi An travel album photo 6 from Mr. Sein Phyun Moe and Ms. Swe Zin Hlaing."
+        },
+        {
+          src: "/customer/customer-5/672164746_122289232148035445_7222345958909425693_n.jpg",
+          alt: "Da Nang and Hoi An travel album photo 7 from Mr. Sein Phyun Moe and Ms. Swe Zin Hlaing."
+        },
+        {
+          src: "/customer/customer-5/672686052_122289232088035445_8168071762151934640_n.jpg",
+          alt: "Da Nang and Hoi An travel album photo 8 from Mr. Sein Phyun Moe and Ms. Swe Zin Hlaing."
+        }
+      ]
+    },
+    {
+      quote:
+        "We've just come back from Vietnam, and honestly, we already miss it. Everything was so well organized, and your team's support made the whole trip feel easy and enjoyable.",
+      authorName: "Mr. Ankith Sisodiya's Family",
+      authorLocation: "India",
+      tripInfo: "Hanoi & Da Nang family getaway",
+      rating: 4.9,
+      avatarSrc: "/customer/customer-6/663294207_122287562066035445_2933115465605304741_n.jpg",
+      albumImages: [
+        {
+          src: "/customer/customer-6/663294207_122287562066035445_2933115465605304741_n.jpg",
+          alt: "Vietnam family getaway album photo 1 from Mr. Ankith Sisodiya's family."
+        },
+        {
+          src: "/customer/customer-6/659649815_122287562132035445_3912645195996483191_n.jpg",
+          alt: "Vietnam family getaway album photo 2 from Mr. Ankith Sisodiya's family."
+        },
+        {
+          src: "/customer/customer-6/659652843_122287562360035445_5282453565307658864_n.jpg",
+          alt: "Vietnam family getaway album photo 3 from Mr. Ankith Sisodiya's family."
+        },
+        {
+          src: "/customer/customer-6/659713561_122287562078035445_6087552842801942631_n.jpg",
+          alt: "Vietnam family getaway album photo 4 from Mr. Ankith Sisodiya's family."
+        },
+        {
+          src: "/customer/customer-6/660367195_122287562570035445_8625627695122663709_n.jpg",
+          alt: "Vietnam family getaway album photo 5 from Mr. Ankith Sisodiya's family."
+        },
+        {
+          src: "/customer/customer-6/660448212_122287562474035445_5677204077191754216_n.jpg",
+          alt: "Vietnam family getaway album photo 6 from Mr. Ankith Sisodiya's family."
+        },
+        {
+          src: "/customer/customer-6/660460604_122287562000035445_5726645084525283762_n.jpg",
+          alt: "Vietnam family getaway album photo 7 from Mr. Ankith Sisodiya's family."
+        },
+        {
+          src: "/customer/customer-6/661378099_122287562342035445_4807684156866393960_n.jpg",
+          alt: "Vietnam family getaway album photo 8 from Mr. Ankith Sisodiya's family."
+        },
+        {
+          src: "/customer/customer-6/661480635_122287563380035445_1116200597909380899_n.jpg",
+          alt: "Vietnam family getaway album photo 9 from Mr. Ankith Sisodiya's family."
+        },
+        {
+          src: "/customer/customer-6/661566230_122287566602035445_2091072173164298458_n.jpg",
+          alt: "Vietnam family getaway album photo 10 from Mr. Ankith Sisodiya's family."
+        },
+        {
+          src: "/customer/customer-6/661602427_122287562456035445_5118343572395568255_n.jpg",
+          alt: "Vietnam family getaway album photo 11 from Mr. Ankith Sisodiya's family."
+        },
+        {
+          src: "/customer/customer-6/661608109_122287562012035445_3174239895695164944_n.jpg",
+          alt: "Vietnam family getaway album photo 12 from Mr. Ankith Sisodiya's family."
+        },
+        {
+          src: "/customer/customer-6/661634957_122287562198035445_53488302462313636_n.jpg",
+          alt: "Vietnam family getaway album photo 13 from Mr. Ankith Sisodiya's family."
+        },
+        {
+          src: "/customer/customer-6/662306322_122287562546035445_6698190863451577643_n.jpg",
+          alt: "Vietnam family getaway album photo 14 from Mr. Ankith Sisodiya's family."
+        }
+      ]
     }
   ],
   features: [
@@ -616,8 +790,8 @@ export const b2cContent: LandingContent = {
       numberOfPeople: {
         label: "Number of people"
       },
-      travelMonth: {
-        label: "Travel month"
+      travelDate: {
+        label: "Travel date"
       },
       numberOfNights: {
         label: "Number of nights"
@@ -630,18 +804,18 @@ export const b2cContent: LandingContent = {
         label: "Phone number",
         placeholder: "+91 98765 43210"
       },
-      city: {
-        label: "City",
-        placeholder: "Which city are you based in?"
+      destinations: {
+        label: "Destinations",
+        options: [...VALID_DESTINATIONS]
       }
     },
     validationMessages: {
       workEmailInvalid: "Please enter a valid email address.",
       numberOfPeopleInvalid: "Please enter the number of people.",
-      travelMonthInvalid: "Please select your travel month.",
+      travelDateInvalid: "Please select your travel date.",
       numberOfNightsInvalid: "Please enter the number of nights.",
       phoneInvalid: "Please enter a valid phone number.",
-      cityInvalid: "Please enter your city.",
+      destinationsInvalid: "Please select at least one destination.",
       notesTooLong: "Notes must be 500 characters or fewer."
     }
   },

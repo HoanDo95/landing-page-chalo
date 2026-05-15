@@ -8,7 +8,7 @@ interface GoogleServiceAccountKey {
   token_uri?: string;
 }
 
-type B2CLeadSheetData = Required<Pick<B2CGatedLeadData, "numberOfPeople" | "travelMonth" | "numberOfNights" | "phone" | "city">> &
+type B2CLeadSheetData = Required<Pick<B2CGatedLeadData, "numberOfPeople" | "travelDate" | "numberOfNights" | "phone" | "destinations">> &
   Pick<B2CGatedLeadData, "notes"> & {
     pagePath: string;
     submittedAt: string;
@@ -87,11 +87,11 @@ export function buildB2CLeadSheetRow(data: B2CLeadSheetData) {
   return [
     data.submittedAt,
     data.numberOfPeople,
-    data.travelMonth,
+    data.travelDate,
     data.numberOfNights,
     data.notes || "",
     data.phone,
-    data.city,
+    data.destinations.join(", "),
     data.pagePath
   ];
 }
