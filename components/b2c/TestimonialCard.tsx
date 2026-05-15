@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 
 import {
@@ -43,6 +44,7 @@ export function TestimonialCard({
 }: TestimonialCardProps & TestimonialCardBehaviorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
   const headingId = useId();
   const descriptionId = useId();
   const roundedRating = Math.max(0, Math.min(5, rating));
@@ -50,6 +52,10 @@ export function TestimonialCard({
   const galleryImages = albumImages;
   const activeImage = galleryImages[activeImageIndex] ?? galleryImages[0] ?? null;
   const hasMultipleImages = galleryImages.length > 1;
+
+  useEffect(() => {
+    setPortalTarget(document.body);
+  }, []);
 
   useEffect(() => {
     if (!isOpen) {
@@ -160,119 +166,121 @@ export function TestimonialCard({
         </button>
       </article>
 
-      {isOpen ? (
-        <div
-          aria-hidden={!isOpen}
-          className="b2c-testimonial-album-backdrop"
-          role="presentation"
-          onClick={() => setIsOpen(false)}
-        >
-          <div
-            aria-describedby={descriptionId}
-            aria-labelledby={headingId}
-            aria-modal="true"
-            className="b2c-testimonial-album"
-            role="dialog"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="b2c-testimonial-album__surface">
-              <button
-                aria-label="Close traveler album"
-                className="b2c-testimonial-album__close"
-                type="button"
-                onClick={() => setIsOpen(false)}
+      {isOpen && portalTarget
+        ? createPortal(
+            <div
+              aria-hidden={!isOpen}
+              className="b2c-testimonial-album-backdrop"
+              role="presentation"
+              onClick={() => setIsOpen(false)}
+            >
+              <div
+                aria-describedby={descriptionId}
+                aria-labelledby={headingId}
+                aria-modal="true"
+                className="b2c-testimonial-album"
+                role="dialog"
+                onClick={(event) => event.stopPropagation()}
               >
-                x
-              </button>
+                <div className="b2c-testimonial-album__surface">
+                  <button
+                    aria-label="Close traveler album"
+                    className="b2c-testimonial-album__close"
+                    type="button"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    x
+                  </button>
 
-              <div className="b2c-testimonial-album__grid">
-                <div className="b2c-testimonial-album__gallery">
-                  {activeImage ? (
-                    <div className="b2c-testimonial-album__hero-stage">
-                      <figure className="b2c-testimonial-album__hero-image">
-                        <Image
-                          alt={activeImage.alt}
-                          className="b2c-testimonial-album__image"
-                          fill
-                          sizes="(max-width: 960px) 100vw, 42vw"
-                          src={activeImage.src}
-                        />
-                      </figure>
+                  <div className="b2c-testimonial-album__grid">
+                    <div className="b2c-testimonial-album__gallery">
+                      {activeImage ? (
+                        <div className="b2c-testimonial-album__hero-stage">
+                          <figure className="b2c-testimonial-album__hero-image">
+                            <Image
+                              alt={activeImage.alt}
+                              className="b2c-testimonial-album__image"
+                              fill
+                              sizes="(max-width: 960px) 100vw, 42vw"
+                              src={activeImage.src}
+                            />
+                          </figure>
 
-                      <div className="b2c-testimonial-album__counter">
-                        {activeImageIndex + 1} / {galleryImages.length}
-                      </div>
+                          <div className="b2c-testimonial-album__counter">
+                            {activeImageIndex + 1} / {galleryImages.length}
+                          </div>
 
-                      {hasMultipleImages ? (
-                        <>
-                          <button
-                            aria-label="Previous album image"
-                            className="b2c-testimonial-album__nav b2c-testimonial-album__nav--prev"
-                            type="button"
-                            onClick={() => stepImage(-1)}
-                          >
-                            <span aria-hidden="true">&lt;</span>
-                          </button>
-                          <button
-                            aria-label="Next album image"
-                            className="b2c-testimonial-album__nav b2c-testimonial-album__nav--next"
-                            type="button"
-                            onClick={() => stepImage(1)}
-                          >
-                            <span aria-hidden="true">&gt;</span>
-                          </button>
-                        </>
+                          {hasMultipleImages ? (
+                            <>
+                              <button
+                                aria-label="Previous album image"
+                                className="b2c-testimonial-album__nav b2c-testimonial-album__nav--prev"
+                                type="button"
+                                onClick={() => stepImage(-1)}
+                              >
+                                <span aria-hidden="true">&lt;</span>
+                              </button>
+                              <button
+                                aria-label="Next album image"
+                                className="b2c-testimonial-album__nav b2c-testimonial-album__nav--next"
+                                type="button"
+                                onClick={() => stepImage(1)}
+                              >
+                                <span aria-hidden="true">&gt;</span>
+                              </button>
+                            </>
+                          ) : null}
+                        </div>
                       ) : null}
                     </div>
-                  ) : null}
 
-                </div>
+                    <div className="b2c-testimonial-album__content">
+                      <div className="b2c-testimonial-album__header">
+                        <span className="b2c-testimonial-album__eyebrow">Traveler album</span>
+                        <div className="b2c-testimonial-album__meta">
+                          <span>{authorLocation}</span>
+                          <span>{tripInfo}</span>
+                        </div>
+                        <h3 className="b2c-testimonial-album__title" id={headingId}>
+                          {authorName}
+                        </h3>
+                      </div>
 
-                <div className="b2c-testimonial-album__content">
-                  <div className="b2c-testimonial-album__header">
-                    <span className="b2c-testimonial-album__eyebrow">Traveler album</span>
-                    <div className="b2c-testimonial-album__meta">
-                      <span>{authorLocation}</span>
-                      <span>{tripInfo}</span>
+                      <div className="b2c-testimonial-album__quote-card">
+                        <div
+                          className="b2c-testimonial-album__rating"
+                          aria-label={`Rated ${roundedRating.toFixed(1)} out of 5`}
+                        >
+                          <span aria-hidden="true">★★★★★</span>
+                          <strong>{roundedRating.toFixed(1)} Rating</strong>
+                        </div>
+                        <p className="b2c-testimonial-album__quote" id={descriptionId}>
+                          “{quote}”
+                        </p>
+                      </div>
+
+                      <dl className="b2c-testimonial-album__facts">
+                        <div>
+                          <dt>Trip route</dt>
+                          <dd>{tripInfo}</dd>
+                        </div>
+                        <div>
+                          <dt>Album photos</dt>
+                          <dd>{albumImages.length}</dd>
+                        </div>
+                        <div>
+                          <dt>Review score</dt>
+                          <dd>{roundedRating.toFixed(1)}/5</dd>
+                        </div>
+                      </dl>
                     </div>
-                    <h3 className="b2c-testimonial-album__title" id={headingId}>
-                      {authorName}
-                    </h3>
                   </div>
-
-                  <div className="b2c-testimonial-album__quote-card">
-                    <div
-                      className="b2c-testimonial-album__rating"
-                      aria-label={`Rated ${roundedRating.toFixed(1)} out of 5`}
-                    >
-                      <span aria-hidden="true">★★★★★</span>
-                      <strong>{roundedRating.toFixed(1)} Rating</strong>
-                    </div>
-                    <p className="b2c-testimonial-album__quote" id={descriptionId}>
-                      “{quote}”
-                    </p>
-                  </div>
-
-                  <dl className="b2c-testimonial-album__facts">
-                    <div>
-                      <dt>Trip route</dt>
-                      <dd>{tripInfo}</dd>
-                    </div>
-                    <div>
-                      <dt>Album photos</dt>
-                      <dd>{albumImages.length}</dd>
-                    </div>
-                    <div>
-                      <dt>Review score</dt>
-                      <dd>{roundedRating.toFixed(1)}/5</dd>
-                    </div>
-                  </dl>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      ) : null}
+            </div>,
+            portalTarget
+          )
+        : null}
     </>
   );
 }
