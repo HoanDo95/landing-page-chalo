@@ -361,391 +361,403 @@ export const b2cContent: LandingContent = {
   testimonials: [
     {
       quote:
-        "A meaningful journey through Da Nang and Hoi An, filled with cultural discovery, peaceful moments, and a smooth experience from arrival to the final day.",
-      authorName: "Ms. May Thu Myat Mon & Friends",
+        "A family journey through Da Nang and Hoi An, from Marble Mountains and Ba Na Hills to basket boats in the Coconut Forest and the flavors of the ancient town.",
+      authorName: "Ms. Myat and Family",
       authorLocation: "Myanmar",
-      tripInfo: "Da Nang & Hoi An",
+      tripInfo: "Da Nang, Ba Na Hills & Hoi An",
       rating: 4.9,
-      avatarSrc: "/customer/customer-1/675697328_122289851870035445_4271748004061533667_n.jpg",
+      avatarSrc: "/customer/customer-1/z6907822752180_d29a5cc177b7d54f13914db3ba0cc981.jpg",
       albumImages: [
         {
-          src: "/customer/customer-1/673431072_122289851732035445_6022132055672260794_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 1 from Ms. May Thu Myat Mon and friends."
+          src: "/customer/customer-1/z6907822752180_d29a5cc177b7d54f13914db3ba0cc981.jpg",
+          alt: "Da Nang and Hoi An family travel album photo 1 from Ms. Myat and family."
         },
         {
-          src: "/customer/customer-1/673513268_122289851702035445_6586462191053062841_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 2 from Ms. May Thu Myat Mon and friends."
+          src: "/customer/customer-1/z6907822762603_f420efa7e635747ea31c6b8edbce5626.jpg",
+          alt: "Da Nang and Hoi An family travel album photo 2 from Ms. Myat and family."
         },
         {
-          src: "/customer/customer-1/673891513_122289852368035445_3369512126613287996_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 3 from Ms. May Thu Myat Mon and friends."
+          src: "/customer/customer-1/z6907822765825_2d4d6d156e4411ccda809b4f3f8363d8.jpg",
+          alt: "Da Nang and Hoi An family travel album photo 3 from Ms. Myat and family."
         },
         {
-          src: "/customer/customer-1/674234965_122289852314035445_5504113626592631008_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 4 from Ms. May Thu Myat Mon and friends."
+          src: "/customer/customer-1/z6907822776022_faf7ca3f214475082845189d81043ff5.jpg",
+          alt: "Da Nang and Hoi An family travel album photo 4 from Ms. Myat and family."
         },
         {
-          src: "/customer/customer-1/674266894_122289851936035445_2692460362633660511_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 5 from Ms. May Thu Myat Mon and friends."
+          src: "/customer/customer-1/z6907822781442_7d8302cf5de5775db21dcfd42ebe2f2c.jpg",
+          alt: "Da Nang and Hoi An family travel album photo 5 from Ms. Myat and family."
         },
         {
-          src: "/customer/customer-1/674328879_122289853508035445_1442843050392859178_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 6 from Ms. May Thu Myat Mon and friends."
+          src: "/customer/customer-1/z6907822790075_8cc8457a30bb73eff945bbe2906d0a2d.jpg",
+          alt: "Da Nang and Hoi An family travel album photo 6 from Ms. Myat and family."
         },
         {
-          src: "/customer/customer-1/674459882_122289851780035445_5681490683788679682_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 7 from Ms. May Thu Myat Mon and friends."
+          src: "/customer/customer-1/z6907822796021_3185e6541e0604c9e71829763fb06911.jpg",
+          alt: "Da Nang and Hoi An family travel album photo 7 from Ms. Myat and family."
         },
         {
-          src: "/customer/customer-1/675404845_122289852428035445_5169725467650916833_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 8 from Ms. May Thu Myat Mon and friends."
+          src: "/customer/customer-1/z6907822804713_e11ea35e5e35eaf3e75d228372965848.jpg",
+          alt: "Da Nang and Hoi An family travel album photo 8 from Ms. Myat and family."
         },
         {
-          src: "/customer/customer-1/675697328_122289851870035445_4271748004061533667_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 9 from Ms. May Thu Myat Mon and friends."
+          src: "/customer/customer-1/z6907822813989_35c009227e94663cd8990a908b52b459.jpg",
+          alt: "Da Nang and Hoi An family travel album photo 9 from Ms. Myat and family."
         },
         {
-          src: "/customer/customer-1/675774276_122289851906035445_447720206250274432_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 10 from Ms. May Thu Myat Mon and friends."
+          src: "/customer/customer-1/z6907822824302_24bdf326ef2febdef0abc654d478c0d6.jpg",
+          alt: "Da Nang and Hoi An family travel album photo 10 from Ms. Myat and family."
         },
         {
-          src: "/customer/customer-1/676071185_122289852062035445_591272974625866331_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 11 from Ms. May Thu Myat Mon and friends."
+          src: "/customer/customer-1/z6907822850919_1b2f78db92b5445f478dbd029b2197fa.jpg",
+          alt: "Da Nang and Hoi An family travel album photo 11 from Ms. Myat and family."
         },
         {
-          src: "/customer/customer-1/676747720_122289851978035445_8546943610131180447_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 12 from Ms. May Thu Myat Mon and friends."
+          src: "/customer/customer-1/z6907822864045_0eb0cdda40366f633c36dd91cb5d8d1e.jpg",
+          alt: "Da Nang and Hoi An family travel album photo 12 from Ms. Myat and family."
         },
         {
-          src: "/customer/customer-1/677791599_122289851666035445_7494721450215868665_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 13 from Ms. May Thu Myat Mon and friends."
+          src: "/customer/customer-1/z6907822868220_31e3615a9878968a0700f85f3178f407.jpg",
+          alt: "Da Nang and Hoi An family travel album photo 13 from Ms. Myat and family."
         },
         {
-          src: "/customer/customer-1/677799988_122289852224035445_2580852859741859799_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 14 from Ms. May Thu Myat Mon and friends."
+          src: "/customer/customer-1/z6907822891200_d2e6b39795240a5406d094b2aa9bfde6.jpg",
+          alt: "Da Nang and Hoi An family travel album photo 14 from Ms. Myat and family."
         },
         {
-          src: "/customer/customer-1/678151240_122289852098035445_910099643249350727_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 15 from Ms. May Thu Myat Mon and friends."
+          src: "/customer/customer-1/z6907822900666_f83ab13c5b6ef0eb29b4448e131cdfb9.jpg",
+          alt: "Da Nang and Hoi An family travel album photo 15 from Ms. Myat and family."
         },
         {
-          src: "/customer/customer-1/678645521_122289852140035445_4433802480819537942_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 16 from Ms. May Thu Myat Mon and friends."
+          src: "/customer/customer-1/z6907822919737_0be9e67ea9a4a8851ee695933f1268c4.jpg",
+          alt: "Da Nang and Hoi An family travel album photo 16 from Ms. Myat and family."
+        },
+        {
+          src: "/customer/customer-1/z6907822924995_e3404e1e71dd3d28ab6a3d9bc74d9847.jpg",
+          alt: "Da Nang and Hoi An family travel album photo 17 from Ms. Myat and family."
         }
       ]
     },
     {
       quote:
-        "Everything was so well organized from the first day to the last. We always felt supported, and every detail made the journey comfortable, relaxed, and truly memorable.",
-      authorName: "Mr. Harish Kumar's Group",
+        "Walking through quiet local villages and sharing tea with a native family was a highlight I will always cherish. The Vietnamese guides were professional, warm, and the team handled every detail flawlessly.",
+      authorName: "Mr. Trinath Sahu",
       authorLocation: "India",
-      tripInfo: "Da Nang & Hoi An",
+      tripInfo: "Village walk & local family visit",
       rating: 4.9,
-      avatarSrc: "/customer/customer-2/669416527_122288747588035445_8684737124008525471_n.jpg",
+      avatarSrc: "/customer/customer-2/z7061888659873_53ae81e63b486628bcbaa1027c237b89.jpg",
       albumImages: [
         {
-          src: "/customer/customer-2/669416527_122288747588035445_8684737124008525471_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 1 from Mr. Harish Kumar's group."
+          src: "/customer/customer-2/z7061888659873_53ae81e63b486628bcbaa1027c237b89.jpg",
+          alt: "Vietnam village walk and local family visit album photo 1 from Mr. Trinath Sahu."
         },
         {
-          src: "/customer/customer-2/669601686_122288748182035445_5236182054804757956_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 2 from Mr. Harish Kumar's group."
+          src: "/customer/customer-2/z7069546325296_7efc666f2ac104055bcfdcb1d6c4e108.jpg",
+          alt: "Vietnam village walk and local family visit album photo 2 from Mr. Trinath Sahu."
         },
         {
-          src: "/customer/customer-2/669606542_122288749442035445_7593513845669034661_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 3 from Mr. Harish Kumar's group."
+          src: "/customer/customer-2/z7069546351671_55a36d279f166d40b127a2d29f8b71b0.jpg",
+          alt: "Vietnam village walk and local family visit album photo 3 from Mr. Trinath Sahu."
         },
         {
-          src: "/customer/customer-2/669613672_122288747348035445_6541089115724973618_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 4 from Mr. Harish Kumar's group."
+          src: "/customer/customer-2/z7069546355545_c4711abf1d0a0842b7663a0133d7bf92.jpg",
+          alt: "Vietnam village walk and local family visit album photo 4 from Mr. Trinath Sahu."
         },
         {
-          src: "/customer/customer-2/669637963_122288748536035445_5214774868232018045_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 5 from Mr. Harish Kumar's group."
+          src: "/customer/customer-2/z7069546371771_fff584e388f847825cb83efca5971c46.jpg",
+          alt: "Vietnam village walk and local family visit album photo 5 from Mr. Trinath Sahu."
         },
         {
-          src: "/customer/customer-2/669885288_122288748176035445_239629109362156335_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 6 from Mr. Harish Kumar's group."
+          src: "/customer/customer-2/z7069546378439_64c0466eb5ab47bdfb39a639b8ee9a16.jpg",
+          alt: "Vietnam village walk and local family visit album photo 6 from Mr. Trinath Sahu."
         },
         {
-          src: "/customer/customer-2/670396237_122288748188035445_7989275839776602407_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 7 from Mr. Harish Kumar's group."
+          src: "/customer/customer-2/z7069546392506_d8ed821f66f406dff22b3d447358ddea.jpg",
+          alt: "Vietnam village walk and local family visit album photo 7 from Mr. Trinath Sahu."
         },
         {
-          src: "/customer/customer-2/670401383_122288747408035445_3445877924834529481_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 8 from Mr. Harish Kumar's group."
+          src: "/customer/customer-2/z7069546396339_8796675dbf50672470094efd0452eaa3.jpg",
+          alt: "Vietnam village walk and local family visit album photo 8 from Mr. Trinath Sahu."
         },
         {
-          src: "/customer/customer-2/670419295_122288748434035445_1457876582282822728_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 9 from Mr. Harish Kumar's group."
+          src: "/customer/customer-2/z7069546411370_28b0be8920c7244d786b461700fa8943.jpg",
+          alt: "Vietnam village walk and local family visit album photo 9 from Mr. Trinath Sahu."
         },
         {
-          src: "/customer/customer-2/671046823_122288747456035445_2765650034867605880_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 10 from Mr. Harish Kumar's group."
+          src: "/customer/customer-2/z7069546427570_0175866c128dcb78983fc467c6f22be7.jpg",
+          alt: "Vietnam village walk and local family visit album photo 10 from Mr. Trinath Sahu."
         },
         {
-          src: "/customer/customer-2/671395287_122288748524035445_3076585377875835290_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 11 from Mr. Harish Kumar's group."
+          src: "/customer/customer-2/z7069546472583_3eae0a7aea889ac42a73c4b22b2b9bd2.jpg",
+          alt: "Vietnam village walk and local family visit album photo 11 from Mr. Trinath Sahu."
         },
         {
-          src: "/customer/customer-2/672097639_122288748344035445_6488292933665371350_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 12 from Mr. Harish Kumar's group."
+          src: "/customer/customer-2/z7074483418998_9088775f62efbfd4fccf0b43ba0c93d7.jpg",
+          alt: "Vietnam village walk and local family visit album photo 12 from Mr. Trinath Sahu."
         },
         {
-          src: "/customer/customer-2/672679670_122288748530035445_7795405620454862982_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 13 from Mr. Harish Kumar's group."
+          src: "/customer/customer-2/z7074483455847_1ac69e2ad7acb55c6d461780a381c8cc.jpg",
+          alt: "Vietnam village walk and local family visit album photo 13 from Mr. Trinath Sahu."
+        },
+        {
+          src: "/customer/customer-2/z7074483469073_fc8613c24c14de888da5dee80c1d31e9.jpg",
+          alt: "Vietnam village walk and local family visit album photo 14 from Mr. Trinath Sahu."
+        },
+        {
+          src: "/customer/customer-2/z7074483491519_833c018c7623fc48201a907fdc4c514c.jpg",
+          alt: "Vietnam village walk and local family visit album photo 15 from Mr. Trinath Sahu."
+        },
+        {
+          src: "/customer/customer-2/z7074483500072_79408c31c38f2ccb8d4164cca3f5189c.jpg",
+          alt: "Vietnam village walk and local family visit album photo 16 from Mr. Trinath Sahu."
         }
       ]
     },
     {
       quote:
-        "We truly appreciate the effort your team put into organizing this trip. Everything was smooth, well-planned, and thoughtfully arranged, and we felt well taken care of at every step.",
-      authorName: "Mr. Harneet Singh's Group",
-      authorLocation: "India",
-      tripInfo: "Short Vietnam group getaway",
-      rating: 4.9,
-      avatarSrc: "/customer/customer-3/656995154_122287123208035445_1091272517105922255_n.jpg",
-      albumImages: [
-        {
-          src: "/customer/customer-3/656191578_122287122752035445_4097118340327600609_n.jpg",
-          alt: "Vietnam group getaway album photo 1 from Mr. Harneet Singh's group."
-        },
-        {
-          src: "/customer/customer-3/656995154_122287123208035445_1091272517105922255_n.jpg",
-          alt: "Vietnam group getaway album photo 2 from Mr. Harneet Singh's group."
-        },
-        {
-          src: "/customer/customer-3/657365076_122287123166035445_419531827971493414_n.jpg",
-          alt: "Vietnam group getaway album photo 3 from Mr. Harneet Singh's group."
-        },
-        {
-          src: "/customer/customer-3/657368855_122287123106035445_2831613324880060837_n.jpg",
-          alt: "Vietnam group getaway album photo 4 from Mr. Harneet Singh's group."
-        },
-        {
-          src: "/customer/customer-3/657385463_122287123478035445_7783217323531114951_n.jpg",
-          alt: "Vietnam group getaway album photo 5 from Mr. Harneet Singh's group."
-        },
-        {
-          src: "/customer/customer-3/657429764_122287123334035445_1213559078636969193_n.jpg",
-          alt: "Vietnam group getaway album photo 6 from Mr. Harneet Singh's group."
-        },
-        {
-          src: "/customer/customer-3/657935980_122287123574035445_6096233232493343540_n.jpg",
-          alt: "Vietnam group getaway album photo 7 from Mr. Harneet Singh's group."
-        },
-        {
-          src: "/customer/customer-3/658130714_122287123526035445_548097228952286988_n.jpg",
-          alt: "Vietnam group getaway album photo 8 from Mr. Harneet Singh's group."
-        },
-        {
-          src: "/customer/customer-3/658132474_122287123706035445_9094453693046891129_n.jpg",
-          alt: "Vietnam group getaway album photo 9 from Mr. Harneet Singh's group."
-        },
-        {
-          src: "/customer/customer-3/658136789_122287122758035445_2422788030277152964_n.jpg",
-          alt: "Vietnam group getaway album photo 10 from Mr. Harneet Singh's group."
-        },
-        {
-          src: "/customer/customer-3/658151736_122287123610035445_5761537722621113424_n.jpg",
-          alt: "Vietnam group getaway album photo 11 from Mr. Harneet Singh's group."
-        },
-        {
-          src: "/customer/customer-3/658152130_122287123658035445_3213060454133418458_n.jpg",
-          alt: "Vietnam group getaway album photo 12 from Mr. Harneet Singh's group."
-        },
-        {
-          src: "/customer/customer-3/658154399_122287122926035445_1300666084678992308_n.jpg",
-          alt: "Vietnam group getaway album photo 13 from Mr. Harneet Singh's group."
-        },
-        {
-          src: "/customer/customer-3/658161764_122287123388035445_6543299530079884921_n.jpg",
-          alt: "Vietnam group getaway album photo 14 from Mr. Harneet Singh's group."
-        },
-        {
-          src: "/customer/customer-3/659025333_122287123130035445_2179134321226000144_n.jpg",
-          alt: "Vietnam group getaway album photo 15 from Mr. Harneet Singh's group."
-        },
-        {
-          src: "/customer/customer-3/659031268_122287122836035445_4607703413758497348_n.jpg",
-          alt: "Vietnam group getaway album photo 16 from Mr. Harneet Singh's group."
-        },
-        {
-          src: "/customer/customer-3/662650943_122287123766035445_4271353561706462493_n.jpg",
-          alt: "Vietnam group getaway album photo 17 from Mr. Harneet Singh's group."
-        }
-      ]
-    },
-    {
-      quote:
-        "Direct booking, Indian-friendly planning, and full A-Z local support made Vietnam group travel smooth, premium, and cost-effective from arrival to departure.",
-      authorName: "Corporate Groups from India",
-      authorLocation: "India",
-      tripInfo: "Vietnam group travel & team events",
-      rating: 4.9,
-      avatarSrc: "/customer/customer-4/676802745_122289731798035445_5790740657775776380_n.jpg",
-      albumImages: [
-        {
-          src: "/customer/customer-4/676802745_122289731798035445_5790740657775776380_n.jpg",
-          alt: "Vietnam group travel album photo 1 from the featured corporate group from India."
-        },
-        {
-          src: "/customer/customer-4/672686382_122289732704035445_2643446739359009812_n.jpg",
-          alt: "Vietnam group travel album photo 2 from the featured corporate group from India."
-        },
-        {
-          src: "/customer/customer-4/672686694_122289732182035445_5238220956613082172_n.jpg",
-          alt: "Vietnam group travel album photo 3 from the featured corporate group from India."
-        },
-        {
-          src: "/customer/customer-4/672686704_122289732440035445_6697885091287430195_n.jpg",
-          alt: "Vietnam group travel album photo 4 from the featured corporate group from India."
-        },
-        {
-          src: "/customer/customer-4/673145715_122289732560035445_5635361720440581892_n.jpg",
-          alt: "Vietnam group travel album photo 5 from the featured corporate group from India."
-        },
-        {
-          src: "/customer/customer-4/673188957_122289732746035445_1729341850418758199_n.jpg",
-          alt: "Vietnam group travel album photo 6 from the featured corporate group from India."
-        },
-        {
-          src: "/customer/customer-4/673893177_122289731438035445_8381851349841639635_n.jpg",
-          alt: "Vietnam group travel album photo 7 from the featured corporate group from India."
-        },
-        {
-          src: "/customer/customer-4/673946224_122289732506035445_7929932719159244621_n.jpg",
-          alt: "Vietnam group travel album photo 8 from the featured corporate group from India."
-        },
-        {
-          src: "/customer/customer-4/673949911_122289732620035445_7313199582532210060_n.jpg",
-          alt: "Vietnam group travel album photo 9 from the featured corporate group from India."
-        },
-        {
-          src: "/customer/customer-4/674133228_122289731792035445_7370331160111636349_n.jpg",
-          alt: "Vietnam group travel album photo 10 from the featured corporate group from India."
-        },
-        {
-          src: "/customer/customer-4/676166527_122289732242035445_9136287218289030034_n.jpg",
-          alt: "Vietnam group travel album photo 11 from the featured corporate group from India."
-        },
-        {
-          src: "/customer/customer-4/676466682_122289731504035445_9118280267501819286_n.jpg",
-          alt: "Vietnam group travel album photo 12 from the featured corporate group from India."
-        },
-        {
-          src: "/customer/customer-4/678294265_122289732302035445_5652788294284098786_n.jpg",
-          alt: "Vietnam group travel album photo 13 from the featured corporate group from India."
-        }
-      ]
-    },
-    {
-      quote:
-        "Every scene felt like a painting, from Da Nang's vibrant coast to Hoi An's calm timeless streets. The whole journey was arranged with comfort, ease, and unforgettable moments.",
-      authorName: "Mr. Sein Phyun Moe & Ms. Swe Zin Hlaing",
+        "A five-day journey through Da Nang and Hoi An brought unforgettable memories, from white sandy beaches and Marble Mountains to Ba Na Hills and the charm of the ancient town.",
+      authorName: "Mr. Nay Thu Hein & Friends",
       authorLocation: "Myanmar",
-      tripInfo: "Da Nang & Hoi An",
+      tripInfo: "5D4N Da Nang & Hoi An",
       rating: 4.9,
-      avatarSrc: "/customer/customer-5/672685970_122289232376035445_1191747307473371136_n.jpg",
+      avatarSrc: "/customer/customer-3/z6825489819692_7eb39a91001420b2718c3a5caa260a57.jpg",
       albumImages: [
         {
-          src: "/customer/customer-5/672685970_122289232376035445_1191747307473371136_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 1 from Mr. Sein Phyun Moe and Ms. Swe Zin Hlaing."
+          src: "/customer/customer-3/z6825489819692_7eb39a91001420b2718c3a5caa260a57.jpg",
+          alt: "Da Nang and Hoi An travel album photo 1 from Mr. Nay Thu Hein and friends."
         },
         {
-          src: "/customer/customer-5/671853243_122289231962035445_6040282627013357439_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 2 from Mr. Sein Phyun Moe and Ms. Swe Zin Hlaing."
+          src: "/customer/customer-3/z6825489825209_992eb114294473547e4eaa0a0f700365.jpg",
+          alt: "Da Nang and Hoi An travel album photo 2 from Mr. Nay Thu Hein and friends."
         },
         {
-          src: "/customer/customer-5/672684609_122289231908035445_4536641208843708910_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 3 from Mr. Sein Phyun Moe and Ms. Swe Zin Hlaing."
+          src: "/customer/customer-3/z6825489835560_67d41179179404c03d19d349011783c6.jpg",
+          alt: "Da Nang and Hoi An travel album photo 3 from Mr. Nay Thu Hein and friends."
         },
         {
-          src: "/customer/customer-5/674133750_122289231860035445_7689297199680850012_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 4 from Mr. Sein Phyun Moe and Ms. Swe Zin Hlaing."
+          src: "/customer/customer-3/z6825489849915_b42f5d65260eac4164754280703c6c50.jpg",
+          alt: "Da Nang and Hoi An travel album photo 4 from Mr. Nay Thu Hein and friends."
         },
         {
-          src: "/customer/customer-5/671853848_122289231812035445_1130558230156255240_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 5 from Mr. Sein Phyun Moe and Ms. Swe Zin Hlaing."
+          src: "/customer/customer-3/z6825489850124_09821f1ffaae74f8905e195fe27dc654.jpg",
+          alt: "Da Nang and Hoi An travel album photo 5 from Mr. Nay Thu Hein and friends."
         },
         {
-          src: "/customer/customer-5/673853309_122289232202035445_9159797059939583191_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 6 from Mr. Sein Phyun Moe and Ms. Swe Zin Hlaing."
+          src: "/customer/customer-3/z6825489862257_8f39e57cc9e276d74925462b312afe1a.jpg",
+          alt: "Da Nang and Hoi An travel album photo 6 from Mr. Nay Thu Hein and friends."
         },
         {
-          src: "/customer/customer-5/672164746_122289232148035445_7222345958909425693_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 7 from Mr. Sein Phyun Moe and Ms. Swe Zin Hlaing."
+          src: "/customer/customer-3/z6825489874206_5b2f40869677d764d7e91529c9fe56ac.jpg",
+          alt: "Da Nang and Hoi An travel album photo 7 from Mr. Nay Thu Hein and friends."
         },
         {
-          src: "/customer/customer-5/672686052_122289232088035445_8168071762151934640_n.jpg",
-          alt: "Da Nang and Hoi An travel album photo 8 from Mr. Sein Phyun Moe and Ms. Swe Zin Hlaing."
+          src: "/customer/customer-3/z6825489879023_f5d657028a63a99d334dfda2fe9f6187.jpg",
+          alt: "Da Nang and Hoi An travel album photo 8 from Mr. Nay Thu Hein and friends."
+        },
+        {
+          src: "/customer/customer-3/z6825489895300_47048abb23e59d5bfc5b23dc0ae0ffe1.jpg",
+          alt: "Da Nang and Hoi An travel album photo 9 from Mr. Nay Thu Hein and friends."
+        },
+        {
+          src: "/customer/customer-3/z6825489909391_7bfc7f452a82130c5751d30d7253dd14.jpg",
+          alt: "Da Nang and Hoi An travel album photo 10 from Mr. Nay Thu Hein and friends."
+        },
+        {
+          src: "/customer/customer-3/z6825489977211_78387fa14eea4fbe0efa32455c24554f.jpg",
+          alt: "Da Nang and Hoi An travel album photo 11 from Mr. Nay Thu Hein and friends."
+        },
+        {
+          src: "/customer/customer-3/z6825490021211_a791aad015ed83c3fb877d1b61e2edef.jpg",
+          alt: "Da Nang and Hoi An travel album photo 12 from Mr. Nay Thu Hein and friends."
         }
       ]
     },
     {
       quote:
-        "We've just come back from Vietnam, and honestly, we already miss it. Everything was so well organized, and your team's support made the whole trip feel easy and enjoyable.",
-      authorName: "Mr. Ankith Sisodiya's Family",
+        "Vietnam welcomed our family so warmly. From Hanoi and Ha Long Bay to Ba Na Hills and the Mekong Delta, every stop gave us meaningful moments we would love to return for.",
+      authorName: "Mr. Gurvinder Singh's Family",
       authorLocation: "India",
-      tripInfo: "Hanoi & Da Nang family getaway",
+      tripInfo: "Hanoi, Ha Long Bay, Ba Na Hills & Mekong Delta",
       rating: 4.9,
-      avatarSrc: "/customer/customer-6/663294207_122287562066035445_2933115465605304741_n.jpg",
+      avatarSrc: "/customer/customer-4/z6701068479358_287ac4962199f547b12592ba5501790d.jpg",
       albumImages: [
         {
-          src: "/customer/customer-6/663294207_122287562066035445_2933115465605304741_n.jpg",
-          alt: "Vietnam family getaway album photo 1 from Mr. Ankith Sisodiya's family."
+          src: "/customer/customer-4/z6701068479358_287ac4962199f547b12592ba5501790d.jpg",
+          alt: "Vietnam family journey album photo 1 from Mr. Gurvinder Singh's family."
         },
         {
-          src: "/customer/customer-6/659649815_122287562132035445_3912645195996483191_n.jpg",
-          alt: "Vietnam family getaway album photo 2 from Mr. Ankith Sisodiya's family."
+          src: "/customer/customer-4/z6701068490132_6f020368a67195073241c3764ea2fb42.jpg",
+          alt: "Vietnam family journey album photo 2 from Mr. Gurvinder Singh's family."
         },
         {
-          src: "/customer/customer-6/659652843_122287562360035445_5282453565307658864_n.jpg",
-          alt: "Vietnam family getaway album photo 3 from Mr. Ankith Sisodiya's family."
+          src: "/customer/customer-4/z6701068512439_e36853cf2d1a477123a9605a84569e3d.jpg",
+          alt: "Vietnam family journey album photo 3 from Mr. Gurvinder Singh's family."
         },
         {
-          src: "/customer/customer-6/659713561_122287562078035445_6087552842801942631_n.jpg",
-          alt: "Vietnam family getaway album photo 4 from Mr. Ankith Sisodiya's family."
+          src: "/customer/customer-4/z6711277152683_02cc46a78d2c50e227b26b18ec39f92a.jpg",
+          alt: "Vietnam family journey album photo 4 from Mr. Gurvinder Singh's family."
         },
         {
-          src: "/customer/customer-6/660367195_122287562570035445_8625627695122663709_n.jpg",
-          alt: "Vietnam family getaway album photo 5 from Mr. Ankith Sisodiya's family."
+          src: "/customer/customer-4/z6711277155234_bbda1e9107e861b5f291e6a5a5fe7c9b.jpg",
+          alt: "Vietnam family journey album photo 5 from Mr. Gurvinder Singh's family."
         },
         {
-          src: "/customer/customer-6/660448212_122287562474035445_5677204077191754216_n.jpg",
-          alt: "Vietnam family getaway album photo 6 from Mr. Ankith Sisodiya's family."
+          src: "/customer/customer-4/z6711277228509_d9624676e6195ba9a763771cd4f8aebf.jpg",
+          alt: "Vietnam family journey album photo 6 from Mr. Gurvinder Singh's family."
         },
         {
-          src: "/customer/customer-6/660460604_122287562000035445_5726645084525283762_n.jpg",
-          alt: "Vietnam family getaway album photo 7 from Mr. Ankith Sisodiya's family."
+          src: "/customer/customer-4/z6711277242377_cb3a097137853762a1aa73caa0a9e977.jpg",
+          alt: "Vietnam family journey album photo 7 from Mr. Gurvinder Singh's family."
         },
         {
-          src: "/customer/customer-6/661378099_122287562342035445_4807684156866393960_n.jpg",
-          alt: "Vietnam family getaway album photo 8 from Mr. Ankith Sisodiya's family."
+          src: "/customer/customer-4/z6721259178383_c05f3197634178483b0f2b8f8db9d3c0.jpg",
+          alt: "Vietnam family journey album photo 8 from Mr. Gurvinder Singh's family."
         },
         {
-          src: "/customer/customer-6/661480635_122287563380035445_1116200597909380899_n.jpg",
-          alt: "Vietnam family getaway album photo 9 from Mr. Ankith Sisodiya's family."
+          src: "/customer/customer-4/z6721259180935_4fd972db9d069180f2ddeb80ead2b707.jpg",
+          alt: "Vietnam family journey album photo 9 from Mr. Gurvinder Singh's family."
         },
         {
-          src: "/customer/customer-6/661566230_122287566602035445_2091072173164298458_n.jpg",
-          alt: "Vietnam family getaway album photo 10 from Mr. Ankith Sisodiya's family."
+          src: "/customer/customer-4/z6721259185134_aaace16a5f3395140a481ae62588c639.jpg",
+          alt: "Vietnam family journey album photo 10 from Mr. Gurvinder Singh's family."
         },
         {
-          src: "/customer/customer-6/661602427_122287562456035445_5118343572395568255_n.jpg",
-          alt: "Vietnam family getaway album photo 11 from Mr. Ankith Sisodiya's family."
+          src: "/customer/customer-4/z6721259201810_27ae57652dc07cad7d2e859032403b75.jpg",
+          alt: "Vietnam family journey album photo 11 from Mr. Gurvinder Singh's family."
         },
         {
-          src: "/customer/customer-6/661608109_122287562012035445_3174239895695164944_n.jpg",
-          alt: "Vietnam family getaway album photo 12 from Mr. Ankith Sisodiya's family."
+          src: "/customer/customer-4/z6721259215891_42405ec163aa9714a26a242d4925beae.jpg",
+          alt: "Vietnam family journey album photo 12 from Mr. Gurvinder Singh's family."
+        }
+      ]
+    },
+    {
+      quote:
+        "After a business trip to Da Nang, we fell in love with Vietnam. Even with a short stay, the culture, famous attractions, and warm-hearted people made the journey unforgettable.",
+      authorName: "Mr. Fanzeem & Friends",
+      authorLocation: "India",
+      tripInfo: "Vietnam friends getaway",
+      rating: 4.9,
+      avatarSrc: "/customer/customer-5/IMG_0784.JPG",
+      albumImages: [
+        {
+          src: "/customer/customer-5/IMG_0784.JPG",
+          alt: "Vietnam friends getaway album photo 1 from Mr. Fanzeem and friends."
         },
         {
-          src: "/customer/customer-6/661634957_122287562198035445_53488302462313636_n.jpg",
-          alt: "Vietnam family getaway album photo 13 from Mr. Ankith Sisodiya's family."
+          src: "/customer/customer-5/IMG_0785.JPG",
+          alt: "Vietnam friends getaway album photo 2 from Mr. Fanzeem and friends."
         },
         {
-          src: "/customer/customer-6/662306322_122287562546035445_6698190863451577643_n.jpg",
-          alt: "Vietnam family getaway album photo 14 from Mr. Ankith Sisodiya's family."
+          src: "/customer/customer-5/IMG_0789.JPG",
+          alt: "Vietnam friends getaway album photo 3 from Mr. Fanzeem and friends."
+        },
+        {
+          src: "/customer/customer-5/IMG_0790.JPG",
+          alt: "Vietnam friends getaway album photo 4 from Mr. Fanzeem and friends."
+        },
+        {
+          src: "/customer/customer-5/IMG_0796.JPG",
+          alt: "Vietnam friends getaway album photo 5 from Mr. Fanzeem and friends."
+        },
+        {
+          src: "/customer/customer-5/IMG_0798.JPG",
+          alt: "Vietnam friends getaway album photo 6 from Mr. Fanzeem and friends."
+        },
+        {
+          src: "/customer/customer-5/IMG_0799.JPG",
+          alt: "Vietnam friends getaway album photo 7 from Mr. Fanzeem and friends."
+        },
+        {
+          src: "/customer/customer-5/IMG_0801.JPG",
+          alt: "Vietnam friends getaway album photo 8 from Mr. Fanzeem and friends."
+        },
+        {
+          src: "/customer/customer-5/IMG_0803.JPG",
+          alt: "Vietnam friends getaway album photo 9 from Mr. Fanzeem and friends."
+        },
+        {
+          src: "/customer/customer-5/IMG_0810.JPG",
+          alt: "Vietnam friends getaway album photo 10 from Mr. Fanzeem and friends."
+        },
+        {
+          src: "/customer/customer-5/IMG_0811.JPG",
+          alt: "Vietnam friends getaway album photo 11 from Mr. Fanzeem and friends."
+        }
+      ]
+    },
+    {
+      quote:
+        "Our Vietnam journey became a collection of joyful memories, from temples and ancient pagodas to lively walking streets, Train Street, and warm support throughout the trip.",
+      authorName: "Mr. Chandra Shekar and Family",
+      authorLocation: "India",
+      tripInfo: "Hanoi culture & family discovery",
+      rating: 4.9,
+      avatarSrc: "/customer/customer-6/1.jpg",
+      albumImages: [
+        {
+          src: "/customer/customer-6/1.jpg",
+          alt: "Vietnam family discovery album photo 1 from Mr. Chandra Shekar and family."
+        },
+        {
+          src: "/customer/customer-6/2.jpg",
+          alt: "Vietnam family discovery album photo 2 from Mr. Chandra Shekar and family."
+        },
+        {
+          src: "/customer/customer-6/3.jpg",
+          alt: "Vietnam family discovery album photo 3 from Mr. Chandra Shekar and family."
+        },
+        {
+          src: "/customer/customer-6/4.jpg",
+          alt: "Vietnam family discovery album photo 4 from Mr. Chandra Shekar and family."
+        },
+        {
+          src: "/customer/customer-6/5.jpg",
+          alt: "Vietnam family discovery album photo 5 from Mr. Chandra Shekar and family."
+        },
+        {
+          src: "/customer/customer-6/6.jpg",
+          alt: "Vietnam family discovery album photo 6 from Mr. Chandra Shekar and family."
+        },
+        {
+          src: "/customer/customer-6/10.jpg",
+          alt: "Vietnam family discovery album photo 7 from Mr. Chandra Shekar and family."
+        },
+        {
+          src: "/customer/customer-6/HN 2.jpg",
+          alt: "Vietnam family discovery album photo 8 from Mr. Chandra Shekar and family."
+        },
+        {
+          src: "/customer/customer-6/HN3.jpg",
+          alt: "Vietnam family discovery album photo 9 from Mr. Chandra Shekar and family."
+        },
+        {
+          src: "/customer/customer-6/HN4.jpg",
+          alt: "Vietnam family discovery album photo 10 from Mr. Chandra Shekar and family."
+        },
+        {
+          src: "/customer/customer-6/HN5.jpg",
+          alt: "Vietnam family discovery album photo 11 from Mr. Chandra Shekar and family."
+        },
+        {
+          src: "/customer/customer-6/HN6.jpg",
+          alt: "Vietnam family discovery album photo 12 from Mr. Chandra Shekar and family."
+        },
+        {
+          src: "/customer/customer-6/HN7.jpg",
+          alt: "Vietnam family discovery album photo 13 from Mr. Chandra Shekar and family."
+        },
+        {
+          src: "/customer/customer-6/HN8.jpg",
+          alt: "Vietnam family discovery album photo 14 from Mr. Chandra Shekar and family."
+        },
+        {
+          src: "/customer/customer-6/HN9.jpg",
+          alt: "Vietnam family discovery album photo 15 from Mr. Chandra Shekar and family."
+        },
+        {
+          src: "/customer/customer-6/HN10.jpg",
+          alt: "Vietnam family discovery album photo 16 from Mr. Chandra Shekar and family."
         }
       ]
     }

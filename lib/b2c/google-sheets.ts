@@ -17,6 +17,10 @@ type B2CLeadSheetData = Required<Pick<B2CGatedLeadData, "numberOfPeople" | "trav
 const GOOGLE_TOKEN_URI = "https://oauth2.googleapis.com/token";
 const GOOGLE_SHEETS_SCOPE = "https://www.googleapis.com/auth/spreadsheets";
 
+function hasConfiguredEnv(name: string) {
+  return Boolean(process.env[name]?.trim());
+}
+
 function base64UrlEncode(value: string | Buffer) {
   return Buffer.from(value).toString("base64url");
 }
@@ -94,6 +98,10 @@ export function buildB2CLeadSheetRow(data: B2CLeadSheetData) {
     data.destinations.join(", "),
     data.pagePath
   ];
+}
+
+export function isB2CGoogleSheetsConfigured() {
+  return hasConfiguredEnv("GOOGLE_SHEETS_ID") && hasConfiguredEnv("GOOGLE_SERVICE_ACCOUNT_KEY_BASE64");
 }
 
 export async function appendB2CLeadToSheet(data: B2CLeadSheetData): Promise<void> {

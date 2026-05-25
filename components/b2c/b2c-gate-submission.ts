@@ -26,6 +26,10 @@ type B2CGateSubmissionFailure = {
 
 export type B2CGateSubmissionResponse = B2CGateSubmissionSuccess | B2CGateSubmissionFailure;
 
+type SubmitB2CGateLeadRequest = (
+  payload: B2CGatedLeadData
+) => Promise<B2CGateSubmissionResponse>;
+
 type B2CGateSubmissionResult =
   | {
       action: "unlock";
@@ -53,31 +57,70 @@ export function resolveB2CGateSubmission(validation: {
   };
 }
 
-export async function submitB2CGateLeadRequest(
+export async function submitValidatedB2CGateLead(
+  validation: {
+    isValid: boolean;
+    fieldErrors: Record<string, string | undefined>;
+  },
   payload: B2CGatedLeadData,
-  fetchImpl: FetchLike = fetch
-): Promise<B2CGateSubmissionResponse> {
-  const response = await fetchImpl("/api/leads/b2c", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(payload)
-  });
+  submitLeadRequest: SubmitB2CGateLeadRequest = submitB2CGateLeadRequest
+): Promise<B2CGateSubmissionResult & { message?: string }> {
+  const validationResult = resolveB2CGateSubmission(validation);
 
-  const result = (await response.json().catch(() => null)) as Partial<B2CGateSubmissionResponse> | null;
+  if (validationResult.action === "show_errors") {
+    return validationResult;
+  }
 
-  if (!response.ok || !result?.ok) {
+  const submissionResult = await submitLeadRequest(payload);
+
+  if (!submissionResult.ok) {
     return {
-      ok: false,
-      code: result?.ok === false ? result.code ?? "unknown" : "unknown",
-      message: result?.message || "We could not record your request right now. Please try again.",
-      fieldErrors: result?.ok === false ? result.fieldErrors : undefined
+      action: "show_errors",
+      fieldErrors: submissionResult.fieldErrors ?? {},
+      message: submissionResult.message
     };
   }
 
   return {
-    ok: true,
-    message: result.message || "Lead recorded"
+    action: "unlock",
+    fieldErrors: {},
+    message: submissionResult.message
   };
+}
+
+export async function submitB2CGateLeadRequest(
+  payload: B2CGatedLeadData,
+  fetchImpl: FetchLike = fetch
+): Promise<B2CGateSubmissionResponse> {
+  try {
+    const response = await fetchImpl("/api/leads/b2c", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const result = (await response.json().catch(() => null)) as Partial<B2CGateSubmissionResponse> | null;
+
+    if (!response.ok || !result?.ok) {
+      return {
+        ok: false,
+        code: result?.ok === false ? result.code ?? "unknown" : "unknown",
+        message: result?.message || "We could not record your request right now. Please try again.",
+        fieldErrors: result?.ok === false ? result.fieldErrors : undefined
+      };
+    }
+
+    return {
+      ok: true,
+      message: result.message || "Lead recorded"
+    };
+  } catch {
+    return {
+      ok: false,
+      code: "unknown",
+      message: "We could not record your request right now. Please try again."
+    };
+  }
 }

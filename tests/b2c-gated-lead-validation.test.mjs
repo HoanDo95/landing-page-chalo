@@ -5,10 +5,10 @@ import { validateB2CGatedLead } from "../lib/b2c/b2c-lead-validation.ts";
 
 const validLead = {
   numberOfPeople: 2,
-  travelMonth: "Jun",
+  travelDate: "2026-06-15",
   numberOfNights: 7,
   phone: "+84 901 234 567",
-  city: "Hanoi",
+  destinations: ["Hanoi city", "Halong Bay"],
   notes: "Beach tour preferred"
 };
 
@@ -22,21 +22,21 @@ test("validateB2CGatedLead accepts a complete B2C gated lead", () => {
 test("validateB2CGatedLead rejects invalid required fields", () => {
   const result = validateB2CGatedLead({
     numberOfPeople: 0,
-    travelMonth: "January",
+    travelDate: "2026-13-40",
     numberOfNights: 31,
     phone: "abc",
-    city: "H",
+    destinations: [],
     notes: "a".repeat(501)
   });
 
   assert.equal(result.isValid, false);
   assert.deepEqual(Object.keys(result.fieldErrors).sort(), [
-    "city",
+    "destinations",
     "notes",
     "numberOfNights",
     "numberOfPeople",
     "phone",
-    "travelMonth"
+    "travelDate"
   ]);
 });
 

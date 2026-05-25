@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { normalizeB2CGatedLead, validateB2CGatedLead } from "@/lib/b2c/b2c-lead-validation";
-import { appendB2CLeadToSheet } from "@/lib/b2c/google-sheets";
+import { appendB2CLeadToSheet, isB2CGoogleSheetsConfigured } from "@/lib/b2c/google-sheets";
 
 const MAX_BODY_BYTES = 16_384;
 
@@ -50,6 +50,18 @@ export async function POST(request: Request) {
         fieldErrors: validation.fieldErrors
       },
       400
+    );
+  }
+
+  if (!isB2CGoogleSheetsConfigured()) {
+    console.warn("B2C gated lead storage skipped because Google Sheets env is not configured.");
+
+    return jsonResponse(
+      {
+        ok: true,
+        message: "Gate access granted without Google Sheets storage."
+      },
+      200
     );
   }
 
