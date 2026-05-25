@@ -1,7 +1,11 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { buildB2CLeadSheetRow, isB2CGoogleSheetsConfigured } from "../lib/b2c/google-sheets.ts";
+import {
+  B2C_LEAD_SHEET_VALUE_INPUT_OPTION,
+  buildB2CLeadSheetRow,
+  isB2CGoogleSheetsConfigured
+} from "../lib/b2c/google-sheets.ts";
 
 test("buildB2CLeadSheetRow formats B2C lead data in sheet column order", () => {
   assert.deepEqual(
@@ -42,6 +46,10 @@ test("buildB2CLeadSheetRow stores null notes as an empty string", () => {
     }),
     ["2026-05-13T11:00:00.000Z", 1, "2026-12-01", 3, "", "0901234567", "Ho Chi Minh city", "/"]
   );
+});
+
+test("B2C Google Sheets append writes raw values so + phone numbers stay as text", () => {
+  assert.equal(B2C_LEAD_SHEET_VALUE_INPUT_OPTION, "RAW");
 });
 
 test("isB2CGoogleSheetsConfigured returns false when the required env vars are missing", () => {

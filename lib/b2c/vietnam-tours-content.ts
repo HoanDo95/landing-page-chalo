@@ -792,7 +792,7 @@ export const b2cContent: LandingContent = {
   },
   leadForm: {
     submitLabel: "Get quote",
-    successMessage: "Thank you. You can now browse the tours.",
+    successMessage: "Request received. Our team will review your trip and get back to you shortly.",
     errorSummary: "Please check your tour request details.",
     fields: {
       workEmail: {

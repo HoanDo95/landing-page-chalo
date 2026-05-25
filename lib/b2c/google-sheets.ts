@@ -16,6 +16,7 @@ type B2CLeadSheetData = Required<Pick<B2CGatedLeadData, "numberOfPeople" | "trav
 
 const GOOGLE_TOKEN_URI = "https://oauth2.googleapis.com/token";
 const GOOGLE_SHEETS_SCOPE = "https://www.googleapis.com/auth/spreadsheets";
+export const B2C_LEAD_SHEET_VALUE_INPUT_OPTION = "RAW";
 
 function hasConfiguredEnv(name: string) {
   return Boolean(process.env[name]?.trim());
@@ -112,7 +113,7 @@ export async function appendB2CLeadToSheet(data: B2CLeadSheetData): Promise<void
     `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(spreadsheetId)}/values/${encodeURIComponent(sheetName)}!A:H:append`
   );
 
-  endpoint.searchParams.set("valueInputOption", "USER_ENTERED");
+  endpoint.searchParams.set("valueInputOption", B2C_LEAD_SHEET_VALUE_INPUT_OPTION);
   endpoint.searchParams.set("insertDataOption", "INSERT_ROWS");
 
   const response = await fetch(endpoint, {
