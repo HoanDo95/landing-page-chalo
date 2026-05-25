@@ -21,7 +21,7 @@ export function TourCard({ onOpenDetails, tour }: TourCardProps) {
   const saving = tour.priceOriginal - tour.priceSale;
   const inclusionSummary = tour.inclusions.slice(0, 3).join(", ");
   const tourImages = tour.galleryImages?.length ? tour.galleryImages : [tour.heroImage];
-  const visibleImages = tourImages.slice(0, 4);
+  const visibleImages = tourImages.slice(0, 3);
 
   function handleOpenDetails() {
     trackEvent("b2c_tour_select", {
@@ -45,7 +45,9 @@ export function TourCard({ onOpenDetails, tour }: TourCardProps) {
                 alt={image.alt}
                 className="tour-card__image"
                 fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1080px) 50vw, 33vw"
+                loading="lazy"
+                quality={68}
+                sizes="(max-width: 640px) 92vw, (max-width: 1080px) 42vw, 24vw"
                 src={image.src}
               />
             </span>

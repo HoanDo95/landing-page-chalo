@@ -129,7 +129,8 @@ export function TestimonialCard({
                 className="b2c-testimonial-card__image"
                 fill
                 loading="lazy"
-                sizes="(max-width: 768px) 100vw, 30vw"
+                quality={62}
+                sizes="(max-width: 768px) 88vw, 300px"
                 src={avatarSrc}
               />
             ) : (
@@ -201,7 +202,9 @@ export function TestimonialCard({
                               alt={activeImage.alt}
                               className="b2c-testimonial-album__image"
                               fill
-                              sizes="(max-width: 960px) 100vw, 42vw"
+                              loading="eager"
+                              quality={76}
+                              sizes="(max-width: 960px) 92vw, 680px"
                               src={activeImage.src}
                             />
                           </figure>

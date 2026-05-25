@@ -40,12 +40,12 @@ export function B2CLandingPage({ content }: Props) {
         });
       }
 
-      if (heroSlidesMap.size >= 6) {
+      if (heroSlidesMap.size >= 4) {
         break;
       }
     }
 
-    if (heroSlidesMap.size >= 6) {
+    if (heroSlidesMap.size >= 4) {
       break;
     }
   }
@@ -157,8 +157,9 @@ export function B2CLandingPage({ content }: Props) {
                                       alt=""
                                       className="b2c-hero-media-image"
                                       fill
-                                      priority={groupIndex === 0 && slideIndex < 2}
-                                      sizes="(max-width: 1080px) 72vw, 20vw"
+                                      priority={groupIndex === 0 && slideIndex === 0}
+                                      quality={70}
+                                      sizes="(max-width: 1080px) 68vw, 18vw"
                                       src={slide.src}
                                     />
                                     <figcaption>{slide.label}</figcaption>
@@ -276,6 +277,7 @@ export function B2CLandingPage({ content }: Props) {
                         alt={heroImage.alt}
                         className="b2c-proof-card__image"
                         fill
+                        quality={72}
                         sizes="(max-width: 900px) 100vw, 34vw"
                         src={heroImage.src}
                       />
@@ -288,6 +290,7 @@ export function B2CLandingPage({ content }: Props) {
                       alt="People enjoying a premium guided travel experience in Vietnam."
                       className="b2c-proof-card__image"
                       fill
+                      quality={72}
                       sizes="(max-width: 900px) 100vw, 18vw"
                       src={secondaryImage}
                     />
