@@ -17,7 +17,7 @@ export function GatedContentOverlay({
   children,
   formContent
 }: GatedContentOverlayProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
   const [showToast, setShowToast] = useState(false);
   const { shouldLockContent, shouldShowOverlay, shouldShowModal } = getGatedContentRenderState({
     isModalOpen

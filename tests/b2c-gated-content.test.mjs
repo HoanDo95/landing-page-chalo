@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 
 import { getGatedContentRenderState, isGateTimestampValid } from "../components/b2c/use-gated-content.ts";
@@ -54,4 +55,15 @@ test("getGatedContentRenderState shows an optional modal without locking content
       shouldShowModal: true
     }
   );
+});
+
+test("B2C advice modal opens on initial page load but remains optional", () => {
+  const overlaySource = readFileSync(
+    new URL("../components/b2c/gated-content-overlay.tsx", import.meta.url),
+    "utf8"
+  );
+
+  assert.match(overlaySource, /const \[isModalOpen, setIsModalOpen\] = useState\(true\);/);
+  assert.match(overlaySource, /onCancel=\{\(\) => setIsModalOpen\(false\)\}/);
+  assert.match(overlaySource, /aria-label="Continue without advice form"/);
 });
