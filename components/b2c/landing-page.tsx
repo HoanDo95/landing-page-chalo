@@ -2,7 +2,6 @@ import Image from "next/image";
 import { AnimatedMetricValue } from "@/components/b2c/AnimatedMetricValue";
 import { ChatWidget } from "@/components/b2c/ChatWidget/ChatWidget";
 import { GatedContentOverlay } from "@/components/b2c/gated-content-overlay";
-import { LeadCaptureForm } from "@/components/b2c/lead-capture-form";
 import { MetricBar } from "@/components/b2c/MetricBar";
 import { TestimonialCarousel } from "@/components/b2c/TestimonialCard";
 import { TourPackagesSection } from "@/components/b2c/tour-packages-section";
@@ -87,7 +86,7 @@ export function B2CLandingPage({ content }: Props) {
       <div id="top" />
       <ResponsiveNav
         brand={content.brand}
-        cta={{ label: content.hero.secondaryCta, href: "#contact" }}
+        cta={{ label: content.hero.secondaryCta, href: "#free-advice" }}
         ctaEventName="b2c_cta_click"
         links={content.footer?.nav ?? []}
         logo={{ src: "/logo/chalo-logo-transparent.png", alt: content.brand }}
@@ -106,11 +105,11 @@ export function B2CLandingPage({ content }: Props) {
                   <p className="b2c-lead">{content.hero.description}</p>
 
                   <div className="cta-row">
-                    <a className="button primary" href="#packages">
-                      {content.hero.primaryCta}
-                    </a>
-                    <a className="button secondary" href="#contact">
+                    <a className="button primary b2c-free-advice-cta" href="#free-advice">
                       {content.hero.secondaryCta}
+                    </a>
+                    <a className="button secondary" href="#packages">
+                      {content.hero.primaryCta}
                     </a>
                   </div>
 
@@ -223,6 +222,11 @@ export function B2CLandingPage({ content }: Props) {
                   copy={content.tourPackages.subtitle}
                   align="start"
                 />
+                {content.tourPackages.commitmentBadge ? (
+                  <p className="b2c-package-commitment">
+                    {content.tourPackages.commitmentBadge}
+                  </p>
+                ) : null}
                 <div className="b2c-package-summary" aria-label="Tour package summary">
                   {packageSummaryItems.map((item) => (
                     <div
@@ -305,26 +309,41 @@ export function B2CLandingPage({ content }: Props) {
             <PageWrap>
               <div className="b2c-final-card">
                 <div className="b2c-final-card__copy">
-                  <div className="eyebrow">{content.finalCta.eyebrow}</div>
-                  <h2 className="section-title" style={{ marginTop: 18 }}>
-                    {content.finalCta.title}
-                  </h2>
-                  <p className="section-copy">
-                    {content.finalCta.description}
-                  </p>
-                  <div className="b2c-final-proof-list" aria-label="What happens after submitting">
+                  <div className="b2c-final-card__intro">
+                    <div className="eyebrow">{content.finalCta.eyebrow}</div>
+                    <h2 className="section-title" style={{ marginTop: 18 }}>
+                      {content.finalCta.title}
+                    </h2>
+                    <p className="section-copy">
+                      {content.finalCta.description}
+                    </p>
+                  </div>
+                  <div className="b2c-final-proof-list" aria-label="What happens when you contact Chalo Travel">
                     <span>Advisor reviews your route</span>
-                    <span>Seats are checked before payment</span>
-                    <span>You receive a clear quote first</span>
+                    <span>Seats checked before payment</span>
+                    <span>Clear quote first</span>
                   </div>
                 </div>
-                <div className="b2c-final-card__form">
-                  {content.leadForm && content.tourPackages ? (
-                    <LeadCaptureForm
-                      content={content.leadForm}
-                      tourPackages={content.tourPackages.packages}
-                    />
+                <div className="b2c-final-card__contact-panel">
+                  {content.finalCta.contactDetails?.length ? (
+                    <address className="b2c-final-contact" aria-label="Chalo Travel contact details">
+                      {content.finalCta.contactDetails.map((detail) => (
+                        <div className="b2c-final-contact__item" key={detail.label}>
+                          <span className="b2c-final-contact__label">{detail.label}</span>
+                          {detail.href ? (
+                            <a href={detail.href} rel="noreferrer" target="_blank">
+                              {detail.value}
+                            </a>
+                          ) : (
+                            <span>{detail.value}</span>
+                          )}
+                        </div>
+                      ))}
+                    </address>
                   ) : null}
+                  <a className="button primary b2c-final-advice-button" href="#free-advice">
+                    {content.hero.secondaryCta}
+                  </a>
                 </div>
               </div>
             </PageWrap>

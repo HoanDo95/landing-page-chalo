@@ -12,8 +12,7 @@ interface GateTimestampOptions {
 }
 
 interface GateRenderStateOptions {
-  isChecking: boolean;
-  isUnlocked: boolean;
+  isModalOpen: boolean;
 }
 
 export function isGateTimestampValid({ timestamp, nowMs, expiryDays }: GateTimestampOptions) {
@@ -30,13 +29,11 @@ export function isGateTimestampValid({ timestamp, nowMs, expiryDays }: GateTimes
   return nowMs - storedMs < expiryDays * 24 * 60 * 60 * 1000;
 }
 
-export function getGatedContentRenderState({ isChecking, isUnlocked }: GateRenderStateOptions) {
-  const shouldLockContent = isChecking || !isUnlocked;
-
+export function getGatedContentRenderState({ isModalOpen }: GateRenderStateOptions) {
   return {
-    shouldLockContent,
-    shouldShowOverlay: shouldLockContent,
-    shouldShowModal: !isChecking && !isUnlocked
+    shouldLockContent: false,
+    shouldShowOverlay: isModalOpen,
+    shouldShowModal: isModalOpen
   };
 }
 

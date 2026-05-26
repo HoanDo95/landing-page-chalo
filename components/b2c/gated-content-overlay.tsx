@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
 
 import { B2CLeadFormModal } from "@/components/b2c/b2c-lead-form-modal";
-import { getGatedContentRenderState, useGatedContent } from "@/components/b2c/use-gated-content";
+import { getGatedContentRenderState } from "@/components/b2c/use-gated-content";
 import type { LandingLeadFormContent } from "@/lib/landing-content";
 
 interface GatedContentOverlayProps {
@@ -15,15 +15,12 @@ interface GatedContentOverlayProps {
 
 export function GatedContentOverlay({
   children,
-  formContent,
-  storageKey,
-  expiryDays
+  formContent
 }: GatedContentOverlayProps) {
-  const { isChecking, isUnlocked, unlock } = useGatedContent({ storageKey, expiryDays });
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const { shouldLockContent, shouldShowOverlay, shouldShowModal } = getGatedContentRenderState({
-    isChecking,
-    isUnlocked
+    isModalOpen
   });
 
   useEffect(() => {
@@ -39,29 +36,74 @@ export function GatedContentOverlay({
     };
   }, [shouldLockContent]);
 
+  useEffect(() => {
+    if (!isModalOpen) {
+      return;
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setIsModalOpen(false);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isModalOpen]);
+
+  function handleAdviceTriggerClick(event: MouseEvent<HTMLDivElement>) {
+    const target = event.target;
+
+    if (!(target instanceof Element)) {
+      return;
+    }
+
+    const trigger = target.closest('a[href="#free-advice"], [data-b2c-advice-trigger="true"]');
+
+    if (!trigger) {
+      return;
+    }
+
+    event.preventDefault();
+    setIsModalOpen(true);
+  }
+
   function handleSuccess() {
-    unlock();
+    setIsModalOpen(false);
     setShowToast(true);
     window.setTimeout(() => setShowToast(false), 3000);
   }
 
   return (
     <>
-      <div className={shouldLockContent ? "b2c-gated-content b2c-gated-content--locked" : "b2c-gated-content"}>
+      <div
+        className={shouldLockContent ? "b2c-gated-content b2c-gated-content--locked" : "b2c-gated-content"}
+        onClickCapture={handleAdviceTriggerClick}
+      >
         {children}
       </div>
 
       {shouldShowOverlay ? (
         <div
-          aria-label="Unlock Vietnam tour packages"
+          aria-label="Get free Vietnam tour advice"
           aria-modal="true"
           className="b2c-gate-overlay"
           role="dialog"
         >
-          <div className="b2c-gate-overlay__backdrop" aria-hidden="true" />
+          <button
+            aria-label="Continue without advice form"
+            className="b2c-gate-overlay__backdrop"
+            type="button"
+            onClick={() => setIsModalOpen(false)}
+          />
           {shouldShowModal ? (
             <div className="b2c-gate-overlay__modal">
-              <B2CLeadFormModal content={formContent} onSuccess={handleSuccess} />
+              <B2CLeadFormModal
+                content={formContent}
+                onCancel={() => setIsModalOpen(false)}
+                onSuccess={handleSuccess}
+              />
             </div>
           ) : null}
         </div>

@@ -27,6 +27,7 @@ type FieldErrors = Partial<Record<FieldName, string>>;
 
 interface B2CLeadFormModalProps {
   content: LandingLeadFormContent;
+  onCancel: () => void;
   onSuccess: () => void;
 }
 
@@ -72,7 +73,7 @@ function FieldError({ message }: { message?: string }) {
   );
 }
 
-export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) {
+export function B2CLeadFormModal({ content, onCancel, onSuccess }: B2CLeadFormModalProps) {
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [statusMessage, setStatusMessage] = useState("");
@@ -156,10 +157,19 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
 
   return (
     <form aria-busy={isSubmitting} className="b2c-gate-form" onSubmit={handleSubmit}>
+      <button
+        aria-label="Close advice form"
+        className="b2c-gate-form__close"
+        disabled={isSubmitting}
+        type="button"
+        onClick={onCancel}
+      >
+        x
+      </button>
       <div className="b2c-gate-form__intro">
         <p className="eyebrow">Free Vietnam tour quote</p>
         <h2>Start planning your Vietnam trip.</h2>
-        <p>Share a few trip details so we can suggest the most relevant routes, prices, and availability.</p>
+        <p>Share a few trip details for a faster quote, or continue browsing and come back later.</p>
       </div>
 
       <p
@@ -329,9 +339,14 @@ export function B2CLeadFormModal({ content, onSuccess }: B2CLeadFormModalProps) 
         <FieldError message={errors.notes} />
       </label>
 
-      <button className="button primary b2c-gate-form__submit" disabled={isSubmitting} type="submit">
-        {isSubmitting ? "Submitting..." : content.submitLabel}
-      </button>
+      <div className="b2c-gate-form__actions">
+        <button className="button primary b2c-gate-form__submit" disabled={isSubmitting} type="submit">
+          {isSubmitting ? "Submitting..." : content.submitLabel}
+        </button>
+        <button className="button secondary b2c-gate-form__skip" disabled={isSubmitting} type="button" onClick={onCancel}>
+          Continue without form
+        </button>
+      </div>
     </form>
   );
 }

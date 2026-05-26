@@ -86,11 +86,48 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
       title: "Beach endings clients love"
     }
   ] as const;
-  const tourStyleVisuals = [
+  const travelerTypeVisuals = [
+    {
+      src: "/tour/family-cable-car.jpg",
+      alt: "Private FIT travelers riding a scenic cable car during a Vietnam itinerary.",
+      label: "Flexible private pace"
+    },
     {
       src: "/tour/family-golden-bridge.jpg",
-      alt: "Family travelers hosted at Golden Bridge in Da Nang.",
-      label: "Family-ready highlight"
+      alt: "Family travelers visiting Golden Bridge in Vietnam.",
+      label: "Family-ready logistics"
+    },
+    {
+      src: "/tour/group-presidential-palace.jpg",
+      alt: "Small group travelers visiting a landmark in Vietnam.",
+      label: "Handled on the ground"
+    },
+    {
+      src: "/tour/ho-chi-minh-city.jpg",
+      alt: "Ho Chi Minh City skyline for MICE and corporate travel programs.",
+      label: "Corporate group flow"
+    },
+    {
+      src: "/tour/ba-na-hills.jpg",
+      alt: "Ba Na Hills premium attraction for luxury Vietnam itineraries.",
+      label: "Premium route polish"
+    },
+    {
+      src: "/customer/customer-2/z7074483418998_9088775f62efbfd4fccf0b43ba0c93d7.jpg",
+      alt: "Leisure travelers enjoying a relaxed Ba Na Hills stop in Vietnam.",
+      label: "Relaxed holiday pace"
+    },
+    {
+      src: "/customer/customer-1/z6907822752180_d29a5cc177b7d54f13914db3ba0cc981.jpg",
+      alt: "Private travelers visiting a Vietnam temple and cultural landmark.",
+      label: "Heritage-led selling"
+    }
+  ] as const;
+  const tourStyleVisuals = [
+    {
+      src: "/tour/halong-bay.jpg",
+      alt: "Halong Bay cruise and limestone islands for first-time Vietnam highlights.",
+      label: "Vietnam highlights route"
     },
     {
       src: "/tour/ninh-binh.jpg",
@@ -350,8 +387,32 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
                 copy={content.travelerTypes.description}
                 align="start"
               />
-              <div className="b2b-card-group b2b-card-group--travelers">
-                <FeatureCards features={content.travelerTypes.items} />
+              <div className="b2b-traveler-type-grid" data-reveal="section" data-reveal-stagger="true">
+                {content.travelerTypes.items.map((item, index) => {
+                  const visual = travelerTypeVisuals[index];
+
+                  return (
+                    <article className="b2b-traveler-type-card" key={item.title}>
+                      {visual ? (
+                        <Image
+                          alt={visual.alt}
+                          className="b2b-traveler-type-card__image"
+                          fill
+                          sizes="(max-width: 720px) 100vw, (max-width: 1080px) 45vw, 24vw"
+                          src={visual.src}
+                        />
+                      ) : null}
+                      <div className="b2b-traveler-type-card__overlay">
+                        <span className="badge">0{index + 1}</span>
+                        <span className="b2b-traveler-type-card__label">
+                          {visual?.label ?? "Direct local handling"}
+                        </span>
+                        <h3>{item.title}</h3>
+                        <p>{item.description}</p>
+                      </div>
+                    </article>
+                  );
+                })}
               </div>
             </div>
           </PageWrap>

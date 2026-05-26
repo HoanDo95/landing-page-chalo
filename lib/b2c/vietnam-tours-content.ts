@@ -4,6 +4,7 @@ import type { LandingContent, TourPackagesContent } from "@/lib/landing-content"
 const tourPackages: TourPackagesContent = {
   title: "Amazing Vietnam multi-destination tours",
   subtitle: "Comprehensive itineraries covering Vietnam's highlights in one package. Hanoi to Ho Chi Minh, mountains to beaches.",
+  commitmentBadge: "Indian Food & Vegetarian/Jain Options Available",
   packages: [
     {
       id: "amazing-vietnam-5d4n",
@@ -788,7 +789,18 @@ export const b2cContent: LandingContent = {
   finalCta: {
     eyebrow: "Get your quote",
     title: "Pick a tour. Get price and availability in 15 minutes.",
-    description: "Share your email and phone. Chalo Travel sends the route, quote, and next steps."
+    description: "Share your email and phone. Chalo Travel sends the route, quote, and next steps.",
+    contactDetails: [
+      {
+        label: "WhatsApp",
+        value: "+84363554573",
+        href: "https://wa.me/84363554573"
+      },
+      {
+        label: "Office",
+        value: "M8/219 Nguyen Ngoc Nai street, Hanoi city, Vietnam"
+      }
+    ]
   },
   leadForm: {
     submitLabel: "Get quote",

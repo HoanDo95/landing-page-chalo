@@ -30,25 +30,10 @@ test("isGateTimestampValid rejects invalid timestamps", () => {
   assert.equal(isGateTimestampValid({ timestamp: "", nowMs: Date.now(), expiryDays: 30 }), false);
 });
 
-test("getGatedContentRenderState keeps content locked while storage is being checked", () => {
+test("getGatedContentRenderState keeps page available when the advice modal is closed", () => {
   assert.deepEqual(
     getGatedContentRenderState({
-      isChecking: true,
-      isUnlocked: false
-    }),
-    {
-      shouldLockContent: true,
-      shouldShowOverlay: true,
-      shouldShowModal: false
-    }
-  );
-});
-
-test("getGatedContentRenderState only unlocks content after a valid stored unlock", () => {
-  assert.deepEqual(
-    getGatedContentRenderState({
-      isChecking: false,
-      isUnlocked: true
+      isModalOpen: false
     }),
     {
       shouldLockContent: false,
@@ -58,14 +43,13 @@ test("getGatedContentRenderState only unlocks content after a valid stored unloc
   );
 });
 
-test("getGatedContentRenderState shows the modal after storage check finds no unlock", () => {
+test("getGatedContentRenderState shows an optional modal without locking content", () => {
   assert.deepEqual(
     getGatedContentRenderState({
-      isChecking: false,
-      isUnlocked: false
+      isModalOpen: true
     }),
     {
-      shouldLockContent: true,
+      shouldLockContent: false,
       shouldShowOverlay: true,
       shouldShowModal: true
     }

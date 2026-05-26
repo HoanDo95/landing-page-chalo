@@ -152,6 +152,7 @@ export interface TourItineraryDay {
 export interface TourPackagesContent {
   title: string;
   subtitle: string;
+  commitmentBadge?: string;
   packages: TourPackage[];
   showPriceRange: boolean;
   sortOptions: ("popular" | "price-asc" | "price-desc" | "destination")[];
@@ -265,6 +266,11 @@ export interface LandingContent {
     eyebrow: string;
     title: string;
     description: string;
+    contactDetails?: {
+      label: string;
+      value: string;
+      href?: string;
+    }[];
   };
   stickyCta?: LandingStickyCtaContent;
   leadForm?: LandingLeadFormContent;

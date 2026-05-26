@@ -172,6 +172,22 @@ export const b2bContent: B2BLandingContent = {
       {
         title: "Small groups",
         description: "Directly operated departures with clear local handling."
+      },
+      {
+        title: "MICE tour",
+        description: "Company incentives, meeting programs, and group logistics."
+      },
+      {
+        title: "Luxury tour",
+        description: "Premium hotels, private guides, and polished pacing."
+      },
+      {
+        title: "Leisure Tour",
+        description: "Relaxed holidays with nature, beach, and culture balance."
+      },
+      {
+        title: "Cultural Tour",
+        description: "Heritage routes, local food, and guided cultural depth."
       }
     ]
   },
