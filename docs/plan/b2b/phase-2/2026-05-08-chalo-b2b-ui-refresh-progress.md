@@ -1,10 +1,10 @@
-# Chalo B2B UI Refresh Execution Progress
+# ChaloTrip B2B UI Refresh Execution Progress
 
 > **For execution agents:** Update this file after each phase. Do not mark a phase complete until verification commands and browser QA notes are recorded.
 
 ## Project Context
 
-- Service name: Chalo
+- Service name: ChaloTrip
 - Variant: B2B preview and B2B deployment
 - Audience: international travel agents, operators, DMC partners, wholesalers
 - Primary CTA: `Talk to a specialist`
@@ -224,7 +224,7 @@
   - Mobile nav result: opening the mobile nav and selecting the FAQ link still closed the panel and landed the viewport on the FAQ section.
   - Console inspection result: no app console errors or warnings were recorded during the Phase 4 Playwright QA flows; the only console message observed remained the standard React DevTools info line from the Next.js dev server.
   - Visual QA summary: post-polish desktop and mobile screenshots showed the closeout card hierarchy reading more clearly, better spacing between FAQ intro, accordion items, and form, and no overlap between the sticky CTA and the targeted contact form flow.
-  - Spec-correction pass: `finalCta.description` now matches the approved sentence exactly: `Share your market, group size, travel dates, and preferred route. Chalo will help shape the next step.`
+  - Spec-correction pass: `finalCta.description` now matches the approved sentence exactly: `Share your market, group size, travel dates, and preferred route. ChaloTrip will help shape the next step.`
   - Code-quality follow-up: the B2B closeout card no longer inherits a generic `.final-cta-card` base selector and the B2B sticky CTA no longer inherits an unprefixed `.mobile-sticky-cta` selector; both now use B2B-prefixed classes in JSX and CSS with unchanged behavior.
   - Final rollout cleanup: `TrackedCtaLink` no longer hardcodes `b2b_cta_click`; the shared wrapper now accepts a caller-supplied event name and `ResponsiveNav` forwards an optional CTA event name from the variant-owned caller. B2B still passes `b2b_cta_click` from `components/b2b/landing-page.tsx`, so tracked CTA behavior stayed intact while the shared helper became neutral.
   - Final rollout cleanup: `lib/analytics.ts` now exposes a neutral no-op `trackEvent(name: string, properties?)` helper instead of presenting shared analytics as B2B-only infrastructure.

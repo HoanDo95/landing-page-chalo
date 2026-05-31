@@ -285,9 +285,9 @@ DESCRIPTION: "Nếu tìm được giá thấp hơn tại agency khác, hoàn ti�
 **Columns:**
 1. **Brand:**
    ```
-   [Logo placeholder: text "Chalo" in Jade]
+   [Logo placeholder: text "ChaloTrip" in Jade]
    "Tour Việt Nam giá tốt nhất"
-   © 2026 Chalo Travel
+   © 2026 ChaloTrip
    ```
 
 2. **Links:**

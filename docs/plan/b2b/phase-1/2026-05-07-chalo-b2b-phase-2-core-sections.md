@@ -1,10 +1,10 @@
-# Chalo B2B Landing Page Phase 2 Task File
+# ChaloTrip B2B Landing Page Phase 2 Task File
 
 > **For execution agents:** Implement only core landing sections from this file. Use `superpowers:subagent-driven-development` or `superpowers:executing-plans`. Keep this file under 200 lines and update `docs/plan/b2b/phase-1/2026-05-07-chalo-b2b-progress.md` when complete.
 
 **Goal:** Build the approved B2B landing page sections as isolated, content-driven components.
 
-**Architecture:** B2B section order and copy belong to `components/b2b/landing-page.tsx` and `lib/b2b/content.ts`. Shared primitives may be expanded only when they stay variant-neutral and do not encode Chalo-specific layout or copy.
+**Architecture:** B2B section order and copy belong to `components/b2b/landing-page.tsx` and `lib/b2b/content.ts`. Shared primitives may be expanded only when they stay variant-neutral and do not encode ChaloTrip-specific layout or copy.
 
 **Tech Stack:** Next.js 15, React 19, TypeScript, semantic HTML, `next/image` for real assets when available.
 
@@ -23,12 +23,12 @@
 - `components/b2b/landing-page.tsx` for section composition.
 - `components/shared/landing-primitives.tsx` for neutral primitives only.
 - `app/globals.css` for section classes, responsive layout, and component styling.
-- `publics/logo/Logo Chalo nền trong.png` or a normalized copied asset if logo path needs browser-safe naming.
+- `publics/logo/Logo ChaloTrip nền trong.png` or a normalized copied asset if logo path needs browser-safe naming.
 
 ## Required Sections
 
 1. Navbar
-   - Logo/brand: `Chalo`.
+   - Logo/brand: `ChaloTrip`.
    - Links: `Partners`, `Traveler types`, `How it works`, `FAQ`.
    - CTA: `Talk to a specialist`.
    - Sticky behavior on scroll.
@@ -53,7 +53,7 @@
    - Honeymoon travelers.
    - Leisure travelers.
 
-5. Why Chalo
+5. Why ChaloTrip
    - Best-value planning.
    - Fast, clear consultation.
    - On-ground Vietnam support.

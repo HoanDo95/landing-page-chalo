@@ -6,6 +6,7 @@ export type MailSendResult =
   | { ok: false; reason: "mail_unavailable" | "mail_failed"; message: string };
 
 export interface MailMessage {
+  html?: string;
   replyTo?: string;
   subject: string;
   text: string;
@@ -134,6 +135,10 @@ function getMessageContent(config: MailConfig, mailMessage: MailMessage) {
     text: mailMessage.text
   };
 
+  if (mailMessage.html) {
+    mailOptions.html = mailMessage.html;
+  }
+
   const replyTo = mailMessage.replyTo || config.defaultReplyTo;
   if (replyTo) {
     mailOptions.replyTo = replyTo;
@@ -159,6 +164,7 @@ async function sendWithResend(
       to: [message.to],
       reply_to: message.replyTo,
       subject: message.subject,
+      html: message.html,
       text: message.text
     })
   });

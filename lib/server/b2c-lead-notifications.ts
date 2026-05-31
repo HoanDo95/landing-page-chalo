@@ -5,7 +5,7 @@ function formatB2CLeadSubject(lead: B2CTourLeadSubmission) {
   const leadLabel = lead.name || lead.workEmail;
   const tourPrefix = lead.tourPackageId ? `[${lead.tourPackageId}]` : "[General]";
 
-  return `[Chalo B2C Lead] ${tourPrefix} ${leadLabel}`;
+  return `[ChaloTrip B2C Lead] ${tourPrefix} ${leadLabel}`;
 }
 
 function formatB2CLeadText(lead: B2CTourLeadSubmission) {

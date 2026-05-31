@@ -1,10 +1,10 @@
-# Chalo B2B Landing Page Execution Progress
+# ChaloTrip B2B Landing Page Execution Progress
 
 > **For execution agents:** Update this file after each phase. Do not mark a phase complete until its verification commands and manual checks are recorded.
 
 ## Project Context
 
-- Service name: Chalo.
+- Service name: ChaloTrip.
 - Target audience: international travel agents, travel partners, tour operators, DMC partners, and wholesalers sending travelers to Vietnam.
 - Primary CTA goal: get partners to talk to a specialist.
 - Brand tone: professional, friendly, clear, accessible, value-focused, not overly luxury or corporate.
@@ -125,8 +125,8 @@
   - `npm run build:b2b` - passed after Phase 2 quality review fixes for contrast, anchor offsets, final CTA target, and stronger B2B typing; Next statically prerendered `/`, `/_not-found`, `/b2b`, and `/b2c`.
   - `npm run build:b2c` - passed after Phase 2 quality review fixes for contrast, anchor offsets, final CTA target, and stronger B2B typing; Next statically prerendered `/`, `/_not-found`, `/b2b`, and `/b2c`.
 - Manual checks:
-  - B2B composition now renders the approved section order: sticky navbar, hero, partner fit, traveler types, why Chalo, how it works, sample tour styles, service commitments, FAQ with final CTA, and footer.
-  - Visible B2B copy now lives in `lib/b2b/content.ts`; shared primitives remain generic and do not contain Chalo-specific copy or section order.
+  - B2B composition now renders the approved section order: sticky navbar, hero, partner fit, traveler types, why ChaloTrip, how it works, sample tour styles, service commitments, FAQ with final CTA, and footer.
+  - Visible B2B copy now lives in `lib/b2b/content.ts`; shared primitives remain generic and do not contain ChaloTrip-specific copy or section order.
   - Hero imagery uses a polished placeholder treatment instead of fake stock because no final Vietnam imagery asset was provided in the allowed scope.
   - Mobile navigation uses a keyboard-accessible `details` / `summary` pattern and all primary CTAs resolve to live section anchors.
   - B2C build remained valid after shared type and CSS changes; no B2B copy was introduced into B2C content.

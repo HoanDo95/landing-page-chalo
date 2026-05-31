@@ -5,6 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 This is a Next.js 15 SEO-first landing page codebase with two independent deployment variants built from a single repository:
+
 - **B2B** (English, business travelers)
 - **B2C** (Vietnamese, leisure travelers)
 
@@ -55,6 +56,7 @@ The codebase uses Next.js route groups to separate variant routing:
 - `app/(b2c-preview)/` - Direct B2C preview route with fixed `lang="vi"`
 
 Variant resolution happens in `lib/variant.ts`:
+
 ```typescript
 const variant = resolveVariant(process.env.LANDING_VARIANT);
 // Returns "b2b" or "b2c", defaults to "b2b"
@@ -95,6 +97,7 @@ Content types define the complete landing page schema in `lib/landing-content.ts
 ### Design Authority
 
 Design specifications are the source of truth for visual decisions:
+
 - `docs/design/b2b/DESIGN.md` - Canonical B2B design spec
 - `docs/design/b2c/DESIGN.md` - Canonical B2C design spec
 
@@ -142,6 +145,7 @@ If adding tests later, use `.test.tsx` naming convention aligned with feature ar
 Use clear imperative commit messages (e.g., "Add B2B hero section", "Update B2C FAQ styling").
 
 Pull requests should include:
+
 - Summary of changes
 - Which variant(s) are affected
 - Screenshots for visual updates

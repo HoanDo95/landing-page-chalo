@@ -156,11 +156,11 @@ function formatLeadSubject(lead: LeadSubmission): string {
   if (lead.variant === "b2c") {
     const tourId = (lead as unknown as Record<string, unknown>).tourPackageId as string | undefined;
     const tourPrefix = tourId ? `[${tourId}]` : "[General]";
-    return `[Chalo B2C Lead] ${tourPrefix} ${leadLabel}`;
+    return `[ChaloTrip B2C Lead] ${tourPrefix} ${leadLabel}`;
   }
 
   const company = lead.company ? ` - ${lead.company}` : "";
-  return `[Chalo ${lead.variant.toUpperCase()} lead] ${leadLabel}${company}`;
+  return `[ChaloTrip ${lead.variant.toUpperCase()} lead] ${leadLabel}${company}`;
 }
 ```
 

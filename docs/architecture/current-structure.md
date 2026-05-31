@@ -197,6 +197,17 @@ public/
   logo/
     chalo-favicon.png
     chalo-logo-transparent.png
+  logo-branch/
+    Agoda_Logo_1.png
+    Booking-com_Logo_1.png
+    Expedia_Taap_idZUEpq8vY_0.png
+    GetYourGuide_idEZk98gxp_1.png
+    Klook_Logo_1.png
+    MakeMyTrip_idyZR4lEOi_1.png
+    TBO_Holidays.png
+    Traveloka_idgaNgeFw0_1.png
+    Trip-com_idzG1j8E6i_1.png
+    Viator_idWQLDyxzT_0.png
   og-image-b2c-tours.svg
   og-image-b2c.svg
   og-image.svg

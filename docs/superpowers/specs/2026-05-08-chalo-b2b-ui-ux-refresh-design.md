@@ -1,8 +1,8 @@
-# Chalo B2B UI/UX Refresh Design
+# ChaloTrip B2B UI/UX Refresh Design
 
 ## Context
 
-This document defines the approved UI/UX refresh for the existing Chalo B2B landing page. It does not replace the existing B2B positioning spec in `docs/superpowers/specs/2026-05-07-chalo-b2b-landing-page-design.md`. Instead, it adds the visual, interaction, and section-rhythm decisions needed to make the page feel more polished, more memorable, and more conversion-ready while staying SEO-first.
+This document defines the approved UI/UX refresh for the existing ChaloTrip B2B landing page. It does not replace the existing B2B positioning spec in `docs/superpowers/specs/2026-05-07-chalo-b2b-landing-page-design.md`. Instead, it adds the visual, interaction, and section-rhythm decisions needed to make the page feel more polished, more memorable, and more conversion-ready while staying SEO-first.
 
 The current page structure is broadly correct, but the presentation is still too flat and too card-heavy. The hero is not yet strong enough, the section rhythm is too even, and the visual hierarchy does not create enough contrast between the most important moments of the page.
 
@@ -45,8 +45,8 @@ The page should feel elevated because the hero image is strong, the typography i
 The page cannot rely on aesthetics alone. After the hero impression, the user should very quickly understand:
 
 - this is for international travel partners
-- Chalo supports multiple traveler types
-- Chalo is operationally clear and locally grounded
+- ChaloTrip supports multiple traveler types
+- ChaloTrip is operationally clear and locally grounded
 
 ### 3. Mass-market value, not luxury exclusivity
 

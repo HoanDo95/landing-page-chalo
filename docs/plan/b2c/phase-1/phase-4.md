@@ -80,10 +80,10 @@ In `lib/b2c/vietnam-tours-content.ts`, verify:
 
 ```typescript
 seo: {
-  title: "Tour Việt Nam Giá Tốt Nhất | Chalo Travel 2026",
+  title: "Tour Việt Nam Giá Tốt Nhất | ChaloTrip 2026",
   description: "Tour Việt Nam giá từ 2.490.000đ. Cam kết giá tốt nhất, hỗ trợ 24/7, hoàn tiền linh hoạt. Hơn 15,000 khách hàng tin dùng mỗi năm.",
   ogImagePath: "/og-image-b2c-tours.svg",
-  canonical: "https://chalotravel.com" // add when domain known
+  canonical: "https://chalotripvn.com" // add when domain known
 }
 ```
 
@@ -98,7 +98,7 @@ Create `public/og-image-b2c-tours.svg` or use existing template:
     Tour Việt Nam Giá Tốt Nhất
   </text>
   <text x="50%" y="60%" text-anchor="middle" font-size="30" fill="#1F2937">
-    Chalo Travel - Đặt tour trọn gói từ 2.490.000đ
+    ChaloTrip - Đặt tour trọn gói từ 2.490.000đ
   </text>
 </svg>
 ```
@@ -112,7 +112,7 @@ npm run build && npm run start
 Visit `/b2c`, view source, check:
 
 ```html
-<title>Tour Việt Nam Giá Tốt Nhất | Chalo Travel 2026</title>
+<title>Tour Việt Nam Giá Tốt Nhất | ChaloTrip 2026</title>
 <meta name="description" content="Tour Việt Nam giá từ 2.490.000đ...">
 <meta property="og:title" content="Tour Việt Nam Giá Tốt Nhất">
 <meta property="og:description" content="...">

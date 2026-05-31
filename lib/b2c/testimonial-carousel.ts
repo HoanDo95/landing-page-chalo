@@ -1,5 +1,5 @@
 export const TESTIMONIALS_PER_VIEW = 3;
-export const TESTIMONIAL_AUTOPLAY_MS = 2500;
+export const TESTIMONIAL_AUTOPLAY_MS = 1800;
 
 export function wrapCarouselIndex(index: number, total: number) {
   if (total <= 0) {

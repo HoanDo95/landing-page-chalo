@@ -18,7 +18,7 @@ interface B2BLandingPageProps {
   content: B2BLandingContent;
 }
 
-/** Renders the approved B2B Chalo landing page composition. */
+/** Renders the approved B2B ChaloTrip landing page composition. */
 export function B2BLandingPage({ content }: B2BLandingPageProps) {
   const heroImage = content.hero.image;
   const heroOverlay = content.hero.overlay;
@@ -63,7 +63,7 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
   const partnerFitGallery = [
     {
       src: "/tour/group-vin.jpg",
-      alt: "International group travelers exploring Vietnam with the local Chalo team.",
+      alt: "International group travelers exploring Vietnam with the local ChaloTrip team.",
       eyebrow: "Real guest moment",
       title: "Real groups already touring Vietnam"
     },
@@ -88,8 +88,8 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
   ] as const;
   const travelerTypeVisuals = [
     {
-      src: "/tour/family-cable-car.jpg",
-      alt: "Private FIT travelers riding a scenic cable car during a Vietnam itinerary.",
+      src: "/tour/hoi-an.jpg",
+      alt: "Hoi An heritage street for private FIT travelers exploring Vietnam at a flexible pace.",
       label: "Flexible private pace"
     },
     {
@@ -98,8 +98,8 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
       label: "Family-ready logistics"
     },
     {
-      src: "/tour/group-presidential-palace.jpg",
-      alt: "Small group travelers visiting a landmark in Vietnam.",
+      src: "/tour/group-vin.jpg",
+      alt: "Small group travelers hosted together on a Vietnam tour.",
       label: "Handled on the ground"
     },
     {
@@ -108,18 +108,18 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
       label: "Corporate group flow"
     },
     {
-      src: "/tour/ba-na-hills.jpg",
-      alt: "Ba Na Hills premium attraction for luxury Vietnam itineraries.",
+      src: "/tour/halong-bay.jpg",
+      alt: "Halong Bay cruise scenery for premium luxury Vietnam itineraries.",
       label: "Premium route polish"
     },
     {
-      src: "/customer/customer-2/z7074483418998_9088775f62efbfd4fccf0b43ba0c93d7.jpg",
-      alt: "Leisure travelers enjoying a relaxed Ba Na Hills stop in Vietnam.",
+      src: "/tour/phu-quoc.jpg",
+      alt: "Phu Quoc beach extension for leisure holidays in Vietnam.",
       label: "Relaxed holiday pace"
     },
     {
-      src: "/customer/customer-1/z6907822752180_d29a5cc177b7d54f13914db3ba0cc981.jpg",
-      alt: "Private travelers visiting a Vietnam temple and cultural landmark.",
+      src: "/tour/hue-imperial-citadel.jpg",
+      alt: "Hue Imperial Citadel heritage landmark for guided cultural Vietnam tours.",
       label: "Heritage-led selling"
     }
   ] as const;
@@ -563,10 +563,17 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
                       >
                         {partnerMarquee.items.map((item) => (
                           <span
-                            className="b2b-partner-marquee-wordmark"
-                            key={`${item}-${groupIndex}`}
+                            className={`b2b-partner-marquee-wordmark b2b-partner-marquee-wordmark--${item.tone ?? "light"}`}
+                            key={`${item.label}-${groupIndex}`}
                           >
-                            {item}
+                            <Image
+                              alt={item.alt}
+                              className="b2b-partner-marquee-logo"
+                              height={item.height}
+                              sizes="(max-width: 720px) 150px, 190px"
+                              src={item.src}
+                              width={item.width}
+                            />
                           </span>
                         ))}
                       </div>

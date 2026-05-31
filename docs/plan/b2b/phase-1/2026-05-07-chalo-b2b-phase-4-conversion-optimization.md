@@ -1,4 +1,4 @@
-# Chalo B2B Landing Page Phase 4 Task File
+# ChaloTrip B2B Landing Page Phase 4 Task File
 
 > **For execution agents:** Implement only conversion optimization from this file. Use `superpowers:subagent-driven-development` or `superpowers:executing-plans`. Keep this file under 200 lines and update `docs/plan/b2b/phase-1/2026-05-07-chalo-b2b-progress.md` when complete.
 
@@ -35,7 +35,7 @@
   - Label: `Talk to a specialist`.
   - Link target: final contact or lead section.
   - Show after initial scroll only if this can be done without hydration complexity; otherwise keep it visible at bottom on mobile.
-  - Include accessible label: `Contact a Chalo travel specialist`.
+  - Include accessible label: `Contact a ChaloTrip travel specialist`.
 
 - [ ] Structure headline for copy testing.
   - Store headline variants in `lib/b2b/content.ts`.

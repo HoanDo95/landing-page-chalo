@@ -103,7 +103,14 @@ export interface LandingFooterContent {
   nav: ActionLink[];
   utilityLinks?: ActionLink[];
   partnerMarquee?: {
-    items: string[];
+    items: Array<{
+      alt: string;
+      height: number;
+      label: string;
+      src: string;
+      tone?: "dark" | "light";
+      width: number;
+    }>;
   };
   copyright: string;
 }

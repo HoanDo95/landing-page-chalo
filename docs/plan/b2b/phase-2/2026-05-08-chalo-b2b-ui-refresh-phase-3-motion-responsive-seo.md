@@ -1,4 +1,4 @@
-# Chalo B2B UI Refresh Phase 3 Task File
+# ChaloTrip B2B UI Refresh Phase 3 Task File
 
 > **For execution agents:** Implement only responsive, motion, accessibility, and SEO-safe polish from this file. REQUIRED SUB-SKILL: `superpowers:subagent-driven-development` or `superpowers:executing-plans`. Keep this file under 200 lines and update `docs/plan/b2b/phase-2/2026-05-08-chalo-b2b-ui-refresh-progress.md` when complete.
 

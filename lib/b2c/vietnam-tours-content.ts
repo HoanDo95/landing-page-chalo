@@ -3,7 +3,7 @@ import type { LandingContent, TourPackagesContent } from "@/lib/landing-content"
 
 const tourPackages: TourPackagesContent = {
   title: "Amazing Vietnam multi-destination tours",
-  subtitle: "Comprehensive itineraries covering Vietnam's highlights in one package. Hanoi to Ho Chi Minh, mountains to beaches.",
+  subtitle: "Updated ChaloTrip packages with standard routes, daily pacing, and group-based per-person pricing.",
   commitmentBadge: "Indian Food & Vegetarian/Jain Options Available",
   packages: [
     {
@@ -13,9 +13,9 @@ const tourPackages: TourPackagesContent = {
       durationNights: 4,
       durationDays: 5,
       title: "Amazing Vietnam 5 days 4 nights",
-      description: "Hanoi Old Quarter, Halong Bay overnight cruise, and Ninh Binh's Tam Coc rice paddies with full inclusions.",
+      description: "Hanoi Old Quarter, Hanoi city tour, Ninh Binh, and a 5-star Halong Bay luxury day cruise.",
       overview:
-        "A compact North Vietnam route for travelers who want Hanoi culture, a Halong Bay cruise, and Ninh Binh scenery in one clear itinerary.",
+        "A compact North Vietnam route for travelers who want Hanoi culture, Trang An scenery, Hoa Lu history, and Halong Bay in one clear itinerary.",
       heroImage: {
         src: "/tour/hanoi.jpg",
         alt: "Hanoi city landmark on an Amazing Vietnam tour."
@@ -34,37 +34,37 @@ const tourPackages: TourPackagesContent = {
           alt: "Ninh Binh limestone scenery and river landscape."
         }
       ],
-      priceOriginal: 329,
-      priceSale: 289,
+      priceOriginal: 210,
+      priceSale: 190,
       priceCurrency: "USD",
-      highlights: ["5 days", "Hanoi", "Halong Bay cruise", "Ninh Binh", "All transfers"],
-      accommodation: "4-star hotels + cruise cabin",
+      highlights: ["5 days", "Hanoi Old Quarter", "Trang An", "Hoa Lu", "Halong day cruise"],
+      accommodation: "Hanoi hotel overnights",
       inclusions: ["All entrance fees", "Tour guide", "Transfers", "Accommodation", "Meals", "Halong cruise"],
       itineraryDays: [
         {
           dayLabel: "Day 1",
-          title: "Arrive in Hanoi and explore the Old Quarter",
-          description: "Airport pickup, hotel check-in, and a relaxed first evening around the Old Quarter food streets."
+          title: "Hanoi arrival and Old Quarter",
+          description: "Arrive at Hanoi airport, transfer to the hotel, check in, relax, and enjoy free time around the Old Quarter."
         },
         {
           dayLabel: "Day 2",
-          title: "City landmarks and overnight Halong Bay cruise",
-          description: "Morning Hanoi highlights, then transfer to Halong Bay for embarkation, dinner, and overnight cruise."
+          title: "Hanoi city tour",
+          description: "Visit key historical and cultural stops such as Ho Chi Minh Complex, One Pillar Pagoda, Temple of Literature, Hoan Kiem Lake, and the Old Quarter."
         },
         {
           dayLabel: "Day 3",
-          title: "Cruise activities and return to Hanoi",
-          description: "Sunrise deck time, cave or kayak activity depending on weather, brunch onboard, and evening return."
+          title: "Ninh Binh, Trang An, and Hoa Lu",
+          description: "Transfer to Ninh Binh, visit Hoa Lu Ancient Capital, take a Trang An boat trip, and return to Hanoi in the afternoon."
         },
         {
           dayLabel: "Day 4",
-          title: "Full-day Ninh Binh excursion",
-          description: "Tam Coc or Trang An boat ride, countryside viewpoints, and temple stops with guide support."
+          title: "Halong Bay luxury day cruise",
+          description: "Transfer to Halong Bay for a 5-star luxury day cruise with lunch on board, sightseeing, cave visit, and bay activities."
         },
         {
           dayLabel: "Day 5",
-          title: "Departure support",
-          description: "Breakfast, flexible hotel checkout timing, and airport transfer based on your flight schedule."
+          title: "Hanoi departure",
+          description: "Free time for shopping until airport transfer for the departure flight."
         }
       ],
       availability: 18,
@@ -72,73 +72,81 @@ const tourPackages: TourPackagesContent = {
     },
     {
       id: "amazing-vietnam-7d6n",
-      destination: "Hanoi, Sapa, Halong Bay",
+      destination: "Hanoi, Halong Bay, Ninh Binh, Da Nang, Hoi An, Ho Chi Minh, Mekong",
       duration: "7D6N",
       durationNights: 6,
       durationDays: 7,
       title: "Amazing Vietnam 7 days 6 nights",
-      description: "Hanoi heritage, Sapa mountain trails and hill tribes, plus Halong Bay 2-night cruise with train ticket included.",
+      description: "A north-to-south Vietnam route with Hanoi, Halong Bay, Ninh Binh, Da Nang, Hoi An, Ba Na Hills, Ho Chi Minh City, and Mekong Delta.",
       overview:
-        "A slower-paced North Vietnam circuit with mountain scenery in Sapa, Hanoi heritage stops, and extra cruise time in Halong Bay.",
+        "A complete highlights route that moves from Hanoi and Halong Bay through Central Vietnam, then finishes with Ho Chi Minh City and Mekong Delta.",
       heroImage: {
         src: "/tour/hanoi.jpg",
-        alt: "Hanoi city landmark before the northern Vietnam journey."
+        alt: "Hanoi city landmark before the Amazing Vietnam 7 day journey."
       },
       galleryImages: [
         {
           src: "/tour/hanoi.jpg",
-          alt: "Hanoi city landmark before the northern Vietnam journey."
-        },
-        {
-          src: "/tour/sapa.jpg",
-          alt: "Sapa mountain scenery and terraced rice fields."
+          alt: "Hanoi city landmark before the Amazing Vietnam 7 day journey."
         },
         {
           src: "/tour/halong-bay.jpg",
           alt: "Halong Bay limestone islands and cruise route."
+        },
+        {
+          src: "/tour/hoi-an.jpg",
+          alt: "Hoi An ancient town with lanterns and historic architecture."
+        },
+        {
+          src: "/tour/ba-na-hills.jpg",
+          alt: "Ba Na Hills and Golden Bridge on the Central Vietnam route."
+        },
+        {
+          src: "/tour/mekong.jpg",
+          alt: "Mekong Delta river scenery on the southern route."
         }
       ],
-      priceOriginal: 589,
-      priceSale: 519,
+      priceOriginal: 400,
+      priceSale: 345,
       priceCurrency: "USD",
-      highlights: ["7 days", "Sapa 2 nights", "Halong 2-night cruise", "Fansipan cable car", "Train ticket"],
-      accommodation: "4-star hotels + cruise + train",
-      inclusions: ["All entrance fees", "Tour guide", "Transfers", "Accommodation", "Meals", "Sapa train", "Cruise"],
+      highlights: ["7 days", "Halong day cruise", "Trang An", "Hoi An", "Mekong Delta"],
+      accommodation: "Hotel overnights in Hanoi, Da Nang, and Ho Chi Minh City",
+      inclusions: ["All entrance fees", "Tour guide", "Private airport transfers", "Accommodation", "Meals in tour", "Halong cruise"],
       itineraryDays: [
         {
           dayLabel: "Day 1",
-          title: "Hanoi arrival and evening orientation",
-          description: "Meet-and-greet at the airport, check in, and optional evening food-walk planning with the advisor."
+          title: "Hanoi arrival",
+          description: "Arrive at Hanoi airport, transfer to the hotel, check in, relax, and enjoy free time around the Old Quarter."
         },
         {
           dayLabel: "Day 2",
-          title: "Transfer to Sapa and valley viewpoints",
-          description: "Travel north with scenic stops before arriving in Sapa for a light village and mountain-view program."
+          title: "Halong Bay 5-star luxury day cruise",
+          description: "Transfer to Halong Bay for a 5-star luxury day cruise with lunch on board, sightseeing, cave visit, and bay activities."
         },
         {
           dayLabel: "Day 3",
-          title: "Sapa trails and ethnic village visits",
-          description: "Guided trekking or softer walking route depending on the group, plus local-market and village time."
+          title: "Ninh Binh, Trang An, Hoa Lu, and flight to Da Nang",
+          description: "Visit Hoa Lu Ancient Capital, take a Trang An boat trip, then transfer to the airport for the flight to Da Nang."
         },
         {
           dayLabel: "Day 4",
-          title: "Return to Hanoi and prepare for the bay",
-          description: "Morning return, rest window in Hanoi, and briefing for the Halong Bay cruise leg."
+          title: "Coconut Forest and Hoi An tour",
+          description: "Visit Cam Thanh Coconut Forest for a basket boat experience, then explore Hoi An Ancient Town, Japanese Bridge, lantern streets, and local shops."
         },
         {
           dayLabel: "Day 5",
-          title: "Embark on Halong Bay cruise",
-          description: "Boarding, bay sightseeing, cave visit or kayak stop, and overnight cruise with meals included."
+          title: "Ba Na Hills and flight to Ho Chi Minh City",
+          description: "Visit Ba Na Hills, Golden Bridge, and French Village, then transfer to the airport for the flight to Ho Chi Minh City."
         },
         {
           dayLabel: "Day 6",
-          title: "Second cruise day and Hanoi return",
-          description: "More relaxed deck time and excursions before transfer back to Hanoi in the late afternoon."
+          title: "Mekong Delta tour",
+          description: "Enjoy boat rides, local villages, fruit gardens, and peaceful river scenery before returning to Ho Chi Minh City."
         },
         {
           dayLabel: "Day 7",
-          title: "Departure day",
-          description: "Breakfast, hotel checkout, and airport transfer with timing matched to the outbound flight."
+          title: "Departure and free shopping",
+          description: "Free time for shopping or relaxing until airport transfer for the departure flight."
         }
       ],
       availability: 12,
@@ -146,90 +154,94 @@ const tourPackages: TourPackagesContent = {
     },
     {
       id: "amazing-vietnam-6d5n",
-      destination: "Da Nang, Hoi An, Hue",
+      destination: "Hanoi, Halong Bay, Ninh Binh, Da Nang, Hoi An, Ba Na Hills",
       duration: "6D5N",
       durationNights: 5,
       durationDays: 6,
       title: "Amazing Vietnam 6 days 5 nights",
-      description: "Central Vietnam heritage tour: Imperial Hue, UNESCO Hoi An old town, Da Nang beaches with private car support.",
+      description: "A six-day Vietnam route covering Hanoi, Halong Bay, Ninh Binh, Da Nang, Hoi An, Coconut Forest, and Ba Na Hills.",
       overview:
-        "A Central Vietnam itinerary combining imperial sites, Hoi An heritage streets, and Da Nang coastal downtime with private transfer support.",
+        "A balanced North and Central Vietnam route with Hanoi arrival, Halong Bay day cruise, Trang An, Hoi An, Coconut Forest, and Ba Na Hills.",
       heroImage: {
-        src: "/tour/da-nang.jpg",
-        alt: "Da Nang coastal city and beach scenery."
+        src: "/tour/hanoi.jpg",
+        alt: "Hanoi city landmark before the Amazing Vietnam 6 day journey."
       },
       galleryImages: [
         {
-          src: "/tour/da-nang.jpg",
-          alt: "Da Nang coastal city and beach scenery."
+          src: "/tour/hanoi.jpg",
+          alt: "Hanoi city landmark before the Amazing Vietnam 6 day journey."
+        },
+        {
+          src: "/tour/halong-bay.jpg",
+          alt: "Halong Bay limestone islands and cruise route."
         },
         {
           src: "/tour/hoi-an.jpg",
           alt: "Hoi An ancient town with lanterns and historic architecture."
         },
         {
-          src: "/tour/hue-imperial-citadel.jpg",
-          alt: "Hue Imperial Citadel heritage landmark."
+          src: "/tour/ba-na-hills.jpg",
+          alt: "Ba Na Hills and Golden Bridge on the Central Vietnam route."
         }
       ],
-      priceOriginal: 429,
-      priceSale: 369,
+      priceOriginal: 325,
+      priceSale: 290,
       priceCurrency: "USD",
-      highlights: ["6 days", "Hue Imperial Citadel", "Hoi An UNESCO town", "Da Nang beach", "Private car"],
-      accommodation: "4-star beach hotels",
-      inclusions: ["All entrance fees", "Tour guide", "Private transfers", "Accommodation", "Meals"],
+      highlights: ["6 days", "Halong day cruise", "Trang An", "Hoi An", "Ba Na Hills"],
+      accommodation: "Hotel overnights in Hanoi and Da Nang",
+      inclusions: ["All entrance fees", "Tour guide", "Private airport transfers", "Accommodation", "Meals in tour", "Halong cruise"],
       itineraryDays: [
         {
           dayLabel: "Day 1",
-          title: "Arrive in Da Nang and coastal check-in",
-          description: "Airport pickup, hotel check-in, and free time near My Khe Beach or the Han River area."
+          title: "Hanoi arrival",
+          description: "Arrive at Hanoi airport, transfer to the hotel, check in, relax, and enjoy free time around the Old Quarter."
         },
         {
           dayLabel: "Day 2",
-          title: "Da Nang highlights and Marble Mountains",
-          description: "Easy-paced city route with cultural stops, viewpoint time, and flexible lunch timing."
+          title: "Halong Bay 5-star day cruise",
+          description: "Transfer to Halong Bay for a 5-star day cruise with lunch on board, sightseeing, cave visit, and bay activities."
         },
         {
           dayLabel: "Day 3",
-          title: "Hoi An old town discovery",
-          description: "Transfer to Hoi An, guided old-quarter walk, lantern district visit, and evening free time."
+          title: "Ninh Binh, Trang An, Hoa Lu, and flight to Da Nang",
+          description: "Visit Hoa Lu Ancient Capital, take a Trang An boat trip, then transfer to the airport for the flight to Da Nang."
         },
         {
           dayLabel: "Day 4",
-          title: "Scenic drive to Hue",
-          description: "Hai Van Pass route or tunnel transfer depending on conditions, then Hue landmark visits."
+          title: "Coconut Forest and Hoi An tour",
+          description: "Visit Cam Thanh Coconut Forest for the basket boat experience, then explore Hoi An Ancient Town, lantern streets, old houses, and local shops."
         },
         {
           dayLabel: "Day 5",
-          title: "Imperial Hue program and return",
-          description: "Imperial Citadel, tomb or pagoda stop, and comfortable private-car return segment."
+          title: "Ba Na Hills",
+          description: "Visit Ba Na Hills, Golden Bridge, French Village, and enjoy the cable car experience."
         },
         {
           dayLabel: "Day 6",
-          title: "Departure support from Da Nang",
-          description: "Breakfast, hotel checkout, and transfer planning based on the outbound flight window."
+          title: "Departure and free shopping",
+          description: "Free time for shopping or relaxing until airport transfer for the departure flight."
         }
       ],
       availability: 20
     },
     {
-      id: "amazing-vietnam-10d9n",
+      id: "amazing-vietnam-8d7n",
       destination: "Hanoi, Halong, Da Nang, Hoi An, Ho Chi Minh, Mekong",
-      duration: "10D9N",
-      durationNights: 9,
-      durationDays: 10,
-      title: "Amazing Vietnam 10 days 9 nights",
-      description: "Complete Vietnam highlights from North to South: Hanoi, Halong Bay cruise, Hoi An, Hue, Ho Chi Minh City, and Mekong Delta floating market.",
+      duration: "8D7N",
+      durationNights: 7,
+      durationDays: 8,
+      title: "Amazing Vietnam 8 days 7 nights",
+      description: "An eight-day Vietnam highlights route from Hanoi and Halong Bay to Central Vietnam, Ho Chi Minh City, and Mekong Delta.",
       overview:
-        "A full-country itinerary for travelers who want North, Central, and South Vietnam combined into one managed route with clear transfers.",
+        "A north-to-south itinerary for travelers who want Hanoi, Halong Bay, Ninh Binh, Hoi An, Ba Na Hills, Ho Chi Minh City, and Mekong Delta in one managed route.",
       heroImage: {
         src: "/tour/hanoi.jpg",
-        alt: "Hanoi city landmark starting a full Vietnam highlights route."
+        alt: "Hanoi city landmark starting an eight-day Vietnam highlights route."
       },
       galleryImages: [
         {
           src: "/tour/hanoi.jpg",
-          alt: "Hanoi city landmark starting a full Vietnam highlights route."
+          alt: "Hanoi city landmark starting an eight-day Vietnam highlights route."
         },
         {
           src: "/tour/halong-bay.jpg",
@@ -240,66 +252,60 @@ const tourPackages: TourPackagesContent = {
           alt: "Hoi An ancient town stop on the central Vietnam route."
         },
         {
+          src: "/tour/ba-na-hills.jpg",
+          alt: "Ba Na Hills and Golden Bridge on the Central Vietnam route."
+        },
+        {
           src: "/tour/mekong.jpg",
           alt: "Mekong Delta river scenery on the southern route."
         }
       ],
-      priceOriginal: 799,
-      priceSale: 699,
+      priceOriginal: 415,
+      priceSale: 365,
       priceCurrency: "USD",
-      highlights: ["10 days", "All regions covered", "Halong Bay cruise", "Mekong Delta", "Domestic flight"],
-      accommodation: "4-star hotels + cruise",
-      inclusions: ["All entrance fees", "Tour guide", "Transfers", "Domestic flight", "Accommodation", "Meals", "Halong cruise"],
+      highlights: ["8 days", "Halong day cruise", "Hoi An", "Ba Na Hills", "Mekong Delta"],
+      accommodation: "Hotel overnights in Hanoi, Da Nang, and Ho Chi Minh City",
+      inclusions: ["All entrance fees", "Tour guide", "Private airport transfers", "Accommodation", "Meals in tour", "Halong cruise"],
       itineraryDays: [
         {
           dayLabel: "Day 1",
-          title: "Arrive in Hanoi",
-          description: "Airport pickup, city arrival support, and a flexible evening depending on arrival time."
+          title: "Hanoi arrival",
+          description: "Arrive at Hanoi airport, transfer to the hotel, check in, relax, and enjoy free time around the Old Quarter."
         },
         {
           dayLabel: "Day 2",
-          title: "Hanoi heritage route",
-          description: "Capital-city highlights with guide support, old-quarter pacing, and food-friendly scheduling."
+          title: "Halong Bay 5-star luxury day cruise",
+          description: "Transfer to Halong Bay for a 5-star luxury day cruise with lunch on board, sightseeing, cave visit, and bay activities."
         },
         {
           dayLabel: "Day 3",
-          title: "Halong Bay overnight cruise",
-          description: "Transfer to the bay, cruise embarkation, and overnight program with meals and scenic stops."
+          title: "Ninh Binh, Trang An, Hoa Lu, and flight to Da Nang",
+          description: "Visit Hoa Lu Ancient Capital and enjoy a Trang An boat trip, then transfer to the airport for the flight to Da Nang."
         },
         {
           dayLabel: "Day 4",
-          title: "Return and fly central",
-          description: "Cruise checkout, transfer back, and domestic-flight coordination into Central Vietnam."
+          title: "Coconut Forest and Hoi An tour",
+          description: "Visit Cam Thanh Coconut Forest for the basket boat experience, then explore Hoi An Ancient Town, lantern streets, old houses, and local shops."
         },
         {
           dayLabel: "Day 5",
-          title: "Da Nang and Hoi An",
-          description: "Coastal city orientation followed by Hoi An old-town program and evening lantern atmosphere."
+          title: "Ba Na Hills",
+          description: "Visit Ba Na Hills, Golden Bridge, French Village, and enjoy the cable car experience."
         },
         {
           dayLabel: "Day 6",
-          title: "Central heritage continuation",
-          description: "Extra Central Vietnam sightseeing with flexibility for beach or heritage preferences."
+          title: "Da Nang flight to Ho Chi Minh City",
+          description: "Free time until transfer to Da Nang airport for the flight to Ho Chi Minh City, then hotel transfer on arrival."
         },
         {
           dayLabel: "Day 7",
-          title: "Fly to Ho Chi Minh City",
-          description: "Domestic flight south, urban highlights, and evening free time around District 1."
+          title: "Mekong Delta day trip",
+          description: "Take a day trip to Mekong Delta with boat rides, local villages, fruit gardens, and peaceful river scenery."
         },
         {
           dayLabel: "Day 8",
-          title: "Ho Chi Minh City route",
-          description: "City landmarks, market or history stops, and adjustable pace for shopping or cafés."
-        },
-        {
-          dayLabel: "Day 9",
-          title: "Mekong Delta day trip",
-          description: "River channels, local workshops, and village-style experiences before returning to the city."
-        },
-        {
-          dayLabel: "Day 10",
-          title: "Departure support",
-          description: "Hotel checkout, final transfer coordination, and buffer time for the outbound airport journey."
+          title: "Departure and free shopping",
+          description: "Free time for shopping or relaxing until airport transfer for the departure flight."
         }
       ],
       availability: 8,
@@ -313,7 +319,7 @@ const tourPackages: TourPackagesContent = {
 export const B2C_TOUR_PACKAGE_IDS = tourPackages.packages.map((tour) => tour.id);
 
 export const b2cContent: LandingContent = {
-  brand: "Chalo Travel",
+  brand: "ChaloTrip",
   variantLabel: "B2C Vietnam Tours",
   language: "en",
   hero: {
@@ -321,7 +327,7 @@ export const b2cContent: LandingContent = {
     title: "Book Vietnam tours faster",
     titleAccent: "with clear prices.",
     description:
-      "Package tours from USD 289 with 5-minute consultation, clear itineraries, and flexible date support for families, couples, and friends.",
+      "Package tours from USD 190 with 5-minute consultation, clear itineraries, and flexible date support for families, couples, and friends.",
     primaryCta: "View tours and prices",
     secondaryCta: "Get free advice",
     image: {
@@ -770,7 +776,7 @@ export const b2cContent: LandingContent = {
     },
     {
       title: "Consultation within 5 minutes",
-      description: "Submit your details once, then the Chalo Travel team calls back to hold seats and confirm dates."
+      description: "Submit your details once, then the ChaloTrip team calls back to hold seats and confirm dates."
     },
     {
       title: "Flexible date changes",
@@ -784,12 +790,12 @@ export const b2cContent: LandingContent = {
   proof: {
     title: "Better prices without cutting trip quality",
     description:
-      "Chalo Travel works directly with local suppliers to reduce middle layers while keeping clear itineraries and support before, during, and after the trip."
+      "ChaloTrip works directly with local suppliers to reduce middle layers while keeping clear itineraries and support before, during, and after the trip."
   },
   finalCta: {
     eyebrow: "Get your quote",
     title: "Pick a tour. Get price and availability in 15 minutes.",
-    description: "Share your email and phone. Chalo Travel sends the route, quote, and next steps.",
+    description: "Share your email and phone. ChaloTrip sends the route, quote, and next steps.",
     contactDetails: [
       {
         label: "WhatsApp",
@@ -852,7 +858,7 @@ export const b2cContent: LandingContent = {
     {
       question: "Can I change the travel date after booking?",
       answer:
-        "Date changes depend on each tour's policy and hotel or vehicle availability. Chalo Travel prioritizes the lowest-extra-cost option for you."
+        "Date changes depend on each tour's policy and hotel or vehicle availability. ChaloTrip prioritizes the lowest-extra-cost option for you."
     },
     {
       question: "Is payment secure?",
@@ -873,12 +879,12 @@ export const b2cContent: LandingContent = {
       { label: "Consultation", href: "#contact" }
     ],
     utilityLinks: [{ label: "View tours now", href: "#packages" }],
-    copyright: "© 2026 Chalo Travel. All rights reserved."
+    copyright: "© 2026 ChaloTrip. All rights reserved."
   },
   seo: {
-    title: "Best-Value Vietnam Tours | Chalo Travel 2026",
+    title: "Best-Value Vietnam Tours | ChaloTrip 2026",
     description:
-      "Vietnam tours from USD 289 with clear pricing, 24/7 support, flexible date changes, and 15,000+ travelers served every year.",
+      "Vietnam tours from USD 190 with clear pricing, 24/7 support, flexible date changes, and 15,000+ travelers served every year.",
     ogImagePath: "/og-image-b2c-tours.svg"
   }
 };

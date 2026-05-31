@@ -1,8 +1,8 @@
-# Chalo B2B Landing Page Phase 1 Task File
+# ChaloTrip B2B Landing Page Phase 1 Task File
 
 > **For execution agents:** Do not implement other phases from this file. Use `superpowers:subagent-driven-development` or `superpowers:executing-plans`. Keep this file under 200 lines and update `docs/plan/b2b/phase-1/2026-05-07-chalo-b2b-progress.md` when complete.
 
-**Goal:** Prepare the existing Next.js app for a production-ready Chalo B2B landing page foundation.
+**Goal:** Prepare the existing Next.js app for a production-ready ChaloTrip B2B landing page foundation.
 
 **Architecture:** This repo already contains a Next.js app with separated B2B/B2C variants. Do not scaffold a second app. Harden the existing setup, metadata, assets, tokens, and governance while preserving variant ownership.
 
@@ -46,8 +46,8 @@
   - `app/(b2c-preview)/layout.tsx` uses `lang="vi"`.
 
 - [ ] Define production metadata defaults.
-  - Use service name: `Chalo`.
-  - Use B2B title: `Chalo | Best-value Vietnam tours for global travel partners`.
+  - Use service name: `ChaloTrip`.
+  - Use B2B title: `ChaloTrip | Best-value Vietnam tours for global travel partners`.
   - Use description: `Plan flexible Vietnam itineraries with a local team offering fast consultation, clear booking support, and strong value for travel partners.`
   - Add Open Graph and Twitter metadata with `og-image`.
 

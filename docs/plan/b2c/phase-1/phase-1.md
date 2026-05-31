@@ -183,7 +183,7 @@ Create file `lib/b2c/vietnam-tours-content.ts`:
 import type { LandingContent, TourPackage, TourPackagesContent } from "@/lib/landing-content";
 
 const shared = {
-  brand: "Chalo Travel",
+  brand: "ChaloTrip",
   language: "vi" as const,
   variantLabel: "B2C Vietnam Tours"
 };
@@ -402,7 +402,7 @@ export const b2cVietnamToursContent: LandingContent = {
       { label: "Liên hệ", href: "#contact" }
     ],
     utilityLinks: [{ label: "Xem tour ngay", href: "#packages" }],
-    copyright: "© 2026 Chalo Travel. All rights reserved."
+    copyright: "© 2026 ChaloTrip. All rights reserved."
   },
   finalCta: {
     eyebrow: "Bắt đầu ngay hôm nay",
@@ -410,7 +410,7 @@ export const b2cVietnamToursContent: LandingContent = {
     description: "Form đơn giản, không cần gọi điện. Tư vấn viên sẽ liên hệ ngay với bạn."
   },
   seo: {
-    title: "Tour Việt Nam Giá Tốt Nhất | Chalo Travel 2026",
+    title: "Tour Việt Nam Giá Tốt Nhất | ChaloTrip 2026",
     description: "Tour Việt Nam giá từ 2.490.000đ. Cam kết giá tốt nhất, hỗ trợ 24/7, hoàn tiền linh hoạt. Hơn 15,000 khách hàng tin dùng mỗi năm.",
     ogImagePath: "/og-image-b2c-tours.svg"
   }

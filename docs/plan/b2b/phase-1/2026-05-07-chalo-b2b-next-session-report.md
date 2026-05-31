@@ -1,4 +1,4 @@
-# Chalo B2B Next Session Report
+# ChaloTrip B2B Next Session Report
 
 Date: 2026-05-07
 Scope: B2B landing page handoff after Phase 4 implementation

@@ -1,4 +1,4 @@
-# Chalo B2B UI Refresh Phase 2 Task File
+# ChaloTrip B2B UI Refresh Phase 2 Task File
 
 > **For execution agents:** Implement only section-rhythm and body-surface refresh from this file. REQUIRED SUB-SKILL: `superpowers:subagent-driven-development` or `superpowers:executing-plans`. Keep this file under 200 lines and update `docs/plan/b2b/phase-2/2026-05-08-chalo-b2b-ui-refresh-progress.md` when complete.
 
@@ -57,7 +57,7 @@
 
 - [ ] Refine neutral shared primitives only if they benefit both variants.
   - Acceptable examples: section-heading spacing, card shell defaults, FAQ disclosure spacing.
-  - Do not encode Chalo-specific copy, section order, or B2B-only layout assumptions in shared primitives.
+  - Do not encode ChaloTrip-specific copy, section order, or B2B-only layout assumptions in shared primitives.
 
 - [ ] Refresh CSS hierarchy for the middle of the page.
   - Increase spacing where sections need breathing room.

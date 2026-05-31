@@ -1,8 +1,8 @@
-# Chalo B2B Landing Page Design
+# ChaloTrip B2B Landing Page Design
 
 ## Context
 
-Chalo needs an English-first B2B landing page for international travel agents and travel partners who send travelers to Vietnam. The page should not be limited to India as a source market. It should speak to global partners serving FIT, family, group tour, honeymoon, and leisure travelers.
+ChaloTrip needs an English-first B2B landing page for international travel agents and travel partners who send travelers to Vietnam. The page should not be limited to India as a source market. It should speak to global partners serving FIT, family, group tour, honeymoon, and leisure travelers.
 
 The B2B visual direction follows `docs/design/b2b/DESIGN.md`: clean high contrast, generous spacing, strong typography, real travel imagery, restrained color, and a single warm CTA accent. The page should feel professional and accessible, not overly luxury and not overly corporate. Premium quality should come through in imagery, spacing, clarity, and wording rather than exclusive luxury positioning.
 
@@ -14,7 +14,7 @@ Primary positioning:
 
 Supporting message:
 
-Chalo is a local Vietnam partner that helps international travel agents plan flexible itineraries and manage booking requests with fast, clear consultation and on-ground support.
+ChaloTrip is a local Vietnam partner that helps international travel agents plan flexible itineraries and manage booking requests with fast, clear consultation and on-ground support.
 
 What to emphasize:
 
@@ -25,7 +25,7 @@ What to emphasize:
 
 What to avoid:
 
-- Do not frame Chalo as India-only.
+- Do not frame ChaloTrip as India-only.
 - Do not lead with "cheapest in Vietnam" as a raw claim.
 - Do not make the page feel like a luxury concierge brand.
 - Do not turn the page into a dense B2C tour catalog.
@@ -87,10 +87,10 @@ The page should use a Trust + Operations structure with one strong value-oriente
    - Keep this short and direct.
 
 3. Traveler Types
-   - Show that Chalo can support FIT, family trips, group tours, honeymoon, and leisure travelers.
+   - Show that ChaloTrip can support FIT, family trips, group tours, honeymoon, and leisure travelers.
    - Use compact cards or a clean grid, one short line per traveler type.
 
-4. Why Chalo
+4. Why ChaloTrip
    - Present three core advantages:
      - Best-value planning.
      - Fast, clear consultation.
@@ -140,7 +140,7 @@ Use about five FAQ items:
 4. How fast can your team respond to new requests?
 5. Do you support guests while they are traveling in Vietnam?
 
-The answers should be clear and operational. They should avoid India-only language and avoid overpromising exact response times unless Chalo can commit to a real number.
+The answers should be clear and operational. They should avoid India-only language and avoid overpromising exact response times unless ChaloTrip can commit to a real number.
 
 ## Final CTA
 
@@ -154,7 +154,7 @@ CTA:
 
 Microcopy:
 
-> Share your market, group size, travel dates, and preferred route. Chalo will help shape the next step.
+> Share your market, group size, travel dates, and preferred route. ChaloTrip will help shape the next step.
 
 ## Implementation Notes
 

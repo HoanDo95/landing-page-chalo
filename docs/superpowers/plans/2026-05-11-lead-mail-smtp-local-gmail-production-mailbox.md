@@ -366,16 +366,16 @@ Replace the old block:
 ```md
 - `LEADS_MAIL_PROVIDER=resend`
 - `LEADS_MAIL_API_KEY=re_xxx`
-- `LEAD_MAIL_TO=team@chalotravel.com`
-- `LEADS_MAIL_FROM=leads@chalotravel.com`
+- `LEAD_MAIL_TO=team@chalotripvn.com`
+- `LEADS_MAIL_FROM=leads@chalotripvn.com`
 ```
 
 With:
 
 ```md
 - `LEAD_MAIL_PROVIDER=smtp`
-- `LEAD_MAIL_TO=team@chalotravel.com`
-- `LEAD_MAIL_FROM=leads@chalotravel.com`
+- `LEAD_MAIL_TO=team@chalotripvn.com`
+- `LEAD_MAIL_FROM=leads@chalotripvn.com`
 - `LEAD_SMTP_HOST=use the mailbox provider SMTP host`
 - `LEAD_SMTP_PORT=587`
 - `LEAD_SMTP_SECURE=false`

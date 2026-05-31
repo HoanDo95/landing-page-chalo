@@ -1,7 +1,7 @@
 import type { B2BLandingContent } from "@/lib/landing-content";
 
 const shared = {
-  brand: "Chalo"
+  brand: "ChaloTrip"
 };
 
 const defaultHeroHeadline = {
@@ -14,7 +14,7 @@ export const b2bContent: B2BLandingContent = {
   ...shared,
   logo: {
     src: "/logo/chalo-logo-transparent.png",
-    alt: "ChaloTrip Travel Company"
+    alt: "ChaloTrip logo"
   },
   variantLabel: "B2B Partners",
   language: "en",
@@ -78,7 +78,7 @@ export const b2bContent: B2BLandingContent = {
     },
     image: {
       src: "/tour/group-vin.jpg",
-      alt: "International group travelers enjoying a Vietnam tour hosted by the local Chalo team.",
+      alt: "International group travelers enjoying a Vietnam tour hosted by the local ChaloTrip team.",
       eyebrow: "Real guests on tour",
       contextLabel: "Direct Vietnam operator",
       title: "Beautiful routes. Real travelers.",
@@ -94,7 +94,7 @@ export const b2bContent: B2BLandingContent = {
   stats: [
     { value: "Lowest rates", label: "local operator pricing" },
     { value: "No middleman", label: "quoted in Vietnam" },
-    { value: "Direct team", label: "run by Chalo locally" },
+    { value: "Direct team", label: "run by ChaloTrip locally" },
     { value: "Guest-ready", label: "private, family, and group tours" }
   ],
   showcase: {
@@ -104,7 +104,7 @@ export const b2bContent: B2BLandingContent = {
   sections: {
     featuresTitle: "Built for Vietnam travel partners",
     featuresCopy:
-      "A dedicated B2B source keeps Chalo's partner positioning, consultation workflow, and support promises clear.",
+      "A dedicated B2B source keeps ChaloTrip's partner positioning, consultation workflow, and support promises clear.",
     faqTitle: "Quick questions, short answers",
     faqCopy:
       "The sales message is simple because the operating model is direct."
@@ -126,10 +126,10 @@ export const b2bContent: B2BLandingContent = {
   proof: {
     title: "Built for agent requests across traveler types",
     description:
-      "Chalo supports travel partners with practical consultation for FIT, family, group, honeymoon, and leisure itineraries across Vietnam."
+      "ChaloTrip supports travel partners with practical consultation for FIT, family, group, honeymoon, and leisure itineraries across Vietnam."
   },
   trustBand: {
-    eyebrow: "Why partners choose Chalo",
+    eyebrow: "Why partners choose ChaloTrip",
     title: "Lower rates, direct control, local execution",
     description:
       "The offer is straightforward: we sell and run the tour in Vietnam ourselves, so pricing and decisions stay closer to the ground.",
@@ -197,7 +197,7 @@ export const b2bContent: B2BLandingContent = {
       "Collect the trip basics, receive our net rates, then add your own margin before offering the package to clients.",
     media: {
       src: "/b2b-operations-partners.jpg",
-      alt: "Travel guests and partners hosted in Vietnam by the local Chalo operations team.",
+      alt: "Travel guests and partners hosted in Vietnam by the local ChaloTrip operations team.",
       eyebrow: "Guests already on tour",
       title: "Real trips, directly handled in Vietnam",
       description:
@@ -277,7 +277,7 @@ export const b2bContent: B2BLandingContent = {
   stickyCta: {
     label: "Get net rates",
     href: "#contact",
-    ariaLabel: "Get direct net rates from Chalo"
+    ariaLabel: "Get direct net rates from ChaloTrip"
   },
   leadForm: {
     submitLabel: "Get net rates",
@@ -315,7 +315,7 @@ export const b2bContent: B2BLandingContent = {
     {
       question: "Do you operate tours directly in Vietnam?",
       answer:
-        "Yes. Chalo is the local operator, not a middleman reseller."
+        "Yes. ChaloTrip is the local operator, not a middleman reseller."
     },
     {
       question: "Can you support private, family, and group tours?",
@@ -353,22 +353,83 @@ export const b2bContent: B2BLandingContent = {
     ],
     partnerMarquee: {
       items: [
-        "Booking.com",
-        "Agoda",
-        "Trip.com",
-        "Klook",
-        "Traveloka",
-        "Viator",
-        "GetYourGuide",
-        "Expedia TAAP",
-        "TBO Holidays",
-        "MakeMyTrip"
+        {
+          label: "Booking.com",
+          src: "/logo-branch/Booking-com_Logo_1.png",
+          alt: "Booking.com logo",
+          width: 800,
+          height: 133
+        },
+        {
+          label: "Agoda",
+          src: "/logo-branch/Agoda_Logo_1.png",
+          alt: "Agoda logo",
+          width: 800,
+          height: 412
+        },
+        {
+          label: "Trip.com",
+          src: "/logo-branch/Trip-com_idzG1j8E6i_1.png",
+          alt: "Trip.com logo",
+          width: 800,
+          height: 193
+        },
+        {
+          label: "Klook",
+          src: "/logo-branch/Klook_Logo_1.png",
+          alt: "Klook logo",
+          width: 800,
+          height: 223
+        },
+        {
+          label: "Traveloka",
+          src: "/logo-branch/Traveloka_idgaNgeFw0_1.png",
+          alt: "Traveloka logo",
+          width: 800,
+          height: 181
+        },
+        {
+          label: "Viator",
+          src: "/logo-branch/Viator_idWQLDyxzT_0.png",
+          alt: "Viator logo",
+          width: 820,
+          height: 204
+        },
+        {
+          label: "GetYourGuide",
+          src: "/logo-branch/GetYourGuide_idEZk98gxp_1.png",
+          alt: "GetYourGuide logo",
+          width: 800,
+          height: 632
+        },
+        {
+          label: "Expedia TAAP",
+          src: "/logo-branch/Expedia_Taap_idZUEpq8vY_0.png",
+          alt: "Expedia TAAP logo",
+          width: 820,
+          height: 102,
+          tone: "dark"
+        },
+        {
+          label: "TBO Holidays",
+          src: "/logo-branch/TBO_Holidays.png",
+          alt: "TBO Holidays logo",
+          width: 247,
+          height: 48
+        },
+        {
+          label: "MakeMyTrip",
+          src: "/logo-branch/MakeMyTrip_idyZR4lEOi_1.png",
+          alt: "MakeMyTrip logo",
+          width: 800,
+          height: 255
+        }
       ]
     },
-    copyright: "© 2026 Chalo. All rights reserved."
+    copyright: "© 2026 ChaloTrip. All rights reserved."
   },
   seo: {
-    title: "Chalo | Lowest-price Vietnam tours direct from local operator",
+    title: "ChaloTrip | Lowest-price Vietnam tours direct from local operator",
     description:
       "Lowest-price Vietnam tours directly operated in Vietnam. Fast B2B quotation for private, family, and group travel with no middleman.",
     ogImagePath: "/og-image.svg"

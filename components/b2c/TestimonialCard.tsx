@@ -22,6 +22,8 @@ type TestimonialCardBehaviorProps = {
   onAlbumStateChange?: (isOpen: boolean) => void;
 };
 const TESTIMONIAL_TRANSITION_MS = 860;
+const ALBUM_MODAL_IMAGE_QUALITY = 58;
+const ALBUM_MODAL_IMAGE_SIZES = "(max-width: 640px) 92vw, (max-width: 1024px) 56vw, 560px";
 
 function getTravelerInitials(authorName: string) {
   return authorName
@@ -203,8 +205,8 @@ export function TestimonialCard({
                               className="b2c-testimonial-album__image"
                               fill
                               loading="eager"
-                              quality={76}
-                              sizes="(max-width: 960px) 92vw, 680px"
+                              quality={ALBUM_MODAL_IMAGE_QUALITY}
+                              sizes={ALBUM_MODAL_IMAGE_SIZES}
                               src={activeImage.src}
                             />
                           </figure>

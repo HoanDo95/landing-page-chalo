@@ -18,27 +18,29 @@ test("B2B guest type section renders image-led cards with overlay copy", () => {
   assert.doesNotMatch(pageSource, /<FeatureCards features=\{content\.travelerTypes\.items\}/);
 });
 
-test("B2B guest type visuals avoid label-heavy destination collage images", () => {
+test("B2B guest type visuals use semantically matched destination and group images", () => {
   const travelerVisualBlock = pageSource.match(/const travelerTypeVisuals = \[[\s\S]*?\] as const;/)?.[0] ?? "";
 
-  for (const labelHeavyImage of [
-    "/tour/sapa.jpg",
-    "/tour/phu-quoc.jpg",
+  for (const expectedImage of [
     "/tour/hoi-an.jpg",
-    "/customer/customer-1/z6907822796021_3185e6541e0604c9e71829763fb06911.jpg"
+    "/tour/group-vin.jpg",
+    "/tour/ho-chi-minh-city.jpg",
+    "/tour/halong-bay.jpg",
+    "/tour/phu-quoc.jpg",
+    "/tour/hue-imperial-citadel.jpg"
   ]) {
-    assert.doesNotMatch(travelerVisualBlock, new RegExp(`src: "${labelHeavyImage}"`));
+    assert.match(travelerVisualBlock, new RegExp(`src: "${expectedImage}"`));
   }
+
+  assert.doesNotMatch(travelerVisualBlock, /src: "\/customer\//);
 });
 
-test("B2B cultural tour card is not stretched into a full-width banner", () => {
-  const travelerVisualBlock = pageSource.match(/const travelerTypeVisuals = \[[\s\S]*?\] as const;/)?.[0] ?? "";
-  assert.doesNotMatch(travelerVisualBlock, /src: "\/tour\/hue-imperial-citadel\.jpg"/);
-
+test("B2B traveler type cards stay square and avoid masonry spans", () => {
   const cssSource = readFileSync(new URL("../app/globals.css", import.meta.url), "utf8");
 
-  assert.match(cssSource, /\.b2b-traveler-type-card:nth-child\(7\) \{\n  grid-column: 2 \/ span 2;/);
-  assert.doesNotMatch(cssSource, /\.b2b-traveler-type-card:nth-child\(7\) \{\n  grid-column: span 4;/);
+  assert.match(cssSource, /\.b2b-traveler-type-card \{[\s\S]*?aspect-ratio: 1 \/ 1;/);
+  assert.doesNotMatch(cssSource, /\.b2b-traveler-type-card:first-child,\n\.b2b-traveler-type-card:nth-child\(5\)/);
+  assert.doesNotMatch(cssSource, /\.b2b-traveler-type-card:nth-child\(7\) \{\n  grid-column:/);
 });
 
 test("B2B first route visual avoids the cropped guest-face image", () => {

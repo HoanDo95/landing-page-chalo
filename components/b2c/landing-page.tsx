@@ -24,6 +24,8 @@ type Props = {
 export function B2CLandingPage({ content }: Props) {
   const heroImage = content.hero.image;
   const secondaryImage = "/tour/group-vin.jpg";
+  const secondaryImageAlt = "ChaloTrip guests enjoying a guided group tour in Vietnam.";
+  const secondaryImageCaption = "Group tour moments";
   const tourPackages = content.tourPackages?.packages ?? [];
   const heroSlidesMap = new Map<string, { src: string; alt: string; label: string }>();
 
@@ -285,20 +287,20 @@ export function B2CLandingPage({ content }: Props) {
                         sizes="(max-width: 900px) 100vw, 34vw"
                         src={heroImage.src}
                       />
-                      <figcaption>Real trip experience</figcaption>
+                      <figcaption>Golden Bridge experience</figcaption>
                     </figure>
                   ) : null}
 
                   <figure className="b2c-proof-card b2c-proof-card--small">
                     <Image
-                      alt="People enjoying a premium guided travel experience in Vietnam."
+                      alt={secondaryImageAlt}
                       className="b2c-proof-card__image"
                       fill
                       quality={72}
                       sizes="(max-width: 900px) 100vw, 18vw"
                       src={secondaryImage}
                     />
-                    <figcaption>Local partners</figcaption>
+                    <figcaption>{secondaryImageCaption}</figcaption>
                   </figure>
                 </div>
               </div>
@@ -318,7 +320,7 @@ export function B2CLandingPage({ content }: Props) {
                       {content.finalCta.description}
                     </p>
                   </div>
-                  <div className="b2c-final-proof-list" aria-label="What happens when you contact Chalo Travel">
+                  <div className="b2c-final-proof-list" aria-label="What happens when you contact ChaloTrip">
                     <span>Advisor reviews your route</span>
                     <span>Seats checked before payment</span>
                     <span>Clear quote first</span>
@@ -326,7 +328,7 @@ export function B2CLandingPage({ content }: Props) {
                 </div>
                 <div className="b2c-final-card__contact-panel">
                   {content.finalCta.contactDetails?.length ? (
-                    <address className="b2c-final-contact" aria-label="Chalo Travel contact details">
+                    <address className="b2c-final-contact" aria-label="ChaloTrip contact details">
                       {content.finalCta.contactDetails.map((detail) => (
                         <div className="b2c-final-contact__item" key={detail.label}>
                           <span className="b2c-final-contact__label">{detail.label}</span>

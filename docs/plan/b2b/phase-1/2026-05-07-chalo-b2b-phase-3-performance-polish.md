@@ -1,8 +1,8 @@
-# Chalo B2B Landing Page Phase 3 Task File
+# ChaloTrip B2B Landing Page Phase 3 Task File
 
 > **For execution agents:** Implement only performance, accessibility, and visual polish from this file. Use `superpowers:subagent-driven-development` or `superpowers:executing-plans`. Keep this file under 200 lines and update `docs/plan/b2b/phase-1/2026-05-07-chalo-b2b-progress.md` when complete.
 
-**Goal:** Polish the Chalo B2B page so it is responsive, accessible, performant, and aligned with the approved visual system.
+**Goal:** Polish the ChaloTrip B2B page so it is responsive, accessible, performant, and aligned with the approved visual system.
 
 **Architecture:** Keep polish in CSS and small neutral primitives where possible. Do not change section strategy or rewrite approved copy in this phase.
 
