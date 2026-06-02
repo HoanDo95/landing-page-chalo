@@ -22,10 +22,11 @@ test("B2B guest type visuals use semantically matched destination and group imag
   const travelerVisualBlock = pageSource.match(/const travelerTypeVisuals = \[[\s\S]*?\] as const;/)?.[0] ?? "";
 
   for (const expectedImage of [
-    "/tour/hoi-an.jpg",
+    "/tour/private-fit-jeep.jpg",
+    "/tour/family-tour-group.jpg",
     "/tour/group-vin.jpg",
-    "/tour/ho-chi-minh-city.jpg",
-    "/tour/halong-bay.jpg",
+    "/tour/mice-conference-hall.jpg",
+    "/tour/luxury-halong-cruise.jpg",
     "/tour/phu-quoc.jpg",
     "/tour/hue-imperial-citadel.jpg"
   ]) {

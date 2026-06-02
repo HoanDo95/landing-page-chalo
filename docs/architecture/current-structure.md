@@ -218,6 +218,7 @@ public/
     family-cable-car.jpg
     family-golden-bridge.jpg
     family-hoi-an.jpg
+    family-tour-group.jpg
     group-presidential-palace.jpg
     group-vin.jpg
     halong-bay.jpg
@@ -225,11 +226,14 @@ public/
     ho-chi-minh-city.jpg
     hoi-an.jpg
     hue-imperial-citadel.jpg
+    luxury-halong-cruise.jpg
     mekong-detail.jpg
     mekong-river.jpg
     mekong.jpg
+    mice-conference-hall.jpg
     ninh-binh.jpg
     phu-quoc.jpg
+    private-fit-jeep.jpg
     sapa.jpg
 ```
 

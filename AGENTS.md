@@ -80,6 +80,22 @@ Use `LANDING_VARIANT=b2b` or `LANDING_VARIANT=b2c` for variant-specific builds.
 
 Use TypeScript, functional React components, and descriptive camelCase names for variables and functions. Keep route folders lowercase and file-based inside route groups, such as `app/(b2b-preview)/b2b/page.tsx`. Prefer small, reusable components and data-driven content. Use 2-space indentation and ASCII-only text unless a clear content requirement needs otherwise.
 
+## Model Routing Policy
+
+- Before starting a substantial task, classify it under one dominant mode: `simple`, `scan`, `research`, `planner`, `orchestrator`, `review`, `debug`, `fix-bug`, or `coding`.
+- Use these tie-breakers when a task overlaps categories:
+  - `debug` if the root cause is not yet known.
+  - `fix-bug` once the root cause is understood and the work is mainly implementing the fix.
+  - `review` for evaluation, critique, or risk finding without primary implementation work.
+  - `planner` when the main output is a plan, task breakdown, or execution approach.
+  - `scan` only for bounded read-only inspection, search, or summarization.
+- If the active model does not match the recommended model/effort below, state the classification and recommended route before expensive or long-running work. Ask the user whether to switch only when the task is likely to involve multi-file edits, repeated build/test loops, or more than roughly 10 minutes of tool work. Continue without asking for trivial tasks.
+- Use `gpt-5.3-codex` with `medium` effort for `coding`, `fix-bug`, `debug`, and localized code review. Use `high` when the task spans multiple modules, has failing tests, or requires long fix-test loops.
+- Use `GPT-5.5` with `medium` effort for `research`, `planner`, `orchestrator`, architecture work, and broad policy/design reviews. Use `high` for complex multi-phase plans or high-risk decisions, and `xhigh` only for unusually hard asynchronous work when latency and cost are justified.
+- Use `GPT-5.4-Mini` with `low` effort for `scan`, quick summarization, simple classification/extraction, bounded code search, and small subagent tasks. Use `medium` if the scan requires nontrivial risk analysis.
+- Do not default to `xhigh`; raise effort only when the task's tests, evidence, or decision-risk justify the extra latency and cost.
+- If the runtime cannot switch models from inside the current session, state the recommended model/effort at the start of the response and continue unless the user prefers to restart or route the next task with that setting.
+
 ## Testing Guidelines
 
 There is no test framework configured yet. Before merging changes, validate the app by running:

@@ -4446,8 +4446,7 @@ html.js-reveal-ready [data-reveal-stagger="true"][data-revealed="true"] > * {
   display: grid;
   place-items: center;
   padding: 24px;
-  background: rgba(0, 13, 16, 0.52);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 13, 16, 0.68);
 }
 
 .b2c-testimonial-album {

@@ -7,6 +7,7 @@ import Image from "next/image";
 import {
   TESTIMONIALS_PER_VIEW,
   TESTIMONIAL_AUTOPLAY_MS,
+  getAdjacentAlbumImageSources,
   getSlidingCarouselItems,
   shouldRotateCarouselItems,
   getVisibleCarouselItems,
@@ -99,6 +100,23 @@ export function TestimonialCard({
       setActiveImageIndex(0);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen || !hasMultipleImages) {
+      return;
+    }
+
+    const preloadSources = getAdjacentAlbumImageSources(
+      galleryImages.map((image) => image.src),
+      activeImageIndex
+    );
+
+    preloadSources.forEach((source) => {
+      const image = new window.Image();
+      image.decoding = "async";
+      image.src = source;
+    });
+  }, [activeImageIndex, galleryImages, hasMultipleImages, isOpen]);
 
   useEffect(() => {
     onAlbumStateChange?.(isOpen);

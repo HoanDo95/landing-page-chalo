@@ -88,13 +88,13 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
   ] as const;
   const travelerTypeVisuals = [
     {
-      src: "/tour/hoi-an.jpg",
-      alt: "Hoi An heritage street for private FIT travelers exploring Vietnam at a flexible pace.",
+      src: "/tour/private-fit-jeep.jpg",
+      alt: "Travel guests riding a jeep for a private FIT route with flexible pacing and direct local handling.",
       label: "Flexible private pace"
     },
     {
-      src: "/tour/family-golden-bridge.jpg",
-      alt: "Family travelers visiting Golden Bridge in Vietnam.",
+      src: "/tour/family-tour-group.jpg",
+      alt: "A family group of five travelers enjoying an outdoor Vietnam tour together.",
       label: "Family-ready logistics"
     },
     {
@@ -103,13 +103,13 @@ export function B2BLandingPage({ content }: B2BLandingPageProps) {
       label: "Handled on the ground"
     },
     {
-      src: "/tour/ho-chi-minh-city.jpg",
-      alt: "Ho Chi Minh City skyline for MICE and corporate travel programs.",
+      src: "/tour/mice-conference-hall.jpg",
+      alt: "Corporate guests seated in a conference setting for a MICE program and meeting event.",
       label: "Corporate group flow"
     },
     {
-      src: "/tour/halong-bay.jpg",
-      alt: "Halong Bay cruise scenery for premium luxury Vietnam itineraries.",
+      src: "/tour/luxury-halong-cruise.jpg",
+      alt: "A luxury Ha Long Bay cruise ship for premium Vietnam itineraries.",
       label: "Premium route polish"
     },
     {

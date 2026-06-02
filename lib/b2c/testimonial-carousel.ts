@@ -9,6 +9,20 @@ export function wrapCarouselIndex(index: number, total: number) {
   return (index + total) % total;
 }
 
+export function getAdjacentAlbumImageSources(imageSources: string[], activeIndex: number) {
+  if (imageSources.length <= 1) {
+    return [];
+  }
+
+  const activeSource = imageSources[wrapCarouselIndex(activeIndex, imageSources.length)];
+  const nextSource = imageSources[wrapCarouselIndex(activeIndex + 1, imageSources.length)];
+  const previousSource = imageSources[wrapCarouselIndex(activeIndex - 1, imageSources.length)];
+
+  return Array.from(
+    new Set([nextSource, previousSource].filter((source): source is string => Boolean(source) && source !== activeSource))
+  );
+}
+
 export function shouldRotateCarouselItems(total: number, visibleCount: number) {
   return total > visibleCount;
 }
