@@ -4222,7 +4222,7 @@ html.js-reveal-ready [data-reveal-stagger="true"][data-revealed="true"] > * {
 }
 
 .b2c-testimonial-gallery-track--transitioning {
-  transition: transform 860ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 520ms cubic-bezier(0.22, 0.8, 0.24, 1);
   transform: translate3d(calc(-1 * (var(--testimonial-slide-width) + var(--testimonial-gap))), 0, 0);
 }
 
@@ -4323,9 +4323,8 @@ html.js-reveal-ready [data-reveal-stagger="true"][data-revealed="true"] > * {
   display: grid;
   gap: 3px;
   padding: 16px 18px;
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.94);
   color: var(--travel-ink);
-  backdrop-filter: blur(18px);
   transition:
     opacity 220ms ease,
     transform 220ms ease;
@@ -4524,11 +4523,10 @@ html.js-reveal-ready [data-reveal-stagger="true"][data-revealed="true"] > * {
   min-height: 34px;
   padding: 0 12px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.84);
+  background: rgba(255, 255, 255, 0.92);
   color: var(--travel-ink);
   font-size: 0.82rem;
   font-weight: 700;
-  backdrop-filter: blur(12px);
 }
 
 .b2c-testimonial-album__nav {
@@ -4539,11 +4537,10 @@ html.js-reveal-ready [data-reveal-stagger="true"][data-revealed="true"] > * {
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
-  background: rgba(5, 28, 47, 0.52);
+  background: rgba(5, 28, 47, 0.68);
   color: rgba(255, 255, 255, 0.98);
   cursor: pointer;
   transform: translateY(-50%);
-  backdrop-filter: blur(14px);
   transition:
     background-color 180ms ease,
     border-color 180ms ease,

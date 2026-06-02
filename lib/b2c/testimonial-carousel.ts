@@ -1,5 +1,6 @@
 export const TESTIMONIALS_PER_VIEW = 3;
-export const TESTIMONIAL_AUTOPLAY_MS = 1800;
+export const TESTIMONIAL_AUTOPLAY_MS = 3200;
+export const TESTIMONIAL_TRANSITION_MS = 520;
 
 export function wrapCarouselIndex(index: number, total: number) {
   if (total <= 0) {
@@ -21,6 +22,16 @@ export function getAdjacentAlbumImageSources(imageSources: string[], activeIndex
   return Array.from(
     new Set([nextSource, previousSource].filter((source): source is string => Boolean(source) && source !== activeSource))
   );
+}
+
+export function getTestimonialSlideKey(
+  testimonial: {
+    authorName: string;
+    tripInfo: string;
+  },
+  absoluteIndex: number
+) {
+  return `${testimonial.authorName}-${testimonial.tripInfo}-${absoluteIndex}`;
 }
 
 export function shouldRotateCarouselItems(total: number, visibleCount: number) {

@@ -7,8 +7,10 @@ import Image from "next/image";
 import {
   TESTIMONIALS_PER_VIEW,
   TESTIMONIAL_AUTOPLAY_MS,
+  TESTIMONIAL_TRANSITION_MS,
   getAdjacentAlbumImageSources,
   getSlidingCarouselItems,
+  getTestimonialSlideKey,
   shouldRotateCarouselItems,
   getVisibleCarouselItems,
   wrapCarouselIndex
@@ -22,7 +24,6 @@ type TestimonialCarouselProps = {
 type TestimonialCardBehaviorProps = {
   onAlbumStateChange?: (isOpen: boolean) => void;
 };
-const TESTIMONIAL_TRANSITION_MS = 860;
 const ALBUM_MODAL_IMAGE_QUALITY = 58;
 const ALBUM_MODAL_IMAGE_SIZES = "(max-width: 640px) 92vw, (max-width: 1024px) 56vw, 560px";
 
@@ -226,6 +227,7 @@ export function TestimonialCard({
                               quality={ALBUM_MODAL_IMAGE_QUALITY}
                               sizes={ALBUM_MODAL_IMAGE_SIZES}
                               src={activeImage.src}
+                              unoptimized
                             />
                           </figure>
 
@@ -370,8 +372,8 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
         <div
           className={`b2c-testimonial-gallery-track${isTransitioning ? " b2c-testimonial-gallery-track--transitioning" : ""}`}
         >
-          {trackTestimonials.map(({ item: testimonial, absoluteIndex }, trackIndex) => (
-            <div className="b2c-testimonial-slide" key={`${testimonial.authorName}-${testimonial.tripInfo}-${absoluteIndex}-${trackIndex}`}>
+          {trackTestimonials.map(({ item: testimonial, absoluteIndex }) => (
+            <div className="b2c-testimonial-slide" key={getTestimonialSlideKey(testimonial, absoluteIndex)}>
               <TestimonialCard
                 onAlbumStateChange={setIsAlbumOpen}
                 {...testimonial}
