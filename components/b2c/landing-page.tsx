@@ -23,9 +23,18 @@ type Props = {
 
 export function B2CLandingPage({ content }: Props) {
   const heroImage = content.hero.image;
-  const secondaryImage = "/tour/group-vin.jpg";
-  const secondaryImageAlt = "ChaloTrip guests enjoying a guided group tour in Vietnam.";
-  const secondaryImageCaption = "Group tour moments";
+  const proofGallery = {
+    primary: {
+      src: "/tour/luxury-halong-cruise.jpg",
+      alt: "A premium cruise sailing between limestone islands on a calm bay.",
+      caption: "Premium routes, sourced direct"
+    },
+    secondary: {
+      src: "/tour/b2c-proof-guests-supported.jpg",
+      alt: "A local guide briefing a traveler group before the tour continues.",
+      caption: "Guests briefed and supported locally"
+    }
+  } as const;
   const tourPackages = content.tourPackages?.packages ?? [];
   const heroSlidesMap = new Map<string, { src: string; alt: string; label: string }>();
 
@@ -277,30 +286,28 @@ export function B2CLandingPage({ content }: Props) {
                 </div>
 
                 <div className="b2c-proof-gallery" aria-label="B2C visual proof">
-                  {heroImage?.src && heroImage.alt ? (
-                    <figure className="b2c-proof-card b2c-proof-card--large">
-                      <Image
-                        alt={heroImage.alt}
-                        className="b2c-proof-card__image"
-                        fill
-                        quality={72}
-                        sizes="(max-width: 900px) 100vw, 34vw"
-                        src={heroImage.src}
-                      />
-                      <figcaption>Golden Bridge experience</figcaption>
-                    </figure>
-                  ) : null}
+                  <figure className="b2c-proof-card b2c-proof-card--large">
+                    <Image
+                      alt={proofGallery.primary.alt}
+                      className="b2c-proof-card__image"
+                      fill
+                      quality={72}
+                      sizes="(max-width: 900px) 100vw, 34vw"
+                      src={proofGallery.primary.src}
+                    />
+                    <figcaption>{proofGallery.primary.caption}</figcaption>
+                  </figure>
 
                   <figure className="b2c-proof-card b2c-proof-card--small">
                     <Image
-                      alt={secondaryImageAlt}
+                      alt={proofGallery.secondary.alt}
                       className="b2c-proof-card__image"
                       fill
                       quality={72}
                       sizes="(max-width: 900px) 100vw, 18vw"
-                      src={secondaryImage}
+                      src={proofGallery.secondary.src}
                     />
-                    <figcaption>{secondaryImageCaption}</figcaption>
+                    <figcaption>{proofGallery.secondary.caption}</figcaption>
                   </figure>
                 </div>
               </div>
