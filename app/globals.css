@@ -5068,10 +5068,23 @@ body.b2c-gate-locked {
   background: rgba(188, 113, 85, 0.1);
 }
 
+.b2c-gate-form__logo {
+  position: absolute;
+  top: 62px;
+  right: clamp(22px, 5vw, 34px);
+  width: clamp(86px, 15vw, 124px);
+  aspect-ratio: 2 / 1;
+  pointer-events: none;
+}
+
+.b2c-gate-form__logo img {
+  object-fit: contain;
+}
+
 .b2c-gate-form__intro {
   display: grid;
   gap: 10px;
-  padding-right: 42px;
+  padding-right: clamp(110px, 18vw, 150px);
 }
 
 .b2c-gate-form .eyebrow {
@@ -6258,6 +6271,7 @@ body.b2c-gate-locked {
   .b2c-proof-metrics,
   .b2c-package-summary,
   .b2c-form-grid,
+  .b2c-gate-form__grid,
   .tour-packages-grid {
     grid-template-columns: 1fr;
   }
@@ -6296,6 +6310,16 @@ body.b2c-gate-locked {
 
   .b2c-lead-form {
     padding: 16px;
+  }
+
+  .b2c-gate-form__logo {
+    top: 28px;
+    right: 70px;
+    width: 58px;
+  }
+
+  .b2c-gate-form__intro {
+    padding-right: 0;
   }
 
   .b2c-hero-deal-card div,

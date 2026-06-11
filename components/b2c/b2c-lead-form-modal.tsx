@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, type FormEvent } from "react";
 
 import { coercePositiveIntegerInput } from "@/components/b2c/b2c-gate-form-utils";
@@ -166,9 +167,12 @@ export function B2CLeadFormModal({ content, onCancel, onSuccess }: B2CLeadFormMo
       >
         x
       </button>
+      <div className="b2c-gate-form__logo" aria-hidden="true">
+        <Image alt="" fill sizes="120px" src="/logo/chalo-logo-transparent.png" />
+      </div>
       <div className="b2c-gate-form__intro">
         <p className="eyebrow">Free Vietnam tour quote</p>
-        <h2>Start planning your Vietnam trip.</h2>
+        <h2>GET YOUR CUSTOMIZED VIETNAM ITINERARY IN 15 MINUTES FOR FREE</h2>
         <p>Share a few trip details for a faster quote, or continue browsing and come back later.</p>
       </div>
 
